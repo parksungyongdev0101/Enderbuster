@@ -196,13 +196,31 @@ export function createMindServer(host_public = false, port = 8080) {
             
         });
 
-		socket.on('send-message', (agentName, data) => {
+		socket.on('send-message', (agentNameOrPayload, data) => {
+			// Python socketio는 여러 인자를 개별적으로 전달할 수 없으므로
+			// 배열이나 객체로 전달될 수 있습니다. 이를 처리합니다.
+			let agentName, messageData;
+			
+			if (Array.isArray(agentNameOrPayload) && agentNameOrPayload.length >= 2) {
+				// Python에서 [agentName, data] 배열로 전달된 경우
+				agentName = agentNameOrPayload[0];
+				messageData = agentNameOrPayload[1];
+			} else if (typeof agentNameOrPayload === 'object' && agentNameOrPayload !== null && 'agentName' in agentNameOrPayload) {
+				// Python에서 {agentName: ..., data: ...} 객체로 전달된 경우
+				agentName = agentNameOrPayload.agentName;
+				messageData = agentNameOrPayload.data;
+			} else {
+				// 기존 방식: (agentName, data) 두 개의 인자
+				agentName = agentNameOrPayload;
+				messageData = data;
+			}
+			
 			if (!agent_connections[agentName]) {
 				console.warn(`Agent ${agentName} not in game, cannot send message via MindServer.`);
 				return
 			}
 			try {
-				agent_connections[agentName].socket.emit('send-message', data)
+				agent_connections[agentName].socket.emit('send-message', messageData)
 			} catch (error) {
 				console.error('Error: ', error);
 			}

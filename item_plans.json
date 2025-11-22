@@ -1,0 +1,217 @@
+[
+  {
+    "item": "oak_log",
+    "subgoal": "Locate oak trees in the current area and directly harvest 7 oak logs by breaking 7 oak log blocks (punch or with an axe) and collecting all dropped logs until your inventory contains 7 oak logs, with no crafting involved.",
+    "commandlist": [
+      "!searchForBlock type:oak_log search_range:128",
+      "!collectBlocks type:oak_log num:7"
+    ]
+  },
+  {
+    "item": "oak_planks",
+    "subgoal": "Craft oak_planks by turning 3 oak_logs into 12 oak_planks—perform the 1-log-to-4-planks craft three times (consuming 3 oak_logs) using a crafting interface.",
+    "commandlist": [
+      "!craftRecipe recipe_name:oak_planks num:3"
+    ]
+  },
+  {
+    "item": "crafting_table",
+    "subgoal": "Craft 1 crafting_table by placing 4 oak_planks in a 2x2 pattern in your inventory crafting grid to produce 1 crafting_table.",
+    "commandlist": [
+      "!craftRecipe recipe_name:crafting_table num:1"
+    ]
+  },
+  {
+    "item": "stick",
+    "subgoal": "Craft sticks by turning 2 oak planks into 4 sticks, and repeat this crafting action three times (using 6 oak planks total) to obtain at least 9 sticks in your inventory.",
+    "commandlist": [
+      "!craftRecipe recipe_name:stick num:3"
+    ]
+  },
+  {
+    "item": "wooden_pickaxe",
+    "subgoal": "Craft 1 wooden_pickaxe by collecting 3 oak_planks, 2 stick, and 1 crafting_table, placing the crafting_table if needed, and using the standard 3x3 pattern (three oak_planks across the top row with two sticks in the middle column) to produce exactly 1 wooden_pickaxe as the result.",
+    "commandlist": [
+      "!craftRecipe recipe_name:wooden_pickaxe num:1"
+    ]
+  },
+  {
+    "item": "cobblestone",
+    "subgoal": "With a wooden pickaxe equipped, travel to a stone vein and break 11 stone blocks to yield 11 cobblestones, picking up every drop until you have 11 cobblestones in your inventory.",
+    "commandlist": [
+      "!searchForBlock type:stone search_range:128",
+      "!collectBlocks type:stone num:11"
+    ]
+  },
+  {
+    "item": "stone_pickaxe",
+    "subgoal": "In Minecraft, gather 3 cobblestone and 2 sticks, place a crafting table, and craft 1 stone_pickaxe by filling the 3x3 grid with cobblestone in the top row and sticks in the middle column (rows 2 and 3) to obtain 1 stone_pickaxe.",
+    "commandlist": [
+      "!craftRecipe recipe_name:stone_pickaxe num:1"
+    ]
+  },
+  {
+    "item": "coal",
+    "subgoal": "Using a wooden pickaxe, locate exposed coal ore and mine three coal ore blocks to obtain a total of 3 coal.",
+    "commandlist": [
+      "!searchForBlock type:coal_ore search_range:64",
+      "!collectBlocks type:coal_ore num:3"
+    ]
+  },
+  {
+    "item": "furnace",
+    "subgoal": "Using a crafting table, arrange 8 cobblestone in the 3x3 crafting grid—filling all outer slots while leaving the center empty—to craft 1 furnace.",
+    "commandlist": [
+      "!craftRecipe recipe_name:furnace num:1"
+    ]
+  },
+  {
+    "item": "raw_iron",
+    "subgoal": "With a stone_pickaxe, locate exposed iron ore and mine 7 iron ore blocks to obtain 7 raw_iron, picking up each drop as it appears since each block yields 1 raw_iron.",
+    "commandlist": [
+      "!searchForBlock type:iron_ore search_range:128",
+      "!collectBlocks type:iron_ore num:7"
+    ]
+  },
+  {
+    "item": "iron_ingot",
+    "subgoal": "Using a furnace fueled by coal, smelt one raw_iron into one iron_ingot per operation and repeat until you have seven iron_ingots.",
+    "commandlist": [
+      "!smeltItem item_name:raw_iron num:7"
+    ]
+  },
+  {
+    "item": "iron_pickaxe",
+    "subgoal": "With access to a crafting_table, collect 3 iron_ingots and 2 sticks, then on the crafting_table place them in the standard iron_pickaxe pattern to craft 1 iron_pickaxe.",
+    "commandlist": [
+      "!craftRecipe recipe_name:iron_pickaxe num:1"
+    ]
+  },
+  {
+    "item": "bucket",
+    "subgoal": "On a crafting table, arrange 3 iron ingots in the bucket recipe pattern on the 3x3 grid to craft 1 bucket, then collect the produced bucket.",
+    "commandlist": [
+      "!craftRecipe recipe_name:bucket num:1"
+    ]
+  },
+  {
+    "item": "diamond",
+    "subgoal": "With an iron pickaxe, locate diamond ore at suitable depths (roughly Y=5–12), mine 29 diamond ore blocks to yield 29 diamonds, pick up each drop, and store all 29 diamonds in your inventory or a secure chest as you accumulate them.",
+    "commandlist": [
+      "!searchForBlock type:diamond_ore search_range:128",
+      "!collectBlocks type:diamond_ore num:29"
+    ]
+  },
+  {
+    "item": "flint",
+    "subgoal": "Find a gravel patch, mine gravel with a pickaxe until a flint drops, pick up the flint into your inventory, and complete the objective once you have 1 flint.",
+    "commandlist": [
+      "!searchForBlock type:gravel search_range:128",
+      "!collectBlocks type:gravel num:10"
+    ]
+  },
+  {
+    "item": "water_bucket",
+    "subgoal": "Using 1 empty bucket from your inventory, locate a water source and pour water into the bucket by right-clicking the water source to produce 1 water_bucket.",
+    "commandlist": [
+      "!searchForBlock type:water search_range:128",
+      "!useOn tool_name:\"bucket\" target:\"water\""
+    ]
+  },
+  {
+    "item": "diamond_pickaxe",
+    "subgoal": "Craft 1 diamond_pickaxe at a crafting table by arranging 3 diamonds across the top row and 2 sticks in the center cells of the second and third rows in a 3x3 grid to produce 1 diamond_pickaxe.",
+    "commandlist": [
+      "!craftRecipe recipe_name:diamond_pickaxe num:1"
+    ]
+  },
+  {
+    "item": "flint_and_steel",
+    "subgoal": "Craft 1 flint_and_steel by combining 1 iron_ingot and 1 flint in the 2x2 crafting grid to produce 1 flint_and_steel.",
+    "commandlist": [
+      "!craftRecipe recipe_name:flint_and_steel num:1"
+    ]
+  },
+  {
+    "item": "obsidian",
+    "subgoal": "In a Minecraft environment, using a diamond pickaxe and a water bucket, perform 10 consecutive obsidian mining actions (each yielding 1 obsidian) to accumulate a total of 10 obsidian blocks.",
+    "commandlist": [
+      "!searchForBlock type:obsidian search_range:128",
+      "!collectBlocks type:obsidian num:10"
+    ]
+  },
+  {
+    "item": "diamond_boots",
+    "subgoal": "Using four diamonds and a crafting table, open a 3x3 crafting grid, arrange the four diamonds in the boots pattern, and craft 1 diamond_boots.",
+    "commandlist": [
+      "!craftRecipe recipe_name:diamond_boots num:1"
+    ]
+  },
+  {
+    "item": "diamond_leggings",
+    "subgoal": "Using a crafting table, arrange 7 diamonds in the leggings recipe pattern on the 3x3 crafting grid to craft 1 diamond leggings, ensuring you have at least 7 diamonds and a crafting table in reach, then collect the produced diamond leggings.",
+    "commandlist": [
+      "!craftRecipe recipe_name:diamond_leggings num:1"
+    ]
+  },
+  {
+    "item": "diamond_chestplate",
+    "subgoal": "With a crafting_table available and 8 diamonds in your inventory, open the crafting interface and arrange the diamonds in the 3x3 grid in the pattern: top row diamond, diamond, diamond; middle row diamond, empty, diamond; bottom row diamond, diamond, diamond; craft 1 diamond_chestplate and move it into your inventory.",
+    "commandlist": [
+      "!collectBlocks type:diamond num:7",
+      "!craftRecipe recipe_name:diamond_chestplate num:1"
+    ]
+  },
+  {
+    "item": "diamond_helmet",
+    "subgoal": "Gather 5 diamonds and a crafting table, place the crafting table to access a 3x3 crafting grid, arrange the diamonds in the helmet pattern, craft 1 diamond helmet, and obtain it in your inventory.",
+    "commandlist": [
+      "!craftRecipe recipe_name:diamond_helmet num:1"
+    ]
+  },
+  {
+    "item": "diamond_sword",
+    "subgoal": "Gather 2 diamonds and 1 stick, place a crafting table, and craft 1 diamond_sword by placing the diamonds in the top-left and top-middle slots and the stick in the bottom-middle slot of the 3x3 crafting grid, yielding 1 diamond_sword.",
+    "commandlist": [
+      "!craftRecipe recipe_name:diamond_sword num:1"
+    ]
+  },
+  {
+    "item": "nether_portal",
+    "subgoal": "Subgoal: In a Minecraft environment, obtain 10 obsidian blocks and 1 flint and steel by locating a lava pool, pouring water onto lava to create obsidian, mining 10 obsidian blocks with a suitable pickaxe, crafting one flint and steel, and then assembling a rectangular frame of 10 obsidian blocks and lighting it with the flint and steel to create 1 nether_portal.",
+    "commandlist": [
+      "!collectBlocks type:obsidian num:9",
+      "!buildBlock Nether Portal"
+    ]
+  },
+  {
+    "item": "blaze_rod",
+    "subgoal": "With a pre-built Nether Portal (1), don full diamond armor (diamond helmet, diamond chestplate, diamond leggings, diamond boots) and wield a diamond sword, enter the Nether, locate a Blaze in a Nether Fortress, defeat the Blaze using the sword, and collect 1 Blaze Rod as loot to reach the target Blaze Rod.",
+    "commandlist": [
+      "!searchForEntity type:blaze search_range:128",
+      "!attack type:blaze"
+    ]
+  },
+  {
+    "item": "blaze_powder",
+    "subgoal": "Craft 1 blaze rod into blaze powder on a crafting table to yield 2 blaze powder, giving you at least 1 blaze powder.",
+    "commandlist": [
+      "!craftRecipe recipe_name:blaze_powder num:1"
+    ]
+  },
+  {
+    "item": "ender_pearl",
+    "subgoal": "With a full suit of diamond armor (diamond_helmet, diamond_chestplate, diamond_leggings, diamond_boots) and a diamond_sword equipped, travel to the Overworld at night, locate an Enderman, engage and defeat it while avoiding direct eye contact, and collect the dropped ender_pearl to obtain 1 ender_pearl.",
+    "commandlist": [
+      "!searchForEntity type:enderman search_range:128",
+      "!attack type:enderman"
+    ]
+  },
+  {
+    "item": "ender_eye",
+    "subgoal": "Use a crafting table to combine 1 ender_pearl and 1 blaze_powder to craft 1 ender_eye.",
+    "commandlist": [
+      "!craftRecipe recipe_name:ender_eye num:1"
+    ]
+  }
+]

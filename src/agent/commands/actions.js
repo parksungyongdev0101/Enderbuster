@@ -27,6 +27,14 @@ function runAsAction (actionFn, resume = false, timeout = -1) {
 
 export const actionsList = [
     {
+        name: '!completeSubgoal',
+        description: 'Call when you completed a given subogoal.',
+        perform: function (agent) {
+            agent.bot.emit('chat', 'ChebysofH', 'Tell me what you have done so far.');
+            return;
+        }
+    },
+    {
         name: '!newAction',
         description: 'Perform new and unknown custom behaviors that are not available as a command.', 
         params: {
