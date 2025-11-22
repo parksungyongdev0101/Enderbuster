@@ -1,27 +1,32 @@
-import { History } from './history.js';
-import { Coder } from './coder.js';
-import { VisionInterpreter } from './vision/vision_interpreter.js';
 import { Prompter } from '../models/prompter.js';
-import { initModes } from './modes.js';
 import { initBot } from '../utils/mcdata.js';
-import { containsCommand, commandExists, executeCommand, truncCommandMessage, isAction, blacklistCommands } from './commands/index.js';
+import { handleEnglishTranslation, handleTranslation } from '../utils/translator.js';
 import { ActionManager } from './action_manager.js';
-import { NPCContoller } from './npc/controller.js';
-import { MemoryBank } from './memory_bank.js';
-import { SelfPrompter } from './self_prompter.js';
+import { Coder } from './coder.js';
+import { blacklistCommands, commandExists, containsCommand, executeCommand, isAction, truncCommandMessage } from './commands/index.js';
 import convoManager from './conversation.js';
-import { handleTranslation, handleEnglishTranslation } from '../utils/translator.js';
-import { addBrowserViewer } from './vision/browser_viewer.js';
-import { serverProxy, sendOutputToServer } from './mindserver_proxy.js';
+import { History } from './history.js';
+import { MemoryBank } from './memory_bank.js';
+import { sendOutputToServer, serverProxy } from './mindserver_proxy.js';
+import { initModes } from './modes.js';
+import { NPCContoller } from './npc/controller.js';
+import { SelfPrompter } from './self_prompter.js';
 import settings from './settings.js';
-import { Task } from './tasks/tasks.js';
 import { speak } from './speak.js';
+import { Task } from './tasks/tasks.js';
+import { addBrowserViewer } from './vision/browser_viewer.js';
+import { VisionInterpreter } from './vision/vision_interpreter.js';
+import { getInventoryCounts } from './library/world.js';
 
 export class Agent {
     async start(load_mem=false, init_message=null, count_id=0) {
         this.last_sender = null;
         this.count_id = count_id;
-        
+
+        // Initialize subgoal tracking
+        this.current_subgoal_item = null;
+        this.current_subgoal_amount = 0;
+
         // Initialize components with more detailed error handling
         this.actions = new ActionManager(this);
         this.prompter = new Prompter(this, settings.profile);
@@ -52,6 +57,9 @@ export class Agent {
 
         console.log(this.name, 'logging into minecraft...');
         this.bot = initBot(this.name);
+
+        // Link bot to agent for easy access
+        this.bot.agent = this;
 
         initModes(this);
 
@@ -274,6 +282,15 @@ export class Agent {
 
         // Handle other user messages
         await this.history.add(source, message);
+
+        // Parse subgoal item information from message
+        const itemMatch = message.match(/\[ITEM:([^:]+):(\d+)\]/);
+        if (itemMatch) {
+            this.current_subgoal_item = itemMatch[1];
+            this.current_subgoal_amount = parseInt(itemMatch[2]);
+            console.log(`[Subgoal Set] ${this.current_subgoal_item} x ${this.current_subgoal_amount}`);
+        }
+
         this.history.save();
 
         if (!self_prompt && this.self_prompter.isActive()) // message is from user during self-prompting
@@ -282,7 +299,7 @@ export class Agent {
             if (checkInterrupt()) break;
             let history = this.history.getHistory();
             let res = await this.prompter.promptConvo(history);
-
+            // 여기인가
             console.log(`${this.name} full response to ${source}: ""${res}""`);
 
             if (res.trim().length === 0) {
@@ -304,6 +321,26 @@ export class Agent {
 
                 if (checkInterrupt()) break;
                 this.self_prompter.handleUserPromptedCmd(self_prompt, isAction(command_name));
+
+                // Check if current subgoal is already satisfied
+                if (this.current_subgoal_item && this.current_subgoal_amount > 0) {
+                    const inventory = getInventoryCounts(this.bot);
+                    const currentCount = inventory[this.current_subgoal_item] || 0;
+
+                    if (currentCount >= this.current_subgoal_amount) {
+                        console.log(`[Subgoal Skip] Already have ${currentCount} ${this.current_subgoal_item} (need ${this.current_subgoal_amount})`);
+                        this.history.add('system', `You already have ${currentCount} ${this.current_subgoal_item} in your inventory (required: ${this.current_subgoal_amount}). Skipping this action and moving to next subgoal.`);
+
+                        // Auto-trigger completeSubgoal
+                        this.routeResponse(source, `I already have enough ${this.current_subgoal_item}. !completeSubgoal`);
+
+                        // Reset current subgoal
+                        this.current_subgoal_item = null;
+                        this.current_subgoal_amount = 0;
+
+                        continue; // Skip command execution
+                    }
+                }
 
                 if (settings.show_command_syntax === "full") {
                     this.routeResponse(source, res);

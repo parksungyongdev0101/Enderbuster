@@ -1,6 +1,8 @@
 import * as skills from '../library/skills.js';
 import settings from '../settings.js';
 import convoManager from '../conversation.js';
+import { readFileSync } from 'fs';
+import { getInventoryCounts } from '../library/world.js';
 
 
 function runAsAction (actionFn, resume = false, timeout = -1) {
@@ -26,6 +28,68 @@ function runAsAction (actionFn, resume = false, timeout = -1) {
 }
 
 export const actionsList = [
+    {
+        name: '!executeItemPlan',
+        description: 'Execute item crafting plan from item_plans.json automatically, checking inventory before each step.',
+        perform: async function(agent) {
+            const planFile = 'item_plans.json';
+            try {
+                const planData = JSON.parse(readFileSync(planFile, 'utf-8'));
+                let output = `Starting item plan execution (${planData.length} items)...\n`;
+
+                for (let i = 0; i < planData.length; i++) {
+                    const item = planData[i];
+                    const itemName = item.item;
+
+                    // Extract need_amount from commandlist if not explicitly provided
+                    let needAmount = item.need_amount;
+                    if (!needAmount && item.commandlist && item.commandlist.length > 0) {
+                        // Look for num: in commandlist (e.g., "!collectBlocks type:oak_log num:7")
+                        const firstCommand = item.commandlist[0];
+                        const numMatch = firstCommand.match(/num:(\d+)/);
+                        needAmount = numMatch ? parseInt(numMatch[1]) : 1;
+                    }
+                    needAmount = needAmount || 1;
+
+                    // Check inventory before processing
+                    const inventory = getInventoryCounts(agent.bot);
+                    const currentCount = inventory[itemName] || 0;
+
+                    if (currentCount >= needAmount) {
+                        output += `[${i + 1}/${planData.length}] ${itemName}: Already have ${currentCount} (need ${needAmount}) - SKIP\n`;
+                        continue;
+                    }
+
+                    output += `[${i + 1}/${planData.length}] ${itemName}: Need ${needAmount - currentCount} more\n`;
+
+                    // Set current subgoal for automatic skip detection
+                    agent.current_subgoal_item = itemName;
+                    agent.current_subgoal_amount = needAmount;
+
+                    // Send goal message with item info
+                    const goalMessage = `${item.subgoal} [ITEM:${itemName}:${needAmount}]`;
+                    await agent.handleMessage('system', `!goal selfPrompt:${goalMessage}`);
+
+                    // Wait for completion or timeout
+                    const startTime = Date.now();
+                    const timeout = 120000; // 2 minutes per item
+                    while (Date.now() - startTime < timeout) {
+                        const inv = getInventoryCounts(agent.bot);
+                        if ((inv[itemName] || 0) >= needAmount) {
+                            output += `  ✓ ${itemName} completed!\n`;
+                            break;
+                        }
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                    }
+                }
+
+                output += 'Item plan execution completed!';
+                return output;
+            } catch (error) {
+                return `Error executing item plan: ${error.message}`;
+            }
+        }
+    },
     {
         name: '!completeSubgoal',
         description: 'Call when you completed a given subogoal.',
