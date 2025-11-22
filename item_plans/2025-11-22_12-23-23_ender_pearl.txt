@@ -1,0 +1,25 @@
+=== 아이템: ender_pearl ===
+레시피 정보: {
+  "target": "ender_pearl",
+  "action": "kill:enderman",
+  "require": {
+    "diamond_sword": 1,
+    "diamond_helmet": 1,
+    "diamond_chestplate": 1,
+    "diamond_leggings": 1,
+    "diamond_boots": 1
+  },
+  "result_amount": 1
+}
+
+=== Action Sequence ===
+
+# diamond_sword is already available (from previous steps)
+# diamond_helmet is already available (from previous steps)
+# diamond_chestplate is already available (from previous steps)
+# diamond_leggings is already available (from previous steps)
+# diamond_boots is already available (from previous steps)
+!searchForEntity type:enderman search_range:128
+!attack type:enderman
+
+==================================================

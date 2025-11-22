@@ -1,0 +1,53 @@
+=== 계획 ===
+목표: kill enderdragon
+=== 생성된 계획 ===
+
+!searchForBlock type:oak_log search_range:128  
+!collectBlocks type:oak_log num:2  
+!craftRecipe recipe_name:wooden_pickaxe num:1  
+!searchForBlock type:stone search_range:128  
+!collectBlocks type:stone num:40  
+!craftRecipe recipe_name:furnace num:1  
+!searchForBlock type:coal search_range:128  
+!collectBlocks type:coal num:5  
+!smeltItem item_name:oak_log num:1  
+!craftRecipe recipe_name:torch num:4  
+!searchForBlock type:iron_ore search_range:128  
+!collectBlocks type:iron_ore num:9  
+!smeltItem item_name:iron_ore num:1  
+!craftRecipe recipe_name:bucket num:1  
+!searchForBlock type:water search_range:128  
+!useOn tool_name:"bucket" target:"water"  
+!searchForBlock type:lava search_range:128  
+!useOn tool_name:"water_bucket" target:"lava"  
+!collectBlocks type:obsidian num:10  
+!searchForBlock type:diamond_ore search_range:128  
+!collectBlocks type:diamond num:3  
+!craftRecipe recipe_name:diamond_pickaxe num:1  
+!buildBlock type:obsidian  
+!placeHere type:obsidian  
+!placeHere type:obsidian  
+!placeHere type:obsidian  
+!placeHere type:obsidian  
+!placeHere type:obsidian  
+!placeHere type:obsidian  
+!placeHere type:obsidian  
+!placeHere type:obsidian  
+!placeHere type:obsidian  
+!placeHere type:obsidian  
+!enterPortal type:nether_portal  
+!searchForEntity type:blaze search_range:128  
+!collectBlocks type:blaze_rod num:1  
+!searchForEntity type:enderman search_range:128  
+!collectBlocks type:ender_pearl num:1  
+!craftRecipe recipe_name:eyes_of_ender num:1  
+!searchForEntity type:end_portal_frame search_range:256  
+!searchForBlock type:end_portal_frame search_range:256  
+!activateEndPortal num:1  
+!enterPortal type:end_portal  
+!searchForEntity type:ender_crystal search_range:128  
+!attack type:ender_crystal  
+!searchForEntity type:ender_dragon search_range:128  
+!attack type:ender_dragon  
+
+==================================================

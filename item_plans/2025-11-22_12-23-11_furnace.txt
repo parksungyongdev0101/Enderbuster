@@ -1,0 +1,19 @@
+=== 아이템: furnace ===
+레시피 정보: {
+  "target": "furnace",
+  "action": "craft",
+  "require": {
+    "cobblestone": 8,
+    "crafting_table": 1
+  },
+  "result_amount": 1,
+  "primary": true
+}
+
+=== Action Sequence ===
+
+# cobblestone is already available (from previous steps)
+# crafting_table is already available (from previous steps)
+!craftRecipe recipe_name:furnace num:1
+
+==================================================

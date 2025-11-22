@@ -1,0 +1,19 @@
+=== 아이템: diamond_chestplate ===
+레시피 정보: {
+  "target": "diamond_chestplate",
+  "action": "craft",
+  "require": {
+    "diamond": 8,
+    "crafting_table": 1
+  },
+  "result_amount": 1,
+  "primary": true
+}
+
+=== Action Sequence ===
+
+# diamond is already available (from previous steps)
+# crafting_table is already available (from previous steps)
+!craftRecipe recipe_name:diamond_chestplate num:1
+
+==================================================

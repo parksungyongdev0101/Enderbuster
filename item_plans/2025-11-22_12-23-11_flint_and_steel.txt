@@ -1,0 +1,19 @@
+=== 아이템: flint_and_steel ===
+레시피 정보: {
+  "target": "flint_and_steel",
+  "action": "craft",
+  "require": {
+    "iron_ingot": 1,
+    "flint": 1
+  },
+  "result_amount": 1,
+  "primary": true
+}
+
+=== Action Sequence ===
+
+# iron_ingot is already available (from previous steps)
+# flint is already available (from previous steps)
+!craftRecipe recipe_name:flint_and_steel num:1
+
+==================================================

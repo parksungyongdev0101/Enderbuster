@@ -1,0 +1,61 @@
+=== 계획 ===
+목표: kill enderdragon
+=== 생성된 계획 ===
+
+!collectBlocks type:oak_log num:2
+!craftRecipe recipe_name:crafting_table num:1
+!craftRecipe recipe_name:wooden_pickaxe num:1
+!collectBlocks type:cobblestone num:11
+!craftRecipe recipe_name:stone_pickaxe num:1
+!craftRecipe recipe_name:furnace num:1
+!searchForBlock type:iron_ore search_range:128
+!collectBlocks type:iron_ore num:7
+!searchForBlock type:coal_ore search_range:128
+!collectBlocks type:coal_ore num:8
+!smeltItem item_name:iron_ore num:7
+!craftRecipe recipe_name:iron_pickaxe num:1
+!searchForBlock type:diamond_ore search_range:128
+!collectBlocks type:diamond_ore num:3
+!craftRecipe recipe_name:diamond_pickaxe num:1
+!craftRecipe recipe_name:bucket num:1
+!searchForBlock type:water search_range:128
+!useOn tool_name:bucket target:water
+!searchForBlock type:lava search_range:128
+!useOn tool_name:bucket target:lava
+!collectBlocks type:obsidian num:10
+!searchForBlock type:gravel search_range:128
+!collectBlocks type:gravel num:10
+!craftRecipe recipe_name:flint_and_steel num:1
+!searchForBlock type:nether_portal search_range:256
+!useOn tool_name:flint_and_steel target:nether_portal
+!searchForBlock type:nether_portal search_range:32
+!searchForEntity type:blaze search_range:256
+!attack type:blaze
+!attack type:blaze
+!attack type:blaze
+!attack type:blaze
+!attack type:blaze
+!attack type:blaze
+!craftRecipe recipe_name:blaze_powder num:6
+!searchForBlock type:nether_portal search_range:32
+!searchForEntity type:enderman search_range:256
+!attack type:enderman
+!attack type:enderman
+!attack type:enderman
+!attack type:enderman
+!attack type:enderman
+!attack type:enderman
+!attack type:enderman
+!attack type:enderman
+!attack type:enderman
+!attack type:enderman
+!attack type:enderman
+!attack type:enderman
+!craftRecipe recipe_name:ender_eye num:12
+!searchForBlock type:end_portal search_range:1024
+!useOn tool_name:ender_eye target:end_portal
+!searchForBlock type:end_portal search_range:64
+!searchForEntity type:ender_dragon search_range:512
+!attack type:ender_dragon
+
+==================================================

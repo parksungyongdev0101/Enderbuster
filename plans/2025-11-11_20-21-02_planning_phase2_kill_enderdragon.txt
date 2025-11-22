@@ -1,0 +1,199 @@
+=== 계획 ===
+목표: kill enderdragon
+=== 생성된 계획 ===
+
+### Refined Plan to Kill the Ender Dragon
+
+To successfully kill the Ender Dragon, we will follow a structured plan that highlights required resources, addresses potential issues, and incorporates essential safety and efficiency improvements. 
+
+### Atomic Action Sequence:
+
+1. **Search for Block: oak_log.**
+   - **Requirement**: None
+   - **Materials Needed**: N/A
+
+2. **Collect Block: oak_log.** 
+   - **Requirement**: None
+   - **Materials Needed**: 1 oak_log
+
+3. **Craft Recipe: wooden_planks.** 
+   - **Requirement**: 1 oak_log
+   - **Material Output**: 4 wooden_planks
+
+4. **Craft Recipe: crafting_table.** 
+   - **Requirement**: 4 wooden_planks
+   - **Material Output**: 1 crafting_table
+
+5. **Place crafting_table.** 
+   - **Requirement**: 1 crafting_table
+   - **Materials Needed**: N/A
+
+6. **Craft Recipe: wooden_pickaxe.** 
+   - **Requirement**: 3 wooden_planks and 2 sticks
+   - **Materials Needed**: N/A (Crafted from previously made materials)
+   - **Material Output**: 1 wooden_pickaxe
+
+7. **Search for Block: stone.** 
+   - **Requirement**: None
+   - **Materials Needed**: N/A
+
+8. **Collect Block: stone.** 
+   - **Requirement**: None
+   - **Materials Needed**: 3 stone blocks
+
+9. **Craft Recipe: stone_pickaxe.** 
+   - **Requirement**: 3 stone and 2 sticks
+   - **Material Output**: 1 stone_pickaxe
+
+10. **Search for Block: iron_ore.** 
+   - **Requirement**: None
+   - **Materials Needed**: N/A 
+
+11. **Collect Block: iron_ore.** 
+   - **Requirement**: None
+   - **Materials Needed**: At least 3 iron_ore blocks 
+
+12. **Craft Recipe: furnace.** 
+   - **Requirement**: 8 stone
+   - **Material Output**: 1 furnace
+
+13. **Place furnace.** 
+   - **Requirement**: 1 furnace
+   - **Materials Needed**: N/A
+
+14. **Gather Fuel.** 
+   - **Requirement**: None
+   - **Materials Needed**: 1 coal or 1 stack of wooden planks 
+
+15. **Smelt Item: iron_ore.** 
+   - **Requirement**: iron_ore and 1 furnace with fuel
+   - **Material Output**: 1 iron_ingot per iron_ore smelted
+
+16. **Collect Item: iron_ingot (from smelting).** 
+   - **Requirement**: furnace and smelting completed
+   - **Materials Needed**: At least 3 iron_ingots
+
+17. **Craft Recipe: iron_pickaxe.** 
+   - **Requirement**: 3 iron_ingots and 2 sticks
+   - **Material Output**: 1 iron_pickaxe
+
+18. **Search for Block: diamond_ore.** 
+   - **Requirement**: None
+   - **Materials Needed**: N/A 
+
+19. **Collect Block: diamond.** 
+   - **Requirement**: iron_pickaxe
+   - **Materials Needed**: At least 3 diamonds
+
+20. **Craft Recipe: diamond_pickaxe.** 
+   - **Requirement**: 3 diamonds and 2 sticks
+   - **Material Output**: 1 diamond_pickaxe
+
+21. **Search for Block: obsidian.** 
+   - **Requirement**: None
+   - **Materials Needed**: N/A 
+
+22. **Search for lava pool.** 
+   - **Requirement**: None
+   - **Materials Needed**: N/A 
+
+23. **Use water bucket to extinguish lava and make obsidian.** 
+   - **Requirement**: 1 water bucket
+   - **Materials Needed**: N/A 
+
+24. **Collect Block: obsidian.** 
+   - **Requirement**: diamond_pickaxe
+   - **Materials Needed**: At least 10 obsidian blocks
+
+25. **Craft Recipe: Nether Portal.** 
+   - **Requirement**: 10 obsidian blocks
+   - **Material Output**: 1 Nether Portal
+
+26. **Build Nether Portal.**
+   - **Requirement**: 10 obsidian blocks
+   - **Materials Needed**: N/A 
+
+27. **Enter Nether.** 
+   - **Requirement**: built Nether portal
+   - **Materials Needed**: N/A 
+
+28. **Search for Block: blaze_rod.** 
+   - **Requirement**: None
+   - **Materials Needed**: N/A 
+
+29. **Locate Nether Fortress.**
+   - **Requirement**: None
+   - **Note**: Use caution in the Nether; bring blocks to build across lava and avoid falls.
+
+30. **Kill Blaze to Collect Blaze Rods.**
+   - **Requirement**: find Blaze in Nether fortress
+   - **Safety Note**: Bring blocks to build a protective shelter while fighting.
+
+31. **Collect Item: blaze_rod.** 
+   - **Requirement**: kill Blaze
+   - **Materials Needed**: At least 1 blaze_rod (recommended 3 for backup)
+
+32. **Search for Enderman in the Overworld or Nether.**
+   - **Requirement**: None
+   - **Materials Needed**: N/A
+
+33. **Kill Enderman to Collect Ender Pearls.**
+   - **Requirement**: seek out Enderman
+   - **Safety Note**: Find a safe place, such as hiding under 2-block height areas, to combat Enderman.
+
+34. **Collect Item: ender_pearl.** 
+   - **Requirement**: kill Enderman
+   - **Materials Needed**: At least 12 ender_pearl (enough to craft and locate strongholds)
+
+35. **Craft Recipe: Eyes of Ender.** 
+   - **Requirement**: blaze_rod and ender_pearl
+   - **Materials Needed**: 1 blaze_rod + 1 ender_pearl → 1 Eye of Ender
+
+36. **Use Eyes of Ender to locate Stronghold.** 
+   - **Requirement**: Eyes of Ender
+   - **Note**: Keep an eye on the remaining Eyes of Ender.
+
+37. **Follow Eyes of Ender to find the Stronghold.** 
+   - **Requirement**: having Eyes of Ender
+
+38. **Find End Portal in Stronghold.** 
+   - **Requirement**: locate Stronghold
+
+39. **Place Eyes of Ender in End Portal Frame.** 
+   - **Requirement**: find End Portal
+   - **Safety Note**: Be prepared for potential hostile mobs in Strongholds.
+
+40. **Activate End Portal.** 
+   - **Requirement**: all End Portal Frame slots filled with Eyes of Ender
+   - **Materials Needed**: 12 Eyes of Ender
+
+41. **Enter End.** 
+   - **Requirement**: activated End Portal
+   - **Safety Note**: Ensure you have proper gear before entering (armor, weapons, potions).
+
+42. **Locate Ender Dragon.** 
+   - **Requirement**: in the End dimension
+   - **Preparation**: Have food, health items, and gear ready.
+
+43. **Destroy End Crystals on Obsidian Pillars.** 
+   - **Requirement**: bow and arrows or melee weapon
+   - **Safety Note**: Be vigilant of potential damage from the Ender Dragon's attacks.
+
+44. **Attack Ender Dragon.** 
+   - **Requirement**: destroy End Crystals, exploit weaknesses
+   - **Preparation**: Have potions of healing and strength if available.
+
+45. **Kill Ender Dragon.** 
+   - **Requirement**: continue attacking until health reaches zero
+   - **Inventory Management**: Maintain a supply of food and health potions during the battle.
+
+### Additional Considerations:
+- **Inventory Management**: Keep a well-organized inventory with essential items; separate tools and consumables.
+- **Tool Durability**: Monitor tool durability, especially for pickaxes; replace as necessary.
+- **Food and Health Management**: Bring at least stacks of cooked food (like steak) for health recovery.
+- **Potions**: Consider brewing potions like Strength and Health prior to the battle.
+- **Time-Sensitive Operations**: Be cautious of nightfall while searching for Endermen and ensure you have sufficient time for stronghold exploration before the end of the day.
+
+Following this refined and detailed plan, you will be able to systematically prepare for and ultimately defeat the Ender Dragon while mitigating risks and ensuring resource optimization.
+
+==================================================

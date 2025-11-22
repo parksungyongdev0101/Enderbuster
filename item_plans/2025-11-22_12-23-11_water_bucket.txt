@@ -1,0 +1,17 @@
+=== 아이템: water_bucket ===
+레시피 정보: {
+  "target": "water_bucket",
+  "action": "pour:water",
+  "require": {
+    "bucket": 1
+  },
+  "result_amount": 1
+}
+
+=== Action Sequence ===
+
+# bucket is already available (from previous steps)
+!searchForBlock type:water search_range:128
+!useOn tool_name:bucket target:water
+
+==================================================

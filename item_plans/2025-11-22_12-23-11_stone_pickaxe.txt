@@ -1,0 +1,21 @@
+=== 아이템: stone_pickaxe ===
+레시피 정보: {
+  "target": "stone_pickaxe",
+  "action": "craft",
+  "require": {
+    "cobblestone": 3,
+    "stick": 2,
+    "crafting_table": 1
+  },
+  "result_amount": 1,
+  "primary": true
+}
+
+=== Action Sequence ===
+
+# cobblestone is already available (from previous steps)
+# stick is already available (from previous steps)
+# crafting_table is already available (from previous steps)
+!craftRecipe recipe_name:stone_pickaxe num:1
+
+==================================================

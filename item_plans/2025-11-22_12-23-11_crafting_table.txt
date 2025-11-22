@@ -1,0 +1,17 @@
+=== 아이템: crafting_table ===
+레시피 정보: {
+  "target": "crafting_table",
+  "action": "craft",
+  "require": {
+    "oak_planks": 4
+  },
+  "result_amount": 1,
+  "primary": true
+}
+
+=== Action Sequence ===
+
+# oak_planks is already available (from previous steps)
+!craftRecipe recipe_name:crafting_table num:1
+
+==================================================

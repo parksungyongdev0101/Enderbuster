@@ -1,0 +1,21 @@
+=== 아이템: diamond_sword ===
+레시피 정보: {
+  "target": "diamond_sword",
+  "action": "craft",
+  "require": {
+    "diamond": 2,
+    "stick": 1,
+    "crafting_table": 1
+  },
+  "result_amount": 1,
+  "primary": true
+}
+
+=== Action Sequence ===
+
+# diamond is already available (from previous steps)
+# stick is already available (from previous steps)
+# crafting_table is already available (from previous steps)
+!craftRecipe recipe_name:diamond_sword num:1
+
+==================================================

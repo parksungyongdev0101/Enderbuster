@@ -1,0 +1,17 @@
+=== 아이템: raw_iron ===
+레시피 정보: {
+  "target": "raw_iron",
+  "action": "mine:iron_ore",
+  "require": {
+    "stone_pickaxe": 1
+  },
+  "result_amount": 1
+}
+
+=== Action Sequence ===
+
+# stone_pickaxe is already available (from previous steps)
+!searchForBlock type:iron_ore search_range:128
+!collectBlocks type:iron_ore num:7
+
+==================================================

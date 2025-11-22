@@ -1,0 +1,46 @@
+=== 계획 ===
+목표: kill enderdragon
+=== 생성된 계획 ===
+
+!collectBlocks type:oak_log num:5
+!craftRecipe recipe_name:crafting_table num:1
+!craftRecipe recipe_name:stick num:10
+!craftRecipe recipe_name:wooden_pickaxe num:1
+!collectBlocks type:stone num:20
+!collectBlocks type:iron_ore num:9
+!craftRecipe recipe_name:furnace num:1
+!smeltItem item_name:iron_ore num:9
+!craftRecipe recipe_name:iron_pickaxe num:1
+!collectBlocks type:diamond num:5
+!craftRecipe recipe_name:diamond_pickaxe num:1
+!searchForBlock type:lava search_range:128
+!useOn tool_name:"bucket" target:"water"
+!collectBlocks type:obsidian num:10
+!placeHere type:nether_portal
+!goToSurface
+!useOn tool_name:"pickaxe" target:"nether_portal"
+!searchForEntity type:blaze search_range:256
+!attack type:blaze
+!searchForEntity type:enderman search_range:256
+!attack type:enderman
+!craftRecipe recipe_name:brewing_stand num:1
+!searchForBlock type:nether_wart search_range:256
+!collectBlocks type:nether_wart num:5
+!brewPotions
+!collectBlocks type:cooked_beef num:10
+!craftRecipe recipe_name:iron_armor num:1
+!collectBlocks type:flint num:5
+!craftRecipe recipe_name:arrow num:64
+!craftRecipe recipe_name:eye_of_ender num:16
+!searchForBlock type:end_portal_frame search_range:256
+!placeHere type:end_portal_frame
+!collectBlocks type:ender_eye num:12
+!useOn tool_name:"ender_eye" target:"end_portal_frame"
+!searchForEntity type:ender_dragon search_range:256
+!attack type:ender_crystal
+!attack type:ender_dragon
+!consume item_name:potion_of_healing
+!consume item_name:cooked_beef
+!attack type:ender_dragon
+
+==================================================

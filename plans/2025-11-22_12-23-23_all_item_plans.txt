@@ -1,0 +1,274 @@
+=== 모든 아이템 Action Sequence ===
+생성 시간: 2025-11-22 12:23:23
+총 29개 아이템
+
+================================================================================
+
+
+================================================================================
+아이템: oak_log (필요 수량: 7)
+--------------------------------------------------------------------------------
+!searchForBlock type:oak_log search_range:128
+!collectBlocks type:oak_log num:7
+
+
+================================================================================
+아이템: oak_planks (필요 수량: 12)
+레시피: craft
+--------------------------------------------------------------------------------
+# oak_log is already available (from previous steps)
+!craftRecipe recipe_name:oak_planks num:3
+
+
+================================================================================
+아이템: crafting_table (필요 수량: 1)
+레시피: craft
+--------------------------------------------------------------------------------
+# oak_planks is already available (from previous steps)
+!craftRecipe recipe_name:crafting_table num:1
+
+
+================================================================================
+아이템: stick (필요 수량: 9)
+레시피: craft
+--------------------------------------------------------------------------------
+# oak_planks is already available (from previous steps)
+!craftRecipe recipe_name:stick num:3
+
+
+================================================================================
+아이템: wooden_pickaxe (필요 수량: 1)
+레시피: craft
+--------------------------------------------------------------------------------
+# oak_planks is already available (from previous steps)
+# stick is already available (from previous steps)
+# crafting_table is already available (from previous steps)
+!craftRecipe recipe_name:wooden_pickaxe num:1
+
+
+================================================================================
+아이템: cobblestone (필요 수량: 11)
+레시피: mine:stone
+--------------------------------------------------------------------------------
+# wooden_pickaxe is already available (from previous steps)
+!searchForBlock type:stone search_range:128
+!collectBlocks type:stone num:11
+
+
+================================================================================
+아이템: stone_pickaxe (필요 수량: 1)
+레시피: craft
+--------------------------------------------------------------------------------
+# cobblestone is already available (from previous steps)
+# stick is already available (from previous steps)
+# crafting_table is already available (from previous steps)
+!craftRecipe recipe_name:stone_pickaxe num:1
+
+
+================================================================================
+아이템: coal (필요 수량: 3)
+레시피: mine:coal_ore
+--------------------------------------------------------------------------------
+# wooden_pickaxe is already available (from previous steps)
+!searchForBlock type:coal_ore search_range:128
+!collectBlocks type:coal_ore num:3
+
+
+================================================================================
+아이템: furnace (필요 수량: 1)
+레시피: craft
+--------------------------------------------------------------------------------
+# cobblestone is already available (from previous steps)
+# crafting_table is already available (from previous steps)
+!craftRecipe recipe_name:furnace num:1
+
+
+================================================================================
+아이템: raw_iron (필요 수량: 7)
+레시피: mine:iron_ore
+--------------------------------------------------------------------------------
+# stone_pickaxe is already available (from previous steps)
+!searchForBlock type:iron_ore search_range:128
+!collectBlocks type:iron_ore num:7
+
+
+================================================================================
+아이템: iron_ingot (필요 수량: 7)
+레시피: smelt
+--------------------------------------------------------------------------------
+# raw_iron is already available (from previous steps)
+# furnace is already available (from previous steps)
+# coal is already available (from previous steps)
+!smeltItem item_name:raw_iron num:7
+
+
+================================================================================
+아이템: iron_pickaxe (필요 수량: 1)
+레시피: craft
+--------------------------------------------------------------------------------
+# iron_ingot is already available (from previous steps)
+# stick is already available (from previous steps)
+# crafting_table is already available (from previous steps)
+!craftRecipe recipe_name:iron_pickaxe num:1
+
+
+================================================================================
+아이템: bucket (필요 수량: 1)
+레시피: craft
+--------------------------------------------------------------------------------
+# iron_ingot is already available (from previous steps)
+# crafting_table is already available (from previous steps)
+!craftRecipe recipe_name:bucket num:1
+
+
+================================================================================
+아이템: diamond (필요 수량: 29)
+레시피: mine:diamond_ore
+--------------------------------------------------------------------------------
+# iron_pickaxe is already available (from previous steps)
+!searchForBlock type:diamond_ore search_range:128
+!collectBlocks type:diamond_ore num:29
+
+
+================================================================================
+아이템: flint (필요 수량: 1)
+--------------------------------------------------------------------------------
+!searchForBlock type:gravel search_range:128
+!collectBlocks type:gravel num:10
+
+
+================================================================================
+아이템: water_bucket (필요 수량: 1)
+레시피: pour:water
+--------------------------------------------------------------------------------
+# bucket is already available (from previous steps)
+!searchForBlock type:water search_range:128
+!useOn tool_name:bucket target:water
+
+
+================================================================================
+아이템: diamond_pickaxe (필요 수량: 1)
+레시피: craft
+--------------------------------------------------------------------------------
+# diamond is already available (from previous steps)
+# stick is already available (from previous steps)
+# crafting_table is already available (from previous steps)
+!craftRecipe recipe_name:diamond_pickaxe num:1
+
+
+================================================================================
+아이템: flint_and_steel (필요 수량: 1)
+레시피: craft
+--------------------------------------------------------------------------------
+# iron_ingot is already available (from previous steps)
+# flint is already available (from previous steps)
+!craftRecipe recipe_name:flint_and_steel num:1
+
+
+================================================================================
+아이템: obsidian (필요 수량: 10)
+레시피: mine:obsidian
+--------------------------------------------------------------------------------
+# diamond_pickaxe is already available (from previous steps)
+# water_bucket is already available (from previous steps)
+!searchForBlock type:obsidian search_range:128
+!collectBlocks type:obsidian num:10
+
+
+================================================================================
+아이템: diamond_boots (필요 수량: 1)
+레시피: craft
+--------------------------------------------------------------------------------
+# diamond is already available (from previous steps)
+# crafting_table is already available (from previous steps)
+!craftRecipe recipe_name:diamond_boots num:1
+
+
+================================================================================
+아이템: diamond_leggings (필요 수량: 1)
+레시피: craft
+--------------------------------------------------------------------------------
+# diamond is already available (from previous steps)
+# crafting_table is already available (from previous steps)
+!craftRecipe recipe_name:diamond_leggings num:1
+
+
+================================================================================
+아이템: diamond_chestplate (필요 수량: 1)
+레시피: craft
+--------------------------------------------------------------------------------
+# diamond is already available (from previous steps)
+# crafting_table is already available (from previous steps)
+!craftRecipe recipe_name:diamond_chestplate num:1
+
+
+================================================================================
+아이템: diamond_helmet (필요 수량: 1)
+레시피: craft
+--------------------------------------------------------------------------------
+# diamond is already available (from previous steps)
+# crafting_table is already available (from previous steps)
+!craftRecipe recipe_name:diamond_helmet num:1
+
+
+================================================================================
+아이템: diamond_sword (필요 수량: 1)
+레시피: craft
+--------------------------------------------------------------------------------
+# diamond is already available (from previous steps)
+# stick is already available (from previous steps)
+# crafting_table is already available (from previous steps)
+!craftRecipe recipe_name:diamond_sword num:1
+
+
+================================================================================
+아이템: nether_portal (필요 수량: 1)
+레시피: build:nether_portal
+--------------------------------------------------------------------------------
+# obsidian is already available (from previous steps)
+# flint_and_steel is already available (from previous steps)
+
+
+================================================================================
+아이템: blaze_rod (필요 수량: 1)
+레시피: kill:blaze
+--------------------------------------------------------------------------------
+# nether_portal is already available (from previous steps)
+# diamond_sword is already available (from previous steps)
+# diamond_helmet is already available (from previous steps)
+# diamond_chestplate is already available (from previous steps)
+# diamond_leggings is already available (from previous steps)
+# diamond_boots is already available (from previous steps)
+!searchForEntity type:blaze search_range:128
+!attack type:blaze
+
+
+================================================================================
+아이템: blaze_powder (필요 수량: 1)
+레시피: craft
+--------------------------------------------------------------------------------
+# blaze_rod is already available (from previous steps)
+!craftRecipe recipe_name:blaze_powder num:1
+
+
+================================================================================
+아이템: ender_pearl (필요 수량: 1)
+레시피: kill:enderman
+--------------------------------------------------------------------------------
+# diamond_sword is already available (from previous steps)
+# diamond_helmet is already available (from previous steps)
+# diamond_chestplate is already available (from previous steps)
+# diamond_leggings is already available (from previous steps)
+# diamond_boots is already available (from previous steps)
+!searchForEntity type:enderman search_range:128
+!attack type:enderman
+
+
+================================================================================
+아이템: ender_eye (필요 수량: 1)
+레시피: craft
+--------------------------------------------------------------------------------
+# ender_pearl is already available (from previous steps)
+# blaze_powder is already available (from previous steps)
+!craftRecipe recipe_name:ender_eye num:1
+

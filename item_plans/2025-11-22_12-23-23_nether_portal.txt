@@ -1,0 +1,17 @@
+=== 아이템: nether_portal ===
+레시피 정보: {
+  "target": "nether_portal",
+  "action": "build:nether_portal",
+  "require": {
+    "obsidian": 10,
+    "flint_and_steel": 1
+  },
+  "result_amount": 1
+}
+
+=== Action Sequence ===
+
+# obsidian is already available (from previous steps)
+# flint_and_steel is already available (from previous steps)
+
+==================================================

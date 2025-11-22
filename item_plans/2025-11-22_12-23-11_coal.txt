@@ -1,0 +1,17 @@
+=== 아이템: coal ===
+레시피 정보: {
+  "target": "coal",
+  "action": "mine:coal_ore",
+  "require": {
+    "wooden_pickaxe": 1
+  },
+  "result_amount": 1
+}
+
+=== Action Sequence ===
+
+# wooden_pickaxe is already available (from previous steps)
+!searchForBlock type:coal_ore search_range:128
+!collectBlocks type:coal_ore num:3
+
+==================================================

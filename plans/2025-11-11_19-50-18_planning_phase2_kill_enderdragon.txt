@@ -1,0 +1,61 @@
+=== 계획 ===
+목표: kill enderdragon
+=== 생성된 계획 ===
+
+!searchForBlock type:oak_log search_range:32  
+!collectBlocks type:oak_log num:1  
+!craftRecipe recipe_name:wooden_planks num:1  
+!craftRecipe recipe_name:crafting_table num:1  
+!placeHere type:crafting_table  
+!searchForBlock type:stone search_range:32  
+!collectBlocks type:stone num:8  
+!craftRecipe recipe_name:furnace num:1  
+!searchForBlock type:coal search_range:32  
+!searchForBlock type:iron_ore search_range:32  
+!collectBlocks type:coal num:1  
+!smeltItem item_name:coal num:1  
+!craftRecipe recipe_name:stone_pickaxe num:1  
+!searchForBlock type:iron_ore search_range:32  
+!collectBlocks type:iron_ore num:9  
+!smeltItem item_name:iron_ore num:9  
+!craftRecipe recipe_name:bucket num:1  
+!searchForBlock type:water search_range:32  
+!collectBlocks type:water num:1  
+!searchForBlock type:lava search_range:32  
+!collectBlocks type:lava num:1  
+!useOn tool_name:"bucket" target:"water"  
+!useOn tool_name:"bucket" target:"lava"  
+!searchForBlock type:obsidian search_range:32  
+!collectBlocks type:obsidian num:10  
+!craftRecipe recipe_name:diamond_pickaxe num:1  
+!searchForBlock type:diamond_ore search_range:32  
+!collectBlocks type:diamond num:3  
+!collectBlocks type:obsidian num:10  
+!buildBlock Nether Portal  
+!enter Nether  
+!searchForBlock type:blaze_spawner search_range:256  
+!attack type:blaze  
+!collectBlocks type:blaze_rod num:1  
+!craftRecipe recipe_name:brewing_stand num:1  
+!searchForBlock type:water search_range:32  
+!searchForBlock type:sand search_range:32  
+!collectBlocks type:sand num:1  
+!craftRecipe recipe_name:glass num:1  
+!searchForBlock type:nether_wart search_range:256  
+!collectBlocks type:nether_wart num:1  
+!craftRecipe recipe_name:strength_potion num:1  
+!return to Overworld through Nether Portal  
+!searchForEntity type:enderman search_range:256  
+!attack type:enderman  
+!collectBlocks type:ender_pearl num:1  
+!searchForBlock type:stronghold search_range:256  
+!craftRecipe recipe_name:eyes_of_ender num:12  
+!useOn tool_name:"eye_of_ender" target:"stronghold"  
+!searchForBlock type:end_portal search_range:32  
+!placeHere type:eye_of_ender  
+!enter End Dimension through the End Portal  
+!searchForEntity type:ender_dragon search_range:256  
+!destroy block:ender_crystal  
+!attack type:ender_dragon  
+
+==================================================

@@ -1,0 +1,73 @@
+=== 계획 ===
+목표: kill enderdragon
+=== 생성된 계획 ===
+
+You must go to the Nether to get blaze rods and to the End (via Eyes of Ender) to fight the Dragon. You also need a diamond pickaxe to collect obsidian for the Nether portal. Below are 20 atomic actions (minimal sequence compressed where possible) with explicit requirements for each step.
+
+1. Collect Blocks oak_log.
+   - Requirements: spawn in overworld (no items).
+
+2. Craft Recipe crafting_table.
+   - Requirements: oak_log → planks (from step 1).
+
+3. Craft Recipe wooden_pickaxe.
+   - Requirements: crafting_table (step 2), planks, sticks.
+
+4. Collect Blocks cobblestone.
+   - Requirements: wooden_pickaxe (step 3).
+
+5. Craft Recipe stone_pickaxe.
+   - Requirements: crafting_table (step 2), cobblestone (step 4).
+
+6. Craft Recipe furnace.
+   - Requirements: cobblestone (step 4), crafting_table (step 2).
+
+7. Collect Blocks iron_ore (enough to smelt >=7 ingots) and collect fuel (coal or wood).
+   - Requirements: stone_pickaxe (step 5).
+
+8. Smelt Item iron_ore into iron_ingot (smelt enough to have ≥7 ingots for iron_pickaxe, bucket, flint_and_steel, plus spare).
+   - Requirements: furnace (step 6), iron_ore and fuel (step 7).
+
+9. Craft Recipe iron_pickaxe.
+   - Requirements: iron_ingots ≥3 (step 8), sticks, crafting_table.
+
+10. Search and Collect Blocks diamond_ore and Collect Items diamond (collect ≥3 diamonds).
+    - Requirements: iron_pickaxe (step 9).
+
+11. Craft Recipe diamond_pickaxe.
+    - Requirements: diamonds ≥3 (step 10), sticks, crafting_table.
+
+12. Craft Recipe bucket.
+    - Requirements: iron_ingots ≥3 (from step 8), crafting_table.
+
+13. Search Block water and Collect Blocks water with bucket.
+    - Requirements: bucket (step 12), accessible water source.
+
+14. Search Block lava_pool.
+    - Requirements: overworld exploration (step 13 water collected).
+
+15. Use Water Bucket to extinguish lava and make Obsidian (place water on lava sources).
+    - Requirements: water_bucket (step 13), lava_pool (step 14).
+
+16. Collect Blocks obsidian (≥10) with diamond_pickaxe.
+    - Requirements: obsidian generated (step 15), diamond_pickaxe (step 11). (Rule: diamond pickaxe required)
+
+17. Build Nether Portal (place obsidian blocks into portal frame).
+    - Requirements: obsidian ≥10 (step 16), space to place frame.
+
+18. Search Blocks gravel and Collect Blocks gravel until obtaining flint; Craft Recipe flint_and_steel.
+    - Requirements: gravel found and broken (step 18), iron_ingot ≥1 available (from step 8), crafting_table optional.
+
+19. Use flint_and_steel to ignite Nether Portal and Enter Nether.
+    - Requirements: Nether portal built (step 17), flint_and_steel (step 18).
+
+20. In the Nether: Search Nether Fortress, Kill Blazes and Collect Items blaze_rod (make blaze_powder); return to Overworld (or gather ender_pearls first), Collect ender_pearl(s) (kill Endermen or barter), Craft Eyes of Ender (ender_pearl + blaze_powder), Use Eyes of Ender to find and activate the End Portal, Enter the End, destroy End Crystals, and Kill Ender Dragon.
+    - Requirements: entered Nether (step 19), armor/weapons (recommended), blaze_rods → blaze_powder (step 20), ender_pearls (step 20), Eyes of Ender crafted, activated End portal, ready to fight.
+
+Notes and assumptions:
+- Step 8 assumes you gathered enough iron ore (≥7) in step 7 and adequate fuel in step 7 to smelt them in one smelting action.
+- Step 18 assumes you obtain flint from gravel by breaking gravel until flint drops (may need multiple tries).
+- Step 20 compresses the End-preparation and final fight into one high-level action (finding fortress/blazes, collecting blaze powder, obtaining ender pearls, crafting Eyes, locating and activating the End portal, entering and killing the Dragon). Each of those subactions is required in order, but are grouped here to fit the 20-step minimal sequence requested.
+- This sequence omits optional upgrades (armor, better weapons, potions) but they are strongly recommended for a successful End fight; gathering them would add more atomic steps.
+
+==================================================

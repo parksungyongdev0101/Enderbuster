@@ -1,0 +1,86 @@
+=== 계획 ===
+목표: kill enderdragon
+=== 생성된 계획 ===
+
+To achieve the goal of killing the Ender Dragon, I will break down the necessary steps into fine-grained atomic actions. This plan will involve both necessary preparations and actions required to defeat the Ender Dragon. 
+
+### Atomic Actions Steps
+
+1. **Search Block oak_log.**
+   - Requirement: None
+2. **Collect Blocks oak_log.**
+   - Requirement: None
+3. **Craft Recipe wooden_pickaxe.**
+   - Requirement: 2 x oak_log
+4. **Use Tool On wooden_pickaxe.**
+   - Requirement: None
+5. **Search Block stone.**
+   - Requirement: None
+6. **Collect Blocks stone.**
+   - Requirement: None
+7. **Craft Recipe furnace.**
+   - Requirement: 3 x stone
+8. **Search Block coal.**
+   - Requirement: None
+9. **Collect Blocks coal.**
+   - Requirement: None
+10. **Smelt Item oak_log in furnace.**
+    - Requirement: 1 x oak_log, 1 x coal
+11. **Craft Recipe torch.**
+    - Requirement: 1 x charcoal
+12. **Search Block iron_ore.**
+    - Requirement: None
+13. **Collect Blocks iron_ore.**
+    - Requirement: None
+14. **Smelt Item iron_ore in furnace.**
+    - Requirement: 1 x iron_ore
+15. **Craft Recipe bucket.**
+    - Requirement: 3 x iron_ingot
+16. **Search Block water.**
+    - Requirement: None
+17. **Collect Block water with bucket.**
+    - Requirement: 1 x bucket
+18. **Search Block lava.**
+    - Requirement: None
+19. **Use water on lava to make obsidian.**
+    - Requirement: 1 x water_bucket
+20. **Collect Blocks obsidian.**
+    - Requirement: None (need to turn more lava into obsidian)
+21. **Repeat steps 18-20 until you have 10 Blocks obsidian.**
+    - Requirement: None 
+22. **Craft Recipe diamond_pickaxe.**
+    - Requirement: 3 x diamond (You will need to find diamonds)
+23. **Search Block diamond_ore.**
+    - Requirement: None
+24. **Collect Blocks diamond.**
+    - Requirement: Use a stone or iron pickaxe
+25. **Craft Recipe diamond_pickaxe.**
+    - Requirement: 3 x diamond + 2 x sticks
+26. **Build Nether Portal using 10 Blocks obsidian.**
+    - Requirement: 10 x obsidian
+27. **Enter Nether.**
+    - Requirement: None
+28. **Collect blaze rods from blaze in Nether.**
+    - Requirement: Find a Nether fortress
+29. **Collect ender pearls from Endermen in Nether.**
+    - Requirement: Find Endermen
+30. **Craft Recipe Eyes of Ender.**
+    - Requirement: 1 x blaze rod + 1 x ender pearl
+31. **Search for End Portal using Eyes of Ender.**
+    - Requirement: None
+32. **Locate End Portal Frame.**
+    - Requirement: Use Eyes of Ender until you find the stronghold
+33. **Activate End Portal with Eyes of Ender.**
+    - Requirement: 12 End Portal Frame blocks in the stronghold + 12 Eyes of Ender
+34. **Enter the End dimension.**
+    - Requirement: None
+35. **Identify and destroy Ender Crystals.**
+    - Requirement: Projectile weapons (bows or snowballs)
+36. **Engage in combat with Ender Dragon.**
+    - Requirement: Prepare weapons (bows, arrows, melee weapons)
+37. **Kill Ender Dragon.**
+    - Requirement: None
+
+This sequence of atomic actions is developed to ensure that every necessary step is followed to engage and ultimately defeat the Ender Dragon.
+
+==================================================

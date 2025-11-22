@@ -1,0 +1,17 @@
+=== 아이템: stick ===
+레시피 정보: {
+  "target": "stick",
+  "action": "craft",
+  "require": {
+    "oak_planks": 2
+  },
+  "result_amount": 4,
+  "primary": true
+}
+
+=== Action Sequence ===
+
+# oak_planks is already available (from previous steps)
+!craftRecipe recipe_name:stick num:3
+
+==================================================
