@@ -1,0 +1,384 @@
+[
+  {
+    "target": "oak_log",
+    "recipe": null,
+    "need_amount": 7
+  },
+  {
+    "target": "oak_planks",
+    "recipe": {
+      "target": "oak_planks",
+      "action": "craft",
+      "require": {
+        "oak_log": 1
+      },
+      "result_amount": 4,
+      "primary": true
+    },
+    "need_amount": 12
+  },
+  {
+    "target": "crafting_table",
+    "recipe": {
+      "target": "crafting_table",
+      "action": "craft",
+      "require": {
+        "oak_planks": 4
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1
+  },
+  {
+    "target": "stick",
+    "recipe": {
+      "target": "stick",
+      "action": "craft",
+      "require": {
+        "oak_planks": 2
+      },
+      "result_amount": 4,
+      "primary": true
+    },
+    "need_amount": 9
+  },
+  {
+    "target": "wooden_pickaxe",
+    "recipe": {
+      "target": "wooden_pickaxe",
+      "action": "craft",
+      "require": {
+        "oak_planks": 3,
+        "stick": 2,
+        "crafting_table": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1
+  },
+  {
+    "target": "cobblestone",
+    "recipe": {
+      "target": "cobblestone",
+      "action": "mine:stone",
+      "require": {
+        "wooden_pickaxe": 1
+      },
+      "result_amount": 1
+    },
+    "need_amount": 11
+  },
+  {
+    "target": "stone_pickaxe",
+    "recipe": {
+      "target": "stone_pickaxe",
+      "action": "craft",
+      "require": {
+        "cobblestone": 3,
+        "stick": 2,
+        "crafting_table": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1
+  },
+  {
+    "target": "coal",
+    "recipe": {
+      "target": "coal",
+      "action": "mine:coal_ore",
+      "require": {
+        "wooden_pickaxe": 1
+      },
+      "result_amount": 1
+    },
+    "need_amount": 3
+  },
+  {
+    "target": "furnace",
+    "recipe": {
+      "target": "furnace",
+      "action": "craft",
+      "require": {
+        "cobblestone": 8,
+        "crafting_table": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1
+  },
+  {
+    "target": "raw_iron",
+    "recipe": {
+      "target": "raw_iron",
+      "action": "mine:iron_ore",
+      "require": {
+        "stone_pickaxe": 1
+      },
+      "result_amount": 1
+    },
+    "need_amount": 7
+  },
+  {
+    "target": "iron_ingot",
+    "recipe": {
+      "target": "iron_ingot",
+      "action": "smelt",
+      "require": {
+        "raw_iron": 1,
+        "furnace": 1,
+        "coal": 0.125
+      },
+      "result_amount": 1
+    },
+    "need_amount": 7
+  },
+  {
+    "target": "iron_pickaxe",
+    "recipe": {
+      "target": "iron_pickaxe",
+      "action": "craft",
+      "require": {
+        "iron_ingot": 3,
+        "stick": 2,
+        "crafting_table": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1
+  },
+  {
+    "target": "bucket",
+    "recipe": {
+      "target": "bucket",
+      "action": "craft",
+      "require": {
+        "iron_ingot": 3,
+        "crafting_table": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1
+  },
+  {
+    "target": "diamond",
+    "recipe": {
+      "target": "diamond",
+      "action": "mine:diamond_ore",
+      "require": {
+        "iron_pickaxe": 1
+      },
+      "result_amount": 1
+    },
+    "need_amount": 29
+  },
+  {
+    "target": "flint",
+    "recipe": null,
+    "need_amount": 1
+  },
+  {
+    "target": "water_bucket",
+    "recipe": {
+      "target": "water_bucket",
+      "action": "pour:water",
+      "require": {
+        "bucket": 1
+      },
+      "result_amount": 1
+    },
+    "need_amount": 1
+  },
+  {
+    "target": "diamond_pickaxe",
+    "recipe": {
+      "target": "diamond_pickaxe",
+      "action": "craft",
+      "require": {
+        "diamond": 3,
+        "stick": 2,
+        "crafting_table": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1
+  },
+  {
+    "target": "flint_and_steel",
+    "recipe": {
+      "target": "flint_and_steel",
+      "action": "craft",
+      "require": {
+        "iron_ingot": 1,
+        "flint": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1
+  },
+  {
+    "target": "obsidian",
+    "recipe": {
+      "target": "obsidian",
+      "action": "mine:obsidian",
+      "require": {
+        "diamond_pickaxe": 1,
+        "water_bucket": 1
+      },
+      "result_amount": 1
+    },
+    "need_amount": 10
+  },
+  {
+    "target": "diamond_boots",
+    "recipe": {
+      "target": "diamond_boots",
+      "action": "craft",
+      "require": {
+        "diamond": 4,
+        "crafting_table": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1
+  },
+  {
+    "target": "diamond_leggings",
+    "recipe": {
+      "target": "diamond_leggings",
+      "action": "craft",
+      "require": {
+        "diamond": 7,
+        "crafting_table": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1
+  },
+  {
+    "target": "diamond_chestplate",
+    "recipe": {
+      "target": "diamond_chestplate",
+      "action": "craft",
+      "require": {
+        "diamond": 8,
+        "crafting_table": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1
+  },
+  {
+    "target": "diamond_helmet",
+    "recipe": {
+      "target": "diamond_helmet",
+      "action": "craft",
+      "require": {
+        "diamond": 5,
+        "crafting_table": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1
+  },
+  {
+    "target": "diamond_sword",
+    "recipe": {
+      "target": "diamond_sword",
+      "action": "craft",
+      "require": {
+        "diamond": 2,
+        "stick": 1,
+        "crafting_table": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1
+  },
+  {
+    "target": "nether_portal",
+    "recipe": {
+      "target": "nether_portal",
+      "action": "build:nether_portal",
+      "require": {
+        "obsidian": 10,
+        "flint_and_steel": 1
+      },
+      "result_amount": 1
+    },
+    "need_amount": 1
+  },
+  {
+    "target": "blaze_rod",
+    "recipe": {
+      "target": "blaze_rod",
+      "action": "kill:blaze",
+      "require": {
+        "nether_portal": 1,
+        "diamond_sword": 1,
+        "diamond_helmet": 1,
+        "diamond_chestplate": 1,
+        "diamond_leggings": 1,
+        "diamond_boots": 1
+      },
+      "result_amount": 1
+    },
+    "need_amount": 1
+  },
+  {
+    "target": "blaze_powder",
+    "recipe": {
+      "target": "blaze_powder",
+      "action": "craft",
+      "require": {
+        "blaze_rod": 1
+      },
+      "result_amount": 2,
+      "primary": true
+    },
+    "need_amount": 1
+  },
+  {
+    "target": "ender_pearl",
+    "recipe": {
+      "target": "ender_pearl",
+      "action": "kill:enderman",
+      "require": {
+        "diamond_sword": 1,
+        "diamond_helmet": 1,
+        "diamond_chestplate": 1,
+        "diamond_leggings": 1,
+        "diamond_boots": 1
+      },
+      "result_amount": 1
+    },
+    "need_amount": 1
+  },
+  {
+    "target": "ender_eye",
+    "recipe": {
+      "target": "ender_eye",
+      "action": "craft",
+      "require": {
+        "ender_pearl": 1,
+        "blaze_powder": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1
+  }
+]

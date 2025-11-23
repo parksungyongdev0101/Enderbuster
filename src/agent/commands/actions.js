@@ -34,7 +34,7 @@ export const actionsList = [
         name: '!executeItemPlan',
         description: 'Execute item crafting plan from item_plans.json automatically, checking inventory before each step.',
         perform: async function(agent) {
-            const planFile = 'item_plans.json';
+            const planFile = process.env.PLAN_FILE_NAME;
             try {
                 const planData = JSON.parse(readFileSync(planFile, 'utf-8'));
                 let output = `Starting item plan execution (${planData.length} items)...\n`;
@@ -576,6 +576,94 @@ export const actionsList = [
         },
         perform: runAsAction(async (agent, tool_name, target) => {
             await skills.useToolOn(agent.bot, tool_name, target);
+        })
+    },
+    {
+        name: '!buildEndPortal',
+        description: 'Activate the end portal by placing ender eyes in all nearby end portal frames.',
+        params: {},
+        perform: runAsAction(async (agent) => {
+            const bot = agent.bot;
+
+            // Find all end_portal_frame blocks nearby
+            const frames = bot.findBlocks({
+                matching: bot.registry.blocksByName.end_portal_frame.id,
+                maxDistance: 32,
+                count: 1000
+            });
+
+            if (frames.length === 0) {
+                skills.log(bot, `No end portal frames found nearby.`);
+                return false;
+            }
+
+            skills.log(bot, `Found ${frames.length} end portal frames.`);
+
+            // Check inventory for ender eyes - must have at least 12
+            const inventory = getInventoryCounts(bot);
+            const enderEyeCount = inventory['ender_eye'] || 0;
+
+            if (enderEyeCount < 12) {
+                skills.log(bot, `Need at least 12 ender eyes to build end portal. You have ${enderEyeCount}.`);
+                return false;
+            }
+
+            // Count how many frames need ender eyes (frames without eye have property eye: false)
+            let framesNeedingEyes = 0;
+            const framesToFill = [];
+
+            for (const framePos of frames) {
+                const block = bot.blockAt(framePos);
+                if (block && block.name === 'end_portal_frame') {
+                    // Check if the frame already has an eye (getProperties returns block state)
+                    const hasEye = block.getProperties().eye;
+                    if (!hasEye) {
+                        framesNeedingEyes++;
+                        framesToFill.push(framePos);
+                    }
+                }
+            }
+
+            skills.log(bot, `${framesNeedingEyes} frames need ender eyes.`);
+
+            if (framesNeedingEyes === 0) {
+                skills.log(bot, `All end portal frames already have ender eyes!`);
+                return true;
+            }
+
+
+            // Place ender eyes on each frame
+            let placedCount = 0;
+            for (const framePos of framesToFill) {
+                const block = bot.blockAt(framePos);
+                if (!block) continue;
+
+                try {
+                    // Go near the frame
+                    await skills.goToPosition(bot, framePos.x, framePos.y, framePos.z, 3);
+                    await new Promise(resolve => setTimeout(resolve, 200));
+
+                    // Use ender eye on the frame
+                    await skills.equip(bot, 'ender_eye');
+                    await bot.lookAt(block.position.offset(0.5, 0.5, 0.5));
+                    await bot.activateBlock(block);
+
+                    placedCount++;
+                    skills.log(bot, `Placed ender eye ${placedCount}/${framesNeedingEyes} at (${framePos.x}, ${framePos.y}, ${framePos.z})`);
+
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                } catch (err) {
+                    skills.log(bot, `Failed to place ender eye at (${framePos.x}, ${framePos.y}, ${framePos.z}): ${err.message}`);
+                }
+            }
+
+            if (placedCount === framesNeedingEyes) {
+                skills.log(bot, `End portal activated! Placed ${placedCount} ender eyes.`);
+                return true;
+            } else {
+                skills.log(bot, `Partially activated end portal. Placed ${placedCount}/${framesNeedingEyes} ender eyes.`);
+                return false;
+            }
         })
     },
     {
