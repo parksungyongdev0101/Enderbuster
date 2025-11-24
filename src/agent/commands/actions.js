@@ -4,6 +4,8 @@ import convoManager from '../conversation.js';
 import { readFileSync } from 'fs';
 import { getInventoryCounts } from '../library/world.js';
 import dotenv from 'dotenv';
+import pf from 'mineflayer-pathfinder';
+import Vec3 from 'vec3';
 
 dotenv.config();
 
@@ -761,4 +763,233 @@ export const actionsList = [
             return true;
         })
     },
+    {
+        name: '!findEndPortal',
+        description: 'Find the end portal by throwing ender eyes and following their direction. Moves 250 blocks in the direction the ender eye travels, then searches for end portal frames within 250 blocks.',
+        params: {},
+        perform: runAsAction(async (agent) => {
+            const bot = agent.bot;
+
+            // Helper: Search for end portal and move to it if found
+            async function findAndMoveToPortal() {
+                const frames = bot.findBlocks({
+                    matching: bot.registry.blocksByName.end_portal_frame.id,
+                    maxDistance: 250,
+                    count: 1000
+                });
+
+                if (frames.length === 0) return false;
+
+                skills.log(bot, `Found ${frames.length} end portal frame(s)!`);
+                agent.openChat('I found the end portal!');
+
+                // Calculate portal center
+                const avgX = frames.reduce((sum, f) => sum + f.x, 0) / frames.length;
+                const avgY = frames.reduce((sum, f) => sum + f.y, 0) / frames.length;
+                const avgZ = frames.reduce((sum, f) => sum + f.z, 0) / frames.length;
+
+                skills.log(bot, `Moving to end portal at (${avgX.toFixed(1)}, ${avgY.toFixed(1)}, ${avgZ.toFixed(1)})...`);
+                
+                try {
+                    await skills.goToGoal(bot, new pf.goals.GoalNear(avgX, avgY, avgZ, 3));
+                    const distance = bot.entity.position.distanceTo(new Vec3(avgX, avgY, avgZ));
+                    if (distance <= 5) {
+                        skills.log(bot, `Successfully found and reached the end portal!`);
+                    }
+                } catch (err) {
+                    skills.log(bot, `Error moving to end portal: ${err.message}`);
+                }
+                return true;
+            }
+
+            // Helper: Track ender eye direction
+            async function trackEnderEyeDirection() {
+                const inventory = getInventoryCounts(bot);
+                if ((inventory['ender_eye'] || 0) < 1) {
+                    skills.log(bot, `Need at least 1 ender eye.`);
+                    return null;
+                }
+
+                const entitiesBefore = new Set(Object.keys(bot.entities));
+                await skills.equip(bot, 'ender_eye');
+                await new Promise(resolve => setTimeout(resolve, 100));
+                await bot.activateItem();
+                skills.log(bot, `Threw ender eye.`);
+                await new Promise(resolve => setTimeout(resolve, 200));
+
+                // Find ender eye entity
+                let enderEyeEntity = null;
+                try {
+                    for (const entityId in bot.entities) {
+                        if (!entitiesBefore.has(entityId)) {
+                            const entity = bot.entities[entityId];
+                            const displayName = entity?.displayName || entity?.name;
+                            if (entity?.position && (entity.name === 'eye_of_ender' || displayName === 'eye_of_ender')) {
+                                enderEyeEntity = entity;
+                                break;
+                            }
+                        }
+                    }
+                    if (!enderEyeEntity) {
+                        for (const entity of Object.values(bot.entities)) {
+                            if (entity?.position && (entity.name === 'eye_of_ender' || (entity.displayName || entity.name) === 'eye_of_ender')) {
+                                const distance = bot.entity.position.distanceTo(entity.position);
+                                if (distance < 50) {
+                                    enderEyeEntity = entity;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                } catch (err) {
+                    return null;
+                }
+
+                if (!enderEyeEntity) return null;
+
+                // Track movement
+                try {
+                    const startPos = { x: enderEyeEntity.position.x, y: enderEyeEntity.position.y, z: enderEyeEntity.position.z };
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                    
+                    if (!bot.entities[enderEyeEntity.id]?.position) return null;
+                    const endPos = bot.entities[enderEyeEntity.id].position;
+                    
+                    const dx = endPos.x - startPos.x;
+                    const dz = endPos.z - startPos.z;
+                    const dist = Math.sqrt(dx * dx + dz * dz);
+                    
+                    if (dist < 0.1) return null;
+                    return { x: dx / dist, z: dz / dist };
+                } catch (err) {
+                    return null;
+                }
+            }
+
+            // Initial search
+            skills.log(bot, `Searching for end portal frames within 250 blocks...`);
+            if (await findAndMoveToPortal()) return true;
+            
+            skills.log(bot, `No end portal found nearby. Starting ender eye search...`);
+            agent.openChat('Failed to found. I will search again.');
+
+            // Main loop
+            while (true) {
+                const direction = await trackEnderEyeDirection();
+                if (!direction) {
+                    skills.log(bot, `Failed to determine direction. Retrying...`);
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    continue;
+                }
+
+                // Move 250 blocks in direction (non-destructive)
+                const pos = bot.entity.position;
+                const targetX = pos.x + direction.x * 250;
+                const targetZ = pos.z + direction.z * 250;
+                skills.log(bot, `Moving 250 blocks in direction (${direction.x.toFixed(2)}, ${direction.z.toFixed(2)})...`);
+
+                const nonDestructiveMovements = new pf.Movements(bot);
+                nonDestructiveMovements.canDig = false;
+                nonDestructiveMovements.canPlaceOn = false;
+                nonDestructiveMovements.allow1by1towers = false;
+                
+                const originalMovements = bot.pathfinder.movements;
+                try {
+                    bot.pathfinder.setMovements(nonDestructiveMovements);
+                    await skills.goToGoal(bot, new pf.goals.GoalNear(targetX, pos.y, targetZ, 5));
+                } finally {
+                    if (originalMovements) bot.pathfinder.setMovements(originalMovements);
+                }
+
+                // Search for portal
+                skills.log(bot, `Searching for end portal frames within 250 blocks...`);
+                if (await findAndMoveToPortal()) return true;
+                
+                skills.log(bot, `No end portal frames found.`);
+                agent.openChat('Failed to found. I will search again.');
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+        })
+    },
+    {
+        name: '!enterEndPortal',
+        description: 'Find the end portal, move to the portal area (3x3 space between frames at frame y+1), and jump to enter the End dimension.',
+        params: {},
+        perform: runAsAction(async (agent) => {
+            const bot = agent.bot;
+
+            // Find all end_portal_frame blocks nearby
+            const frames = bot.findBlocks({
+                matching: bot.registry.blocksByName.end_portal_frame.id,
+                maxDistance: 32,
+                count: 1000
+            });
+
+            if (frames.length === 0) {
+                skills.log(bot, `No end portal frames found nearby.`);
+                return false;
+            }
+
+            skills.log(bot, `Found ${frames.length} end portal frame(s).`);
+
+            // Calculate center position of the end portal frames
+            // Portal blocks are created above the frames (y + 1) in the space between frames
+            const avgX = frames.reduce((sum, f) => sum + f.x, 0) / frames.length;
+            const avgY = frames.reduce((sum, f) => sum + f.y, 0) / frames.length;
+            const avgZ = frames.reduce((sum, f) => sum + f.z, 0) / frames.length;
+            
+            // Portal blocks are at frame y + 1 (above the frames)
+            const portalY = avgY + 1;
+
+            // Move directly to portal block level (above frames)
+            skills.log(bot, `Moving to portal block level at (${avgX.toFixed(1)}, ${portalY.toFixed(1)}, ${avgZ.toFixed(1)})...`);
+            try {
+                bot.pathfinder.setMovements(new pf.Movements(bot));
+                await skills.goToGoal(bot, new pf.goals.GoalNear(avgX, portalY, avgZ, 0.5));
+                skills.log(bot, `Reached portal block level.`);
+            } catch (err) {
+                skills.log(bot, `Could not pathfind to portal block level: ${err.message}. Will try jumping from current position.`);
+            }
+            
+            // Ensure we're at the center of the portal before jumping
+            let currentPos = bot.entity.position;
+            const centerPos = new Vec3(avgX, portalY, avgZ);
+            let distanceToCenter = currentPos.distanceTo(centerPos);
+            
+            if (distanceToCenter > 1) {
+                skills.log(bot, `Moving to portal center... Distance: ${distanceToCenter.toFixed(1)} blocks.`);
+                try {
+                    bot.pathfinder.setMovements(new pf.Movements(bot));
+                    await skills.goToGoal(bot, new pf.goals.GoalNear(avgX, portalY, avgZ, 0.3));
+                } catch (err) {
+                    skills.log(bot, `Could not reach exact center: ${err.message}. Will jump from current position.`);
+                }
+            }
+            
+            // Stop pathfinder before jumping into portal center
+            bot.pathfinder.stop();
+            bot.clearControlStates();
+
+            // Calculate direction to portal center and look at it (use current position after movement)
+            currentPos = bot.entity.position;
+            await bot.lookAt(centerPos);
+            
+            // Jump while moving forward toward the portal center
+            skills.log(bot, `Jumping into the end portal center...`);
+            bot.setControlState('forward', true);
+            bot.setControlState('jump', true);
+            await new Promise(resolve => setTimeout(resolve, 500));
+            bot.setControlState('jump', false);
+            bot.setControlState('forward', false);
+            
+            // Wait a bit for dimension change, then ensure pathfinder is stopped
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            bot.pathfinder.stop();
+            bot.clearControlStates();
+
+            skills.log(bot, `Entered the end portal!`);
+            return true;
+        })
+    }
+
 ];
