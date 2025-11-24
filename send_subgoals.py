@@ -23,8 +23,8 @@ except ImportError as e:
 MIND_SERVER_PORT = 8080
 MIND_SERVER_URL = f'http://localhost:{MIND_SERVER_PORT}'
 
-def load_subgoals(json_path, recipe_sequence_path=None):
-    """JSON 파일에서 subgoal 목록을 로드하고 need_amount 정보 추가"""
+def load_actions(json_path, recipe_sequence_path=None):
+    """JSON 파일에서 actions 목록을 로드하고 need_amount 정보 추가"""
     with open(json_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
     
@@ -42,18 +42,26 @@ def load_subgoals(json_path, recipe_sequence_path=None):
         except Exception as e:
             print(f"⚠ recipe_sequence.json 읽기 실패: {e}")
     
-    subgoals = []
-    for item in data:
-        if 'subgoal' in item and item['subgoal']:
-            item_name = item.get('item', '')
-            subgoals.append({
-                'item': item_name,
-                'subgoal': item['subgoal'],
-                'need_amount': need_amounts.get(item_name, 1),  # 기본값 1
-                'index': len(subgoals) + 1
-            })
+    # 각 아이템의 actions를 개별 action으로 분리
+    all_actions = []
+    for item_data in data:
+        item_name = item_data.get('item', '')
+        actions = item_data.get('actions', [])
+        need_amount = need_amounts.get(item_name, item_data.get('need_amount', 1))
+        
+        if actions:
+            # 각 action을 개별 항목으로 추가
+            for action_idx, action in enumerate(actions):
+                all_actions.append({
+                    'item': item_name,
+                    'action': action,
+                    'action_index': action_idx,  # 아이템 내 action 인덱스
+                    'total_actions': len(actions),  # 아이템의 총 action 수
+                    'need_amount': need_amount,
+                    'item_index': len([a for a in all_actions if a['item'] == item_name])  # 아이템의 순서
+                })
     
-    return subgoals
+    return all_actions
 
 def get_agent_state(sio, agent_name, timeout=5.0):
     """
@@ -157,24 +165,27 @@ def wait_for_item(sio, agent_name, item_name, need_amount, check_interval=2.0, m
     print(f"  ⚠ 타임아웃: {item_name} 확인 완료로 간주하고 다음으로 진행")
     return True
 
-def send_subgoals_to_bot(agent_name, subgoals, delay=2.0, use_goal_command=True, 
-                         check_interval=2.0):
+def send_actions_to_bot(agent_name, all_actions, delay=2.0, use_goal_command=True, 
+                        check_interval=2.0):
     """
-    subgoal 목록을 순서대로 bot에 전달하고, 각 아이템이 완료될 때까지 대기
+    actions 목록을 순서대로 bot에 전달
+    - 각 아이템의 actions를 순차적으로 전달
+    - !completeSubgoal을 받으면 같은 아이템의 다음 action 전달
+    - 아이템의 모든 action이 완료되면 inventory 확인 후 다음 아이템으로 진행
     
     Args:
         agent_name: bot의 이름 (예: 'andy')
-        subgoals: subgoal 목록 (need_amount 포함)
+        all_actions: action 목록 (각 action은 item, action, action_index, total_actions, need_amount 포함)
         delay: 각 메시지 사이의 대기 시간 (초)
         use_goal_command: True면 !goal 명령 사용, False면 일반 메시지
         check_interval: 인벤토리 확인 주기 (초)
     """
     sio = socketio.Client()
     state_received = {}
-    # !completeSubgoal 명령 수신 플래그 (딕셔너리로 관리하여 각 아이템별로 추적)
+    # !completeSubgoal 명령 수신 플래그 (action 인덱스별로 추적)
     complete_subgoal_flags = {}
-    # 현재 처리 중인 아이템 인덱스 (리스트로 감싸서 mutable하게 만듦)
-    current_item_index = [None]
+    # 현재 처리 중인 action 인덱스
+    current_action_index = [None]
     
     def on_state_update(states):
         """state-update 이벤트 핸들러"""
@@ -184,79 +195,119 @@ def send_subgoals_to_bot(agent_name, subgoals, delay=2.0, use_goal_command=True,
     def on_bot_output(agentName, message):
         """bot-output 이벤트 핸들러"""
         if agentName == agent_name and message:
-            # !completeSubgoal 명령이 포함되어 있는지 확인
             message_str = str(message)
+            # !completeSubgoal 또는 !endGoal 명령 확인
             if '!completeSubgoal' in message_str or 'completeSubgoal' in message_str:
-                # 현재 처리 중인 아이템 인덱스에 대해 플래그 설정
-                if current_item_index[0] is not None:
-                    complete_subgoal_flags[current_item_index[0]] = True
+                # 현재 처리 중인 action 인덱스에 대해 플래그 설정
+                if current_action_index[0] is not None:
+                    complete_subgoal_flags[current_action_index[0]] = True
                     print(f"  → !completeSubgoal 명령 수신 확인!")
+            elif '!endGoal' in message_str or 'endGoal' in message_str:
+                # !endGoal도 다음 action으로 진행하는 신호로 처리
+                if current_action_index[0] is not None:
+                    complete_subgoal_flags[current_action_index[0]] = True
+                    print(f"  → !endGoal 명령 수신 확인!")
     
     try:
         print(f"MindServer에 연결 중... ({MIND_SERVER_URL})")
         sio.connect(MIND_SERVER_URL)
         print(f"✓ MindServer 연결 성공")
         
-        # state-update 이벤트 구독
         sio.on('state-update', on_state_update)
-        # bot-output 이벤트 구독 (!completeSubgoal 명령 감지용)
         sio.on('bot-output', on_bot_output)
         sio.emit('listen-to-agents')
         
-        print(f"\n총 {len(subgoals)}개의 subgoal을 순차적으로 전달합니다.\n")
+        # 아이템별로 그룹화
+        items_dict = {}
+        for action_data in all_actions:
+            item = action_data['item']
+            if item not in items_dict:
+                items_dict[item] = []
+            items_dict[item].append(action_data)
         
-        for i, subgoal_data in enumerate(subgoals, 1):
-            item = subgoal_data['item']
-            subgoal = subgoal_data['subgoal']
-            need_amount = subgoal_data.get('need_amount', 1)
+        print(f"\n총 {len(items_dict)}개 아이템, {len(all_actions)}개 action을 순차적으로 전달합니다.\n")
+        
+        # blaze_rod부터 시작하도록 필터링
+        items_list = list(items_dict.items())
+        start_index = 0
+        for idx, (item, _) in enumerate(items_list):
+            if item == 'blaze_rod':
+                start_index = idx
+                break
+        
+        if start_index > 0:
+            items_list = items_list[start_index:]
+            print(f"⚠ blaze_rod부터 시작합니다 (이전 {start_index}개 아이템 건너뜀)\n")
+        
+        total_items = len(items_list)
+        action_idx = 0
+        for item_idx, (item, item_actions) in enumerate(items_list, 1):
+            need_amount = item_actions[0]['need_amount']
+            print(f"\n[{item_idx}/{total_items}] {item} (필요 개수: {need_amount}, 총 {len(item_actions)}개 action)")
             
-            print(f"\n[{i}/{len(subgoals)}] {item} (필요 개수: {need_amount})")
-            print(f"  Subgoal: {subgoal[:80]}...")
-            
-            if use_goal_command:
-                # !goal 명령 사용
-                message = f"!goal selfPrompt:{subgoal}"
-            else:
-                # 일반 메시지로 전달
-                message = subgoal
-            
-            # MindServer의 send-message 이벤트로 전달
-            data = {
-                'from': 'system',
-                'message': message
-            }
-            
-            try:
-                sio.emit('send-message', [agent_name, data])
-                print(f"  ✓ Subgoal 전달 완료")
-            except Exception as e:
-                print(f"  ✗ 전달 실패: {e}")
-                import traceback
-                traceback.print_exc()
-                continue
-            
-            # 아이템이 인벤토리에 충분히 있을 때까지 대기 (무한정 대기)
-            # 또는 !completeSubgoal 명령을 받을 때까지 대기
-            if i < len(subgoals):  # 마지막 아이템이 아니면 확인
-                print(f"  → 아이템 완료 대기 중... (무한정 대기)")
-                print(f"     - 인벤토리 확인 또는 !completeSubgoal 명령 대기")
+            # 각 아이템의 actions를 순차적으로 전달
+            for action_in_item_idx, action_data in enumerate(item_actions):
+                action = action_data['action']
+                action_idx += 1
                 
+                print(f"  [{action_in_item_idx + 1}/{len(item_actions)}] Action: {action[:60]}...")
+                
+                if use_goal_command:
+                    message = f"!goal selfPrompt:{action}"
+                else:
+                    message = action
+                
+                data = {
+                    'from': 'system',
+                    'message': message
+                }
+                
+                try:
+                    sio.emit('send-message', [agent_name, data])
+                    print(f"  ✓ Action 전달 완료")
+                except Exception as e:
+                    print(f"  ✗ 전달 실패: {e}")
+                    import traceback
+                    traceback.print_exc()
+                    continue
+                
+                # action 완료 대기 (inventory 확인 + !completeSubgoal 확인)
+                print(f"  → 완료 대기 중... (inventory 확인 + !completeSubgoal 확인)")
                 start_time = time.time()
+                current_action_index[0] = action_idx
+                complete_subgoal_flags[action_idx] = False
                 item_completed = False
                 check_count = 0
-                current_item_index[0] = i  # 현재 아이템 인덱스 저장
+                timeout_seconds = 100.0  # 100초 타임아웃
                 
                 while not item_completed:
-                    # !completeSubgoal 명령 확인
-                    if complete_subgoal_flags.get(i, False):
-                        elapsed = int(time.time() - start_time)
-                        print(f"  ✓ {item} 완료 확인! (!completeSubgoal 명령 수신, 소요 시간: {elapsed}초)")
-                        item_completed = True
-                        # 플래그 정리
-                        complete_subgoal_flags.pop(i, None)
-                        break
+                    elapsed = time.time() - start_time
                     
-                    # state-update를 통해 최신 상태 확인
+                    # 타임아웃 체크 (100초 경과)
+                    if elapsed >= timeout_seconds:
+                        print(f"  ⚠ 타임아웃 ({int(elapsed)}초 경과)! Action 재전달...")
+                        # 같은 action 재전달
+                        if use_goal_command:
+                            message = f"!goal selfPrompt:{action}"
+                        else:
+                            message = action
+                        
+                        data = {
+                            'from': 'system',
+                            'message': message
+                        }
+                        
+                        try:
+                            sio.emit('send-message', [agent_name, data])
+                            print(f"  ✓ Action 재전달 완료")
+                            start_time = time.time()  # 타이머 리셋
+                            check_count = 0
+                        except Exception as e:
+                            print(f"  ✗ 재전달 실패: {e}")
+                        
+                        # 재전달 후 계속 대기
+                    
+                    # 1. Inventory 확인 (항상 확인)
                     if agent_name in state_received:
                         state = state_received[agent_name]
                         if state and not state.get('error'):
@@ -269,20 +320,28 @@ def send_subgoals_to_bot(agent_name, subgoals, delay=2.0, use_goal_command=True,
                                 item_completed = True
                                 break
                     
+                    # 2. !completeSubgoal 또는 !endGoal 확인 (마지막 action이 아닐 때만)
+                    if action_in_item_idx < len(item_actions) - 1:
+                        if complete_subgoal_flags.get(action_idx, False):
+                            elapsed = int(time.time() - start_time)
+                            print(f"  ✓ !completeSubgoal 또는 !endGoal 수신! 다음 action으로 진행 (소요 시간: {elapsed}초)")
+                            complete_subgoal_flags.pop(action_idx, None)
+                            item_completed = True
+                            break
+                    
                     time.sleep(check_interval)
                     check_count += 1
                     
-                    # 10회마다 진행 상황 출력
                     if check_count % 10 == 0:
                         elapsed = int(time.time() - start_time)
-                        print(f"    ... 대기 중 ({elapsed}초 경과)")
+                        print(f"    ... 확인 중 ({elapsed}초 경과)")
                 
-                # 다음 아이템 전달 전 대기
-                if i < len(subgoals):
+                # 다음 아이템/action 전달 전 대기
+                if item_idx < total_items or action_in_item_idx < len(item_actions) - 1:
                     print(f"  대기 중... ({delay}초)\n")
                     time.sleep(delay)
         
-        print(f"\n✓ 모든 subgoal 전달 완료!")
+        print(f"\n✓ 모든 action 전달 완료!")
         
     except socketio.exceptions.ConnectionError as e:
         print(f"✗ MindServer 연결 실패: {e}")
@@ -309,8 +368,8 @@ def main():
         'json_path',
         type=str,
         nargs='?',
-        default='item_plans.json',
-        help='subgoal이 포함된 JSON 파일 경로 (기본값: item_plans.json)'
+        default='final_item_plans.json',
+        help='actions가 포함된 JSON 파일 경로 (기본값: final_item_plans.json)'
     )
     parser.add_argument(
         '--agent',
@@ -357,7 +416,14 @@ def main():
     
     # JSON 파일 경로 확인 (상대 경로는 mindcraft 디렉토리 기준)
     script_dir = Path(__file__).parent
-    json_path = script_dir / args.json_path if not Path(args.json_path).is_absolute() else Path(args.json_path)
+    if not Path(args.json_path).is_absolute():
+        # 상대 경로인 경우 mindcraft 디렉토리에서 찾기
+        json_path = script_dir / args.json_path
+        # 없으면 프로젝트 루트에서 찾기
+        if not json_path.exists():
+            json_path = script_dir.parent / args.json_path
+    else:
+        json_path = Path(args.json_path)
     
     if not json_path.exists():
         print(f"✗ 파일을 찾을 수 없습니다: {json_path}")
@@ -372,20 +438,22 @@ def main():
         if default_recipe_path.exists():
             recipe_sequence_path = str(default_recipe_path)
     
-    # subgoal 로드
+    # actions 로드
     try:
-        subgoals = load_subgoals(json_path, recipe_sequence_path)
-        if not subgoals:
-            print(f"✗ JSON 파일에 subgoal이 없습니다: {json_path}")
+        all_actions = load_actions(json_path, recipe_sequence_path)
+        if not all_actions:
+            print(f"✗ JSON 파일에 actions가 없습니다: {json_path}")
             sys.exit(1)
     except Exception as e:
         print(f"✗ JSON 파일 읽기 실패: {e}")
+        import traceback
+        traceback.print_exc()
         sys.exit(1)
     
-    # subgoal 전달
-    send_subgoals_to_bot(
+    # actions 전달
+    send_actions_to_bot(
         args.agent,
-        subgoals,
+        all_actions,
         delay=args.delay,
         use_goal_command=not args.no_goal_command,
         check_interval=args.check_interval
