@@ -242,6 +242,7 @@ export function getCommandDocs(agent) {
     }
     let docs = `\n*COMMAND DOCS\n You can use the following commands to perform actions and get information about the world. 
     Use the commands with the syntax: !commandName or !commandName("arg1", 1.2, ...) if the command takes arguments.\n
+    If the command takes arguments, you must use positional arguments only. Do not use keyword-style arguments such as !commandName(type="arg1", num=1.2, ...). Instead, write commands in the form !commandName("arg1", 1.2, ...).\n
     Do not use codeblocks. Use double quotes for strings. Only use one command in each response, trailing commands and comments will be ignored.\n`;
     for (let command of commandList) {
         if (agent.blocked_actions.includes(command.name)) {

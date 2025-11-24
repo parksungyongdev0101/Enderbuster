@@ -32,12 +32,11 @@ function runAsAction (actionFn, resume = false, timeout = -1) {
 export const actionsList = [
     {
         name: '!executeItemPlan',
-        description: 'Execute item crafting plan from item_plans.json automatically, checking inventory before each step.',
+        description: 'Execute item crafting plan automatically.',
         perform: async function(agent) {
             const planFile = process.env.PLAN_FILE_NAME;
             try {
                 const planData = JSON.parse(readFileSync(planFile, 'utf-8'));
-                let output = `Starting item plan execution (${planData.length} items)...\n`;
 
                 for (let i = 0; i < planData.length; i++) {
                     const plan = planData[i];
@@ -50,11 +49,8 @@ export const actionsList = [
                     const currentCount = inventory[itemName] || 0;
 
                     if (currentCount >= needAmount) {
-                        output += `[${i + 1}/${planData.length}] ${itemName}: Already have ${currentCount} (need ${needAmount}) - SKIP\n`;
                         continue;
                     }
-
-                    output += `[${i + 1}/${planData.length}] ${itemName}: Need ${needAmount - currentCount} more\n`;
 
                     // Set current subgoal for automatic skip detection
                     agent.current_subgoal_item = itemName;
@@ -64,7 +60,7 @@ export const actionsList = [
                     // const goalMessage = `${plan.subgoal}`;
                     // await agent.handleMessage('system', `!goal selfPrompt:${goalMessage}`);
 
-                    const goalMessage = `${plan.subgoal}`;
+                    const goalMessage = `${plan.actions[0]}`;
                     agent.bot.emit('chat', process.env.USERNAME, goalMessage);
 
                     // Set needed item
@@ -82,27 +78,12 @@ export const actionsList = [
 
                         agent.bot.once('subgoal_completed', completionHandler);
                     });
-
-                    if (completed) {
-                        output += `  ✓ ${itemName} completed!\n`;
-                    } else {
-                        output += `  ⚠ ${itemName} timed out!\n`;
-                    }
                 }
 
-                output += 'Item plan execution completed!';
-                return output;
+                return "executeItemPlan completed. You don't need to call any other commands until the user gives a new request. Just tell the user 'All tasks completed. What's next?'";
             } catch (error) {
                 return `Error executing item plan: ${error.message}`;
             }
-        }
-    },
-    {
-        name: '!completeSubgoal',
-        description: 'Call when you completed a given subogoal.',
-        perform: function (agent) {
-            agent.bot.emit('subgoal_completed');
-            return 'Subgoal marked as completed.';
         }
     },
     {
@@ -344,7 +325,7 @@ export const actionsList = [
     },
     {
         name: '!craftRecipe',
-        description: 'Craft the given recipe a given number of times.',
+        description: 'Craft the given recipe a given number of times. If you used crafting table when crafting the recipe, you must call collectBlocks to get the crafting table back afterwards.',
         params: {
             'recipe_name': { type: 'ItemName', description: 'The name of the output item to craft.' },
             'num': { type: 'int', description: 'The number of times to craft the recipe. This is NOT the number of output items, as it may craft many more items depending on the recipe.', domain: [1, Number.MAX_SAFE_INTEGER] }

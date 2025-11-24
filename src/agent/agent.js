@@ -309,7 +309,6 @@ export class Agent {
 
                 if (currentCount >= this.current_subgoal_amount) {
                     console.log(`[Subgoal Skip] Already have ${currentCount} ${this.current_subgoal_item} (need ${this.current_subgoal_amount})`);
-                    await this.history.add('system', `You already have ${currentCount} ${this.current_subgoal_item} in your inventory (required: ${this.current_subgoal_amount}). Skipping this action and moving to next subgoal.`);
 
                     console.log(`[Subgoal Completed] ${this.current_subgoal_item} x ${this.current_subgoal_amount}`);
 
