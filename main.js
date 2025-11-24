@@ -5,6 +5,9 @@ import { hideBin } from 'yargs/helpers';
 import { readFileSync } from 'fs';
 import { spawn } from 'child_process';
 import path from 'path';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 /**
  * Run mc-plan main.py to generate crafting recipes and sequences
@@ -18,6 +21,15 @@ function runMcPlan(target, needAmount = 1, mode = 'buffered') {
         const mcPlanDir = path.join(process.cwd(), 'mc-plan');
         const pythonScript = path.join(mcPlanDir, 'main.py');
 
+        const pythonPath = process.env.CONDA_PYTHON;
+        if (!pythonPath) {
+            reject({
+                success: false,
+                error: 'CONDA_PYTHON is not defined in .env'
+            });
+            return;
+        }
+
         const args = [
             pythonScript,
             '--target', target,
@@ -25,9 +37,9 @@ function runMcPlan(target, needAmount = 1, mode = 'buffered') {
             '--mode', mode
         ];
 
-        console.log(`Running mc-plan for target: ${target}, need_amount: ${needAmount}, mode: ${mode}`);
+        console.log(`Running mc-plan with conda python: python: ${pythonPath} target: ${target}, need_amount: ${needAmount}, mode: ${mode}`);
 
-        const pythonProcess = spawn('python', args, {
+        const pythonProcess = spawn(pythonPath, args, {
             cwd: mcPlanDir,
             stdio: ['ignore', 'pipe', 'pipe']
         });

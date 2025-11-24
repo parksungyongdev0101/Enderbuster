@@ -1,6 +1,7 @@
 from craft_or_smelt.extract_recipes import create_recipes
 from build_extended_recipe import build_extended_recipe
 from build_recipe_seq import build_sequence_with_need
+from planner import plan_all_items
 
 import argparse
 from math import ceil
@@ -45,3 +46,6 @@ if __name__ == "__main__":
     build_extended_recipe(target=arg.target)
     print("Building sequence...")
     build_sequence_with_need(root_target=arg.target, root_amount=root_amount)
+    print("Planning all items...")
+    plan_all_items()
+    print("Done.")

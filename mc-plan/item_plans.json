@@ -22,7 +22,6 @@
     "need_amount": 12,
     "item": "oak_planks",
     "actions": [
-      "Craft 3 oak_planks.",
       "Craft 12 oak_planks."
     ]
   },
@@ -57,7 +56,7 @@
     "need_amount": 9,
     "item": "stick",
     "actions": [
-      "Craft 3 sticks."
+      "Craft 9 sticks."
     ]
   },
   {
@@ -161,8 +160,7 @@
     "need_amount": 7,
     "item": "raw_iron",
     "actions": [
-      "Search for iron ore within a range of 128 blocks.",
-      "Collect 7 raw iron."
+      "Collect 7 raw_iron."
     ]
   },
   {
@@ -180,7 +178,7 @@
     "need_amount": 7,
     "item": "iron_ingot",
     "actions": [
-      "Smelt 7 raw_iron."
+      "Craft 7 iron_ingot."
     ]
   },
   {
@@ -233,8 +231,7 @@
     "need_amount": 29,
     "item": "diamond",
     "actions": [
-      "Search for diamond ore within a range of 128 blocks.",
-      "Collect 29 diamond ore."
+      "Collect 29 diamond."
     ]
   },
   {
@@ -243,7 +240,6 @@
     "need_amount": 1,
     "item": "flint",
     "actions": [
-      "Search for block type: gravel within a range of 128.",
       "Collect 1 flint."
     ]
   },
@@ -260,7 +256,7 @@
     "need_amount": 1,
     "item": "water_bucket",
     "actions": [
-      "Pour the bucket to collect water."
+      "Use bucket on water to fill it."
     ]
   },
   {
@@ -314,7 +310,8 @@
     "need_amount": 10,
     "item": "obsidian",
     "actions": [
-      "Use water bucket on lava to create obsidian.",
+      "Search for lava pool in the surroundings.",
+      "Use water bucket on lava pool to create obsidian.",
       "Collect 10 obsidian."
     ]
   },
@@ -423,7 +420,7 @@
     "need_amount": 1,
     "item": "nether_portal",
     "actions": [
-      "Build 1 nether_portal."
+      "Craft 1 nether_portal."
     ]
   },
   {
@@ -444,10 +441,10 @@
     "need_amount": 1,
     "item": "blaze_rod",
     "actions": [
-      "Find a Nether Fortress.",
-      "Go to the nearest Nether Fortress.",
-      "Search for the nearest blaze.",
-      "Attack the nearest blaze until it drops a blaze_rod."
+      "Search for block type: nether_brick with a search range of 128.",
+      "Search for entity type: blaze with a search range of 128.",
+      "Attack blaze.",
+      "Collect 1 blaze_rod."
     ]
   },
   {
@@ -484,8 +481,9 @@
     "need_amount": 1,
     "item": "ender_pearl",
     "actions": [
-      "Search for block type: enderman habitat in a range of 128 blocks.",
-      "Collect 1 ender_pearl by attacking an enderman."
+      "Search for enderman in the surroundings.",
+      "Attack the enderman until it drops an ender pearl.",
+      "Collect 1 ender_pearl."
     ]
   },
   {
