@@ -21,6 +21,56 @@ async function autoLight(bot) {
     return false;
 }
 
+export async function moveDirection(bot, direction, distance) {
+    /**
+     * Move the bot a given distance in the specified direction.
+     *
+     * @param {MinecraftBot} bot - The bot instance.
+     * @param {string} direction - "north", "south", "east", or "west".
+     * @param {number} distance - Blocks to move.
+     * @returns {Promise<boolean>} True if movement succeeds, false otherwise.
+     *
+     * @example
+     * await skills.moveDirection(bot, "north", 50);
+     */
+    const pos = bot.entity.position.clone();
+    let targetX = pos.x;
+    let targetZ = pos.z;
+
+    switch (direction.toLowerCase()) {
+        case "north": targetZ -= distance; break;
+        case "south": targetZ += distance; break;
+        case "east":  targetX += distance; break;
+        case "west":  targetX -= distance; break;
+        default:
+            log(bot, `Unknown direction "${direction}". Valid: north,south,east,west`);
+            return false;
+    }
+
+    const goal = new pf.goals.GoalXZ(Math.round(targetX), Math.round(targetZ));
+
+    log(bot,
+        `Moving ${distance} blocks toward ${direction.toUpperCase()} → `
+        + `Goal: (${Math.round(targetX)}, ?, ${Math.round(targetZ)})`
+    );
+
+    try {
+        const success = await goToGoal(bot, goal);
+
+        if (success) {
+            log(bot, `Reached new position: ${bot.entity.position.floored()}`);
+            return true;
+        } else {
+            log(bot, `Navigation stopped or interrupted.`);
+            return false;
+        }
+
+    } catch (err) {
+        log(bot, `Movement failed: ${err.message}`);
+        return false;
+    }
+}
+
 async function equipHighestAttack(bot) {
     let weapons = bot.inventory.items().filter(item => item.name.includes('sword') || (item.name.includes('axe') && !item.name.includes('pickaxe')));
     if (weapons.length === 0)

@@ -87,6 +87,26 @@ export const actionsList = [
         }
     },
     {
+        name: '!moveDirection',
+        description: 'Move a set distance in a world-aligned direction (north, south, east, west). The bot will try to move naturally and adjust height automatically, only placing or breaking blocks when necessary.',
+        params: {
+            'direction': { 
+                type: 'string',
+                enum: ['north', 'south', 'east', 'west'],
+                description: 'The world direction to move.' 
+            },
+            'distance': { 
+                type: 'float', 
+                description: 'How many blocks to move.', 
+                domain: [0, Infinity] 
+            }
+        },
+        perform: runAsAction(async (agent, direction, distance) => {
+            await skills.moveDirection(agent.bot, direction, distance);
+        })
+    },
+
+    {
         name: '!newAction',
         description: 'Perform new and unknown custom behaviors that are not available as a command.', 
         params: {
