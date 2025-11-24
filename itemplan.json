@@ -1,0 +1,213 @@
+[
+  {
+    "item": "oak_log",
+    "subgoal": "Obtain 7 oak_log",
+    "commandlist": [
+      "!searchForBlock type:oak_log search_range:128",
+      "!collectBlocks type:oak_log num:7"
+    ]
+  },
+  {
+    "item": "oak_planks",
+    "subgoal": "Obtain 12 oak_planks",
+    "commandlist": [
+      "!craftRecipe recipe_name:oak_planks num:3"
+    ]
+  },
+  {
+    "item": "crafting_table",
+    "subgoal": "Obtain crafting_table",
+    "commandlist": [
+      "!craftRecipe recipe_name:crafting_table num:1"
+    ]
+  },
+  {
+    "item": "stick",
+    "subgoal": "Obtain 9 stick",
+    "commandlist": [
+      "!craftRecipe recipe_name:stick num:3"
+    ]
+  },
+  {
+    "item": "wooden_pickaxe",
+    "subgoal": "Obtain wooden_pickaxe",
+    "commandlist": [
+      "!craftRecipe recipe_name:wooden_pickaxe num:1"
+    ]
+  },
+  {
+    "item": "cobblestone",
+    "subgoal": "Obtain 11 cobblestone",
+    "commandlist": [
+      "!searchForBlock type:stone search_range:128",
+      "!collectBlocks type:stone num:11"
+    ]
+  },
+  {
+    "item": "stone_pickaxe",
+    "subgoal": "Obtain stone_pickaxe",
+    "commandlist": [
+      "!craftRecipe recipe_name:stone_pickaxe num:1"
+    ]
+  },
+  {
+    "item": "coal",
+    "subgoal": "Obtain 3 coal",
+    "commandlist": [
+      "!searchForBlock type:coal_ore search_range:128",
+      "!collectBlocks type:coal_ore num:3"
+    ]
+  },
+  {
+    "item": "furnace",
+    "subgoal": "Obtain furnace",
+    "commandlist": [
+      "!craftRecipe recipe_name:furnace num:1"
+    ]
+  },
+  {
+    "item": "raw_iron",
+    "subgoal": "Obtain 7 raw_iron",
+    "commandlist": [
+      "!searchForBlock type:iron_ore search_range:128",
+      "!collectBlocks type:iron_ore num:7"
+    ]
+  },
+  {
+    "item": "iron_ingot",
+    "subgoal": "Obtain 7 iron_ingot",
+    "commandlist": [
+      "!smeltItem item_name:raw_iron num:7"
+    ]
+  },
+  {
+    "item": "iron_pickaxe",
+    "subgoal": "Obtain iron_pickaxe",
+    "commandlist": [
+      "!craftRecipe recipe_name:iron_pickaxe num:1"
+    ]
+  },
+  {
+    "item": "bucket",
+    "subgoal": "Obtain bucket",
+    "commandlist": [
+      "!craftRecipe recipe_name:bucket num:1"
+    ]
+  },
+  {
+    "item": "diamond",
+    "subgoal": "Obtain 29 diamond",
+    "commandlist": [
+      "!searchForBlock type:diamond_ore search_range:128",
+      "!collectBlocks type:diamond_ore num:29"
+    ]
+  },
+  {
+    "item": "flint",
+    "subgoal": "Obtain flint",
+    "commandlist": [
+      "!searchForBlock type:gravel search_range:128",
+      "!collectBlocks type:gravel num:10"
+    ]
+  },
+  {
+    "item": "water_bucket",
+    "subgoal": "Obtain water_bucket",
+    "commandlist": [
+      "!searchForBlock type:water search_range:128",
+      "!useOn tool_name:bucket target:water"
+    ]
+  },
+  {
+    "item": "diamond_pickaxe",
+    "subgoal": "Obtain diamond_pickaxe",
+    "commandlist": [
+      "!craftRecipe recipe_name:diamond_pickaxe num:1"
+    ]
+  },
+  {
+    "item": "flint_and_steel",
+    "subgoal": "Obtain flint_and_steel",
+    "commandlist": [
+      "!craftRecipe recipe_name:flint_and_steel num:1"
+    ]
+  },
+  {
+    "item": "obsidian",
+    "subgoal": "Obtain 10 obsidian",
+    "commandlist": [
+      "!searchForBlock type:obsidian search_range:128",
+      "!collectBlocks type:obsidian num:10"
+    ]
+  },
+  {
+    "item": "diamond_boots",
+    "subgoal": "Obtain diamond_boots",
+    "commandlist": [
+      "!craftRecipe recipe_name:diamond_boots num:1"
+    ]
+  },
+  {
+    "item": "diamond_leggings",
+    "subgoal": "Obtain diamond_leggings",
+    "commandlist": [
+      "!craftRecipe recipe_name:diamond_leggings num:1"
+    ]
+  },
+  {
+    "item": "diamond_chestplate",
+    "subgoal": "Obtain diamond_chestplate",
+    "commandlist": [
+      "!craftRecipe recipe_name:diamond_chestplate num:1"
+    ]
+  },
+  {
+    "item": "diamond_helmet",
+    "subgoal": "Obtain diamond_helmet",
+    "commandlist": [
+      "!craftRecipe recipe_name:diamond_helmet num:1"
+    ]
+  },
+  {
+    "item": "diamond_sword",
+    "subgoal": "Obtain diamond_sword",
+    "commandlist": [
+      "!craftRecipe recipe_name:diamond_sword num:1"
+    ]
+  },
+  {
+    "item": "nether_portal",
+    "subgoal": "Obtain nether_portal",
+    "commandlist": []
+  },
+  {
+    "item": "blaze_rod",
+    "subgoal": "Obtain blaze_rod",
+    "commandlist": [
+      "!searchForEntity type:blaze search_range:128",
+      "!attack type:blaze"
+    ]
+  },
+  {
+    "item": "blaze_powder",
+    "subgoal": "Obtain blaze_powder",
+    "commandlist": [
+      "!craftRecipe recipe_name:blaze_powder num:1"
+    ]
+  },
+  {
+    "item": "ender_pearl",
+    "subgoal": "Obtain ender_pearl",
+    "commandlist": [
+      "!searchForEntity type:enderman search_range:128",
+      "!attack type:enderman"
+    ]
+  },
+  {
+    "item": "ender_eye",
+    "subgoal": "Obtain ender_eye",
+    "commandlist": [
+      "!craftRecipe recipe_name:ender_eye num:1"
+    ]
+  }
+]

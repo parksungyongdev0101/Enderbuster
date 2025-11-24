@@ -1,8 +1,0 @@
-=== 아이템: flint ===
-
-=== Action Sequence ===
-
-!searchForBlock type:gravel search_range:128
-!collectBlocks type:gravel num:10
-
-==================================================

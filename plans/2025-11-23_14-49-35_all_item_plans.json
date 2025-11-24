@@ -1,0 +1,743 @@
+[
+  {
+    "target": "oak_log",
+    "recipe": null,
+    "need_amount": 7,
+    "item": "oak_log",
+    "actions": [
+      "Locate oak trees in the current area.",
+      "Equip your hand to break blocks.",
+      "Approach the nearest oak tree.",
+      "Break the first oak log block using your hand.",
+      "Collect the dropped oak log.",
+      "Repeat steps 3 to 5 until you have broken and collected a total of 7 oak log blocks.",
+      "Verify that your inventory contains exactly 7 oak logs."
+    ]
+  },
+  {
+    "target": "oak_planks",
+    "recipe": {
+      "target": "oak_planks",
+      "action": "craft",
+      "require": {
+        "oak_log": 1
+      },
+      "result_amount": 4,
+      "primary": true
+    },
+    "need_amount": 12,
+    "item": "oak_planks",
+    "actions": [
+      "Locate a crafting table in your current area or open your personal crafting interface.",
+      "Open the crafting menu.",
+      "Place the 7 oak logs in the crafting grid.",
+      "Ensure that the oak logs are arranged in any pattern in the crafting grid.",
+      "Collect the 12 oak planks that appear in the result box.",
+      "Verify that your inventory contains exactly 12 oak planks."
+    ]
+  },
+  {
+    "target": "crafting_table",
+    "recipe": {
+      "target": "crafting_table",
+      "action": "craft",
+      "require": {
+        "oak_planks": 4
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1,
+    "item": "crafting_table",
+    "actions": [
+      "Open your inventory to check the number of wooden planks you have.",
+      "Ensure you have at least 4 wooden planks in your inventory.",
+      "If you do not have 4 wooden planks, locate a crafting station or your inventory crafting grid.",
+      "Place 4 wooden planks in the crafting grid by selecting them from your inventory.",
+      "Arrange the 4 wooden planks in a square formation in the crafting grid.",
+      "Collect the crafting_table that appears as a result of the crafting process.",
+      "Verify that your inventory now contains 1 crafting_table."
+    ]
+  },
+  {
+    "target": "stick",
+    "recipe": {
+      "target": "stick",
+      "action": "craft",
+      "require": {
+        "oak_planks": 2
+      },
+      "result_amount": 4,
+      "primary": true
+    },
+    "need_amount": 9,
+    "item": "stick",
+    "actions": [
+      "Locate a crafting table in your vicinity.",
+      "Open the crafting table interface by right-clicking on it.",
+      "Place 2 wooden sticks in the crafting grid.",
+      "Ensure you have at least 1 wooden stick in your inventory for crafting.",
+      "Verify that the crafting grid shows the recipe for sticks.",
+      "Collect the 2 crafted sticks into your inventory.",
+      "Repeat the crafting process by placing 2 wooden sticks in the crafting grid again.",
+      "Collect the next 2 crafted sticks into your inventory.",
+      "Continue this process until you have crafted a total of 3 sets of 2 sticks.",
+      "Verify that your inventory contains exactly 6 sticks.",
+      "If you need additional sticks, repeat the crafting process once more.",
+      "Collect the final 3 sticks into your inventory.",
+      "Now verify that your inventory contains a total of 9 sticks."
+    ]
+  },
+  {
+    "target": "wooden_pickaxe",
+    "recipe": {
+      "target": "wooden_pickaxe",
+      "action": "craft",
+      "require": {
+        "oak_planks": 3,
+        "stick": 2,
+        "crafting_table": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1,
+    "item": "wooden_pickaxe",
+    "actions": [
+      "Locate a crafting table in your current area.",
+      "Approach the crafting table.",
+      "Open the crafting table interface.",
+      "Place 3 wooden planks in the top row of the crafting grid.",
+      "Place 2 wooden planks in the middle column of the crafting grid.",
+      "Place 1 stick in the center square of the crafting grid.",
+      "Verify that the crafting recipe for a wooden pickaxe is correctly displayed in the result box.",
+      "Drag the wooden pickaxe from the result box into your inventory.",
+      "Close the crafting table interface.",
+      "Check your inventory to confirm that you now have 1 wooden pickaxe."
+    ]
+  },
+  {
+    "target": "cobblestone",
+    "recipe": {
+      "target": "cobblestone",
+      "action": "mine:stone",
+      "require": {
+        "wooden_pickaxe": 1
+      },
+      "result_amount": 1
+    },
+    "need_amount": 11,
+    "item": "cobblestone",
+    "actions": [
+      "Open your inventory and ensure you have a pickaxe equipped.",
+      "Locate a stone surface or a cave in your current area where cobblestone can be found.",
+      "Approach the stone surface or cave until you are close enough to interact with the blocks.",
+      "Break the first stone block using your pickaxe.",
+      "Collect the dropped cobblestone until it is picked up into your inventory.",
+      "Repeat the process of breaking stone blocks with your pickaxe.",
+      "Continue breaking stone blocks until you have collected a total of 11 cobblestone.",
+      "Verify that your inventory contains exactly 11 cobblestone."
+    ]
+  },
+  {
+    "target": "stone_pickaxe",
+    "recipe": {
+      "target": "stone_pickaxe",
+      "action": "craft",
+      "require": {
+        "cobblestone": 3,
+        "stick": 2,
+        "crafting_table": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1,
+    "item": "stone_pickaxe",
+    "actions": [
+      "Locate a crafting table in your current area.",
+      "Approach the crafting table.",
+      "Open the crafting interface by right-clicking on the crafting table.",
+      "Place 3 cobblestone blocks in the bottom row of the 3x3 crafting grid.",
+      "Place 2 sticks in the middle column of the crafting grid, one in the center square and one in the bottom square.",
+      "Verify that the crafting grid shows 1 stone_pickaxe as the output.",
+      "Drag the stone_pickaxe from the crafting table output slot into your inventory.",
+      "Close the crafting interface.",
+      "Confirm that your inventory now contains 1 stone_pickaxe."
+    ]
+  },
+  {
+    "target": "coal",
+    "recipe": {
+      "target": "coal",
+      "action": "mine:coal_ore",
+      "require": {
+        "wooden_pickaxe": 1
+      },
+      "result_amount": 1
+    },
+    "need_amount": 3,
+    "item": "coal",
+    "actions": [
+      "Locate a mountain or a cave where coal is typically found.",
+      "Approach the location where you see exposed stone or coal ore blocks.",
+      "Equip your pickaxe from your inventory.",
+      "Break 3 coal ore blocks using your pickaxe.",
+      "Collect all the dropped coal items until you have 3 in your inventory.",
+      "Verify that your inventory contains exactly 3 coal."
+    ]
+  },
+  {
+    "target": "furnace",
+    "recipe": {
+      "target": "furnace",
+      "action": "craft",
+      "require": {
+        "cobblestone": 8,
+        "crafting_table": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1,
+    "item": "furnace",
+    "actions": [
+      "Locate a crafting table in your vicinity or place one down if you have it in your inventory.",
+      "Open the crafting interface by right-clicking on the crafting table.",
+      "Identify the crafting grid with 3 rows and 3 columns.",
+      "Place 8 cobblestone blocks in the crafting grid, filling all slots except the center.",
+      "Ensure that the center slot remains empty, while the outer slots are occupied by cobblestone blocks.",
+      "Verify that the crafting grid shows a furnace icon as a result of your arrangement.",
+      "Take the furnace from the result box in the crafting interface.",
+      "Close the crafting interface after successfully obtaining the furnace.",
+      "Confirm that the furnace is now in your inventory."
+    ]
+  },
+  {
+    "target": "raw_iron",
+    "recipe": {
+      "target": "raw_iron",
+      "action": "mine:iron_ore",
+      "require": {
+        "stone_pickaxe": 1
+      },
+      "result_amount": 1
+    },
+    "need_amount": 7,
+    "item": "raw_iron",
+    "actions": [
+      "Locate a cave or mountainous area where iron ore is commonly found.",
+      "Equip your stone pickaxe from your inventory.",
+      "Mine iron ore blocks until you have collected 7 iron ore in your inventory.",
+      "Ensure that you have not lost any iron ore during the mining process.",
+      "Verify that your inventory contains exactly 7 iron ore."
+    ]
+  },
+  {
+    "target": "iron_ingot",
+    "recipe": {
+      "target": "iron_ingot",
+      "action": "smelt",
+      "require": {
+        "raw_iron": 1,
+        "furnace": 1,
+        "coal": 0.125
+      },
+      "result_amount": 1
+    },
+    "need_amount": 7,
+    "item": "iron_ingot",
+    "actions": [
+      "Open your inventory to verify you have at least 3 pieces of iron ore.",
+      "Locate a furnace within your vicinity or place your own if you have one in your inventory.",
+      "Right-click on the furnace to open its interface.",
+      "Place the 3 iron ore in the top slot of the furnace.",
+      "Gather at least 3 pieces of coal or charcoal from your inventory.",
+      "Place the coal or charcoal in the bottom slot of the furnace.",
+      "Wait for the furnace to smelt the iron ore into iron ingots.",
+      "Once the iron ore has finished smelting, collect the 3 iron ingots from the furnace.",
+      "Repeat steps 2 to 8 two more times to smelt a total of 9 iron ore into iron ingots.",
+      "After completing the smelting process three times, you should have 9 iron ingots in your inventory.",
+      "Open your inventory and confirm that you have at least 7 iron ingots."
+    ]
+  },
+  {
+    "target": "iron_pickaxe",
+    "recipe": {
+      "target": "iron_pickaxe",
+      "action": "craft",
+      "require": {
+        "iron_ingot": 3,
+        "stick": 2,
+        "crafting_table": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1,
+    "item": "iron_pickaxe",
+    "actions": [
+      "Open your inventory to check the current contents.",
+      "Ensure you have at least 3 iron ingots in your inventory.",
+      "Ensure you have at least 2 sticks in your inventory.",
+      "Navigate to a crafting table in your current location.",
+      "Right-click on the crafting table to open the crafting interface.",
+      "Place 3 iron ingots in the top row of the 3x3 crafting grid.",
+      "Place 1 stick in the center square of the crafting grid.",
+      "Place 1 stick in the middle square of the bottom row of the crafting grid.",
+      "Verify that the iron pickaxe appears as a craftable item.",
+      "Drag the iron pickaxe into your inventory to complete the crafting process."
+    ]
+  },
+  {
+    "target": "bucket",
+    "recipe": {
+      "target": "bucket",
+      "action": "craft",
+      "require": {
+        "iron_ingot": 3,
+        "crafting_table": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1,
+    "item": "bucket",
+    "actions": [
+      "Open your inventory to check that you have at least 3 iron ingots and 1 bucket of water (if you're crafting a bucket).",
+      "Locate a crafting table in your current area or create one using 4 wooden planks.",
+      "Approach the crafting table.",
+      "Right-click on the crafting table to open the crafting interface.",
+      "Place 3 iron ingots in the crafting grid in a \"V\" shape (one in the bottom-middle slot, and one in each of the middle-left and middle-right slots).",
+      "Ensure that the crafting interface shows a bucket as the result.",
+      "Drag the bucket from the crafting result slot into your inventory.",
+      "Close the crafting interface.",
+      "Verify that your inventory now contains exactly 1 bucket."
+    ]
+  },
+  {
+    "target": "diamond",
+    "recipe": {
+      "target": "diamond",
+      "action": "mine:diamond_ore",
+      "require": {
+        "iron_pickaxe": 1
+      },
+      "result_amount": 1
+    },
+    "need_amount": 29,
+    "item": "diamond",
+    "actions": [
+      "Open your inventory and ensure you have at least an iron pickaxe available for mining diamonds.",
+      "Locate the nearest cave entrance or dig downwards to reach a depth of Y-level 11 or lower, which is optimal for finding diamond ore.",
+      "Equip your iron pickaxe by selecting it from your inventory.",
+      "Enter the cave or continue digging until you reach the appropriate depth.",
+      "Start exploring the cave or your tunnel, looking for exposed diamond ore blocks.",
+      "Mine any visible diamond ore blocks using your iron pickaxe.",
+      "Collect all dropped diamond ore until you have mined 29 diamond ore blocks.",
+      "Verify that your inventory contains exactly 29 diamonds.",
+      "If you have not yet mined 29 diamonds, continue searching for more diamond ore in the cave or by digging in nearby tunnels.",
+      "Repeat the mining process until you reach the goal of 29 diamonds."
+    ]
+  },
+  {
+    "target": "flint",
+    "recipe": null,
+    "need_amount": 1,
+    "item": "flint",
+    "actions": [
+      "Locate a gravel block in the current area.",
+      "Break 1 gravel block using a shovel or your hand.",
+      "Collect the dropped gravel until you have at least 1 gravel in your inventory.",
+      "Verify that your inventory contains at least 1 gravel.",
+      "Place the gravel block on the ground.",
+      "Break the gravel block again using your shovel or hand.",
+      "Check for any drops from the broken gravel block.",
+      "Verify that you have obtained at least 1 flint in your inventory."
+    ]
+  },
+  {
+    "target": "water_bucket",
+    "recipe": {
+      "target": "water_bucket",
+      "action": "pour:water",
+      "require": {
+        "bucket": 1
+      },
+      "result_amount": 1
+    },
+    "need_amount": 1,
+    "item": "water_bucket",
+    "actions": [
+      "Locate a crafting table in your vicinity.",
+      "Open the crafting table interface.",
+      "Place 3 wooden planks in the top row of the crafting grid.",
+      "Place 2 wooden planks in the left and right slots of the middle row of the crafting grid.",
+      "Leave the bottom row of the crafting grid empty.",
+      "Verify that the crafting grid shows a water bucket recipe completed.",
+      "Drag the water bucket from the crafting table output to your inventory.",
+      "Confirm that your inventory now contains 1 water bucket."
+    ]
+  },
+  {
+    "target": "diamond_pickaxe",
+    "recipe": {
+      "target": "diamond_pickaxe",
+      "action": "craft",
+      "require": {
+        "diamond": 3,
+        "stick": 2,
+        "crafting_table": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1,
+    "item": "diamond_pickaxe",
+    "actions": [
+      "Locate a crafting table in your vicinity or place one down if you have the materials.",
+      "Open the crafting table interface to access the crafting grid.",
+      "Ensure that you have at least 3 diamonds in your inventory.",
+      "Verify that you have at least 2 sticks in your inventory.",
+      "Place 3 diamonds in the top row of the crafting grid.",
+      "Place 1 stick in the center square of the crafting grid.",
+      "Place 1 stick in the bottom center square of the crafting grid.",
+      "Check that the diamond pickaxe appears in the result box of the crafting grid.",
+      "Drag the diamond pickaxe from the result box into your inventory.",
+      "Confirm that the diamond pickaxe is now present in your inventory."
+    ]
+  },
+  {
+    "target": "flint_and_steel",
+    "recipe": {
+      "target": "flint_and_steel",
+      "action": "craft",
+      "require": {
+        "iron_ingot": 1,
+        "flint": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1,
+    "item": "flint_and_steel",
+    "actions": [
+      "Locate a crafting table in your vicinity.",
+      "Open your inventory and ensure you have at least 1 iron ingot and 1 flint.",
+      "Select the iron ingot in your inventory.",
+      "Drag the iron ingot to the crafting table interface.",
+      "Select the flint in your inventory.",
+      "Drag the flint to the crafting table interface.",
+      "Arrange the iron ingot in the center slot of the crafting grid.",
+      "Place the flint in the bottom slot of the crafting grid.",
+      "Place another flint in the top slot of the crafting grid.",
+      "Verify that the crafting table shows a flint_and_steel in the result box.",
+      "Click on the flint_and_steel to collect it into your inventory.",
+      "Check your inventory to confirm that you now have 1 flint_and_steel."
+    ]
+  },
+  {
+    "target": "obsidian",
+    "recipe": {
+      "target": "obsidian",
+      "action": "mine:obsidian",
+      "require": {
+        "diamond_pickaxe": 1,
+        "water_bucket": 1
+      },
+      "result_amount": 1
+    },
+    "need_amount": 10,
+    "item": "obsidian",
+    "actions": [
+      "Ensure you have a diamond pickaxe in your inventory.",
+      "Locate a lava pool in the current area; it can typically be found underground or in caves.",
+      "Gather 10 water buckets in your inventory.",
+      "Use the water buckets to place water near the lava pool.",
+      "Observe the interaction of water with lava, and ensure that it creates obsidian blocks.",
+      "Stand next to the newly formed obsidian blocks.",
+      "Begin breaking the obsidian blocks using your diamond pickaxe.",
+      "Continue to break the obsidian blocks until you have collected 10 obsidian in your inventory.",
+      "Verify that your inventory contains exactly 10 obsidian.",
+      "If you have less than 10 obsidian, repeat steps 4 to 9 until you reach the required amount."
+    ]
+  },
+  {
+    "target": "diamond_boots",
+    "recipe": {
+      "target": "diamond_boots",
+      "action": "craft",
+      "require": {
+        "diamond": 4,
+        "crafting_table": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1,
+    "item": "diamond_boots",
+    "actions": [
+      "Open your inventory to ensure you have at least 4 diamonds and 2 leather.",
+      "Locate a crafting table in your area or place one if you have it in your inventory.",
+      "Approach the crafting table.",
+      "Right-click on the crafting table to open the crafting interface.",
+      "In the crafting grid, place 2 diamonds in the left column (one on top of the other).",
+      "Place 2 diamonds in the right column (one on top of the other).",
+      "Place 1 leather in the center square of the crafting grid.",
+      "Ensure that the crafting grid shows diamond_boots as the resulting item.",
+      "Drag the diamond_boots from the crafting grid into your inventory.",
+      "Close the crafting interface to complete the task."
+    ]
+  },
+  {
+    "target": "diamond_leggings",
+    "recipe": {
+      "target": "diamond_leggings",
+      "action": "craft",
+      "require": {
+        "diamond": 7,
+        "crafting_table": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1,
+    "item": "diamond_leggings",
+    "actions": [
+      "Locate a crafting table in your current vicinity or place one down if you have it in your inventory.",
+      "Open the crafting table interface to access the crafting grid.",
+      "Ensure you have at least 24 diamonds in your inventory, as this is the required amount to craft diamond_leggings.",
+      "Drag and drop 24 diamonds into the crafting grid.",
+      "Place 2 diamonds in the left column of the crafting grid, one in the center square, and 2 diamonds in the right column of the crafting grid.",
+      "Verify that the crafting recipe is correct by checking the shape of the diamonds in the grid.",
+      "Once the diamond_leggings appear in the result box, click on them to collect them into your inventory.",
+      "Close the crafting table interface to complete the process.",
+      "Check your inventory to confirm that you now have 1 diamond_leggings."
+    ]
+  },
+  {
+    "target": "diamond_chestplate",
+    "recipe": {
+      "target": "diamond_chestplate",
+      "action": "craft",
+      "require": {
+        "diamond": 8,
+        "crafting_table": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1,
+    "item": "diamond_chestplate",
+    "actions": [
+      "Open your inventory and ensure you have at least 24 diamonds.",
+      "Locate a crafting table in your current area or place one down if you have it in your inventory.",
+      "Approach the crafting table and right-click to open the crafting interface.",
+      "Arrange the 24 diamonds in the crafting grid to form a diamond chestplate.",
+      "Ensure that the crafting grid shows the diamond chestplate as a result.",
+      "Move the diamond chestplate from the crafting result slot into your inventory.",
+      "Close the crafting interface.",
+      "Verify that your inventory contains exactly 1 diamond chestplate."
+    ]
+  },
+  {
+    "target": "diamond_helmet",
+    "recipe": {
+      "target": "diamond_helmet",
+      "action": "craft",
+      "require": {
+        "diamond": 5,
+        "crafting_table": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1,
+    "item": "diamond_helmet",
+    "actions": [
+      "Open your inventory to check if you have at least 24 diamonds.",
+      "Verify that you have a crafting table in your inventory.",
+      "Place the crafting table on the ground in a convenient location.",
+      "Right-click on the crafting table to open the crafting interface.",
+      "Arrange 8 diamonds in the crafting grid by placing 3 diamonds in the top row, 2 diamonds in the middle row, and 3 diamonds in the bottom row.",
+      "Drag the diamond helmet from the crafting table into your inventory.",
+      "Confirm that the diamond helmet is now present in your inventory."
+    ]
+  },
+  {
+    "target": "diamond_sword",
+    "recipe": {
+      "target": "diamond_sword",
+      "action": "craft",
+      "require": {
+        "diamond": 2,
+        "stick": 1,
+        "crafting_table": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1,
+    "item": "diamond_sword",
+    "actions": [
+      "Open your inventory to check that you have at least 2 diamonds and 1 stick.",
+      "Ensure you are in a crafting area or have access to a crafting table.",
+      "Approach the crafting table with your inventory open.",
+      "Place the 2 diamonds in the crafting grid, one in the first slot and one in the second slot of the first column.",
+      "Place the stick in the crafting grid, in the center slot of the second column.",
+      "Confirm that the diamond sword is displayed in the result box of the crafting grid.",
+      "Drag the diamond sword from the result box into your inventory.",
+      "Close the crafting table interface to complete the process."
+    ]
+  },
+  {
+    "target": "nether_portal",
+    "recipe": {
+      "target": "nether_portal",
+      "action": "build:nether_portal",
+      "require": {
+        "obsidian": 10,
+        "flint_and_steel": 1
+      },
+      "result_amount": 1
+    },
+    "need_amount": 1,
+    "item": "nether_portal",
+    "actions": [
+      "Ensure you have at least 10 obsidian blocks in your inventory.",
+      "Find a flat area where you want to build the nether portal.",
+      "Use the first obsidian block and place it on the ground as the bottom left corner of the portal frame.",
+      "Place the second obsidian block directly to the right of the first block.",
+      "Place the third obsidian block directly above the first block.",
+      "Place the fourth obsidian block directly above the second block.",
+      "Use the fifth obsidian block and place it at the top right corner of the portal frame.",
+      "Place the sixth obsidian block directly to the left of the fifth block.",
+      "Use the seventh obsidian block to complete the left side of the portal frame by placing it directly below the sixth block.",
+      "Place the eighth obsidian block directly below the fifth block to complete the right side of the frame.",
+      "Ensure the frame is in a rectangular shape, consisting of 4 blocks tall and 5 blocks wide.",
+      "Use flint and steel from your inventory to ignite the inside of the portal frame.",
+      "Observe the purple portal surface forming inside the frame.",
+      "Verify that the nether portal is active and ready to use."
+    ]
+  },
+  {
+    "target": "blaze_rod",
+    "recipe": {
+      "target": "blaze_rod",
+      "action": "kill:blaze",
+      "require": {
+        "nether_portal": 1,
+        "diamond_sword": 1,
+        "diamond_helmet": 1,
+        "diamond_chestplate": 1,
+        "diamond_leggings": 1,
+        "diamond_boots": 1
+      },
+      "result_amount": 1
+    },
+    "need_amount": 1,
+    "item": "blaze_rod",
+    "actions": [
+      "Open your inventory and ensure you have at least 1 blaze powder.",
+      "Locate a nether fortress in the Nether dimension.",
+      "Enter the Nether fortress by passing through a Nether portal.",
+      "Navigate through the fortress until you find a blaze spawner.",
+      "Equip a weapon suitable for combat, such as a sword.",
+      "Stand near the blaze spawner and wait for blazes to spawn.",
+      "Attack the blazes as they appear, ensuring you avoid their fireballs.",
+      "Continue attacking until you defeat at least one blaze.",
+      "Collect the blaze rod dropped by the defeated blaze.",
+      "Verify that your inventory now contains exactly 1 blaze rod."
+    ]
+  },
+  {
+    "target": "blaze_powder",
+    "recipe": {
+      "target": "blaze_powder",
+      "action": "craft",
+      "require": {
+        "blaze_rod": 1
+      },
+      "result_amount": 2,
+      "primary": true
+    },
+    "need_amount": 1,
+    "item": "blaze_powder",
+    "actions": [
+      "Locate a Nether Fortress in the Nether dimension.",
+      "Identify a Blaze spawner within the Nether Fortress.",
+      "Approach the Blaze spawner carefully to avoid being attacked.",
+      "Use a melee weapon, such as a sword, to defeat at least one Blaze.",
+      "Ensure that the Blaze has dropped Blaze Rods upon defeat.",
+      "Collect the dropped Blaze Rods until you have at least 1 in your inventory.",
+      "Open your inventory to verify that you have at least 1 Blaze Rod.",
+      "Access a crafting table or your personal crafting grid.",
+      "Place the Blaze Rod in the crafting grid.",
+      "Craft 1 Blaze Powder from the Blaze Rod.",
+      "Verify that your inventory contains exactly 1 Blaze Powder."
+    ]
+  },
+  {
+    "target": "ender_pearl",
+    "recipe": {
+      "target": "ender_pearl",
+      "action": "kill:enderman",
+      "require": {
+        "diamond_sword": 1,
+        "diamond_helmet": 1,
+        "diamond_chestplate": 1,
+        "diamond_leggings": 1,
+        "diamond_boots": 1
+      },
+      "result_amount": 1
+    },
+    "need_amount": 1,
+    "item": "ender_pearl",
+    "actions": [
+      "Find a nether fortress location in the Nether dimension.",
+      "Approach the fortress carefully to avoid enemy mobs.",
+      "Locate and kill at least 4 blazes in the fortress using a sword.",
+      "Collect the blaze rods dropped from the blazes.",
+      "Verify that you have at least 4 blaze rods in your inventory.",
+      "Return to the Overworld by using the Nether portal.",
+      "Find an enderman spawn location, such as a desert or a plains biome.",
+      "Wait until nightfall or ensure it is nighttime.",
+      "Look for endermen in the area.",
+      "Attack one enderman with your sword.",
+      "Defeat the enderman while avoiding its attacks.",
+      "Collect the ender pearl dropped by the defeated enderman.",
+      "Verify that your inventory contains exactly 1 ender pearl."
+    ]
+  },
+  {
+    "target": "ender_eye",
+    "recipe": {
+      "target": "ender_eye",
+      "action": "craft",
+      "require": {
+        "ender_pearl": 1,
+        "blaze_powder": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1,
+    "item": "ender_eye",
+    "actions": [
+      "Locate a Nether fortress in the Nether dimension.",
+      "Enter the Nether fortress through its entrance.",
+      "Identify a blaze spawner within the fortress.",
+      "Approach the blaze spawner carefully.",
+      "Equip your sword from your inventory.",
+      "Attack the blazes that spawn from the spawner.",
+      "Collect blaze rods from the defeated blazes.",
+      "Ensure you have at least 1 blaze rod in your inventory after defeating the blazes.",
+      "Return to your portal and exit the Nether back to the Overworld.",
+      "Locate a crafting table in your vicinity or place one down if you have it in your inventory.",
+      "Open the crafting interface.",
+      "Combine 1 blaze rod and 1 ender pearl in the crafting grid.",
+      "Retrieve the resulting ender eye from the crafting output.",
+      "Verify that your inventory contains exactly 1 ender_eye."
+    ]
+  }
+]

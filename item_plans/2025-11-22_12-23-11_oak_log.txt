@@ -1,8 +1,0 @@
-=== 아이템: oak_log ===
-
-=== Action Sequence ===
-
-!searchForBlock type:oak_log search_range:128
-!collectBlocks type:oak_log num:7
-
-==================================================

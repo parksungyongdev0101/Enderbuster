@@ -1,0 +1,272 @@
+[
+  {
+    "item": "oak_log",
+    "actions": [
+      "Search for oak trees in the nearby area.",
+      "Break 7 oak log blocks using your hands.",
+      "Collect all dropped oak logs until you have 7 in your inventory.",
+      "Verify that your inventory contains exactly 7 oak_log."
+    ]
+  },
+  {
+    "item": "oak_planks",
+    "actions": [
+      "Craft 4 oak planks using 1 oak log from your inventory.",
+      "Craft another 4 oak planks using 1 oak log from your inventory.",
+      "Craft a final 4 oak planks using 1 oak log from your inventory.",
+      "Verify that you have a total of 12 oak planks in your inventory."
+    ]
+  },
+  {
+    "item": "crafting_table",
+    "actions": [
+      "Verify that your inventory contains at least 4 oak_planks.",
+      "Craft 1 crafting_table using 4 oak_planks.",
+      "Verify that you have 1 crafting_table in your inventory."
+    ]
+  },
+  {
+    "item": "stick",
+    "actions": [
+      "Craft 4 sticks using 2 oak planks at the crafting table.",
+      "Craft another 4 sticks using 2 oak planks at the crafting table.",
+      "Verify that your inventory contains a total of 8 sticks.",
+      "Craft 4 sticks using 2 oak planks at the crafting table.",
+      "Verify that your inventory contains a total of 12 sticks.",
+      "Discard 3 sticks from your inventory.",
+      "Verify that your inventory contains exactly 9 sticks."
+    ]
+  },
+  {
+    "item": "wooden_pickaxe",
+    "actions": [
+      "Use the crafting_table to craft 1 wooden_pickaxe.",
+      "Verify that your inventory contains 1 wooden_pickaxe."
+    ]
+  },
+  {
+    "item": "cobblestone",
+    "actions": [
+      "Search for stone blocks in the nearby area.",
+      "Mine 11 stone blocks using the wooden pickaxe.",
+      "Collect all the cobblestone dropped until you have 11 in your inventory.",
+      "Verify that your inventory contains exactly 11 cobblestone."
+    ]
+  },
+  {
+    "item": "stone_pickaxe",
+    "actions": [
+      "Use the crafting_table to craft 1 stone_pickaxe.",
+      "Use the wooden_pickaxe to collect 3 cobblestone blocks.",
+      "Verify that your inventory contains 3 cobblestone.",
+      "Use the crafting_table to craft 2 sticks from the available sticks.",
+      "Verify that your inventory contains 2 sticks.",
+      "Use the crafting_table to craft 1 stone_pickaxe using 3 cobblestone and 2 sticks.",
+      "Verify that your inventory contains 1 stone_pickaxe."
+    ]
+  },
+  {
+    "item": "coal",
+    "actions": [
+      "Search for coal ore within 128 blocks of your current position.",
+      "Mine coal ore using your wooden pickaxe until you have collected 3 coal.",
+      "Verify that your inventory contains exactly 3 coal."
+    ]
+  },
+  {
+    "item": "furnace",
+    "actions": [
+      "Verify that your inventory contains 1 crafting_table.",
+      "Verify that your inventory contains 8 cobblestone.",
+      "Craft 1 furnace using the crafting_table and 8 cobblestone.",
+      "Place the newly crafted furnace in your inventory."
+    ]
+  },
+  {
+    "item": "raw_iron",
+    "actions": [
+      "Search for iron ore blocks within a reasonable range.",
+      "Mine 7 iron ore blocks using the stone pickaxe.",
+      "Ensure that you have collected 7 raw iron in your inventory."
+    ]
+  },
+  {
+    "item": "iron_ingot",
+    "actions": [
+      "Place the furnace on the ground.",
+      "Put the raw iron into the furnace.",
+      "Add coal to the furnace as fuel.",
+      "Wait for the furnace to smelt the raw iron into an iron ingot.",
+      "Collect the iron ingot from the furnace.",
+      "Repeat the process of smelting raw iron into iron ingots until you have 7 iron ingots in total."
+    ]
+  },
+  {
+    "item": "iron_pickaxe",
+    "actions": [
+      "Craft 1 iron_pickaxe using the crafting_table.",
+      "Use 3 iron_ingots from your inventory.",
+      "Use 2 sticks from your inventory.",
+      "Ensure you have enough iron_ingots and sticks in your inventory before crafting."
+    ]
+  },
+  {
+    "item": "bucket",
+    "actions": [
+      "Use the crafting_table to craft 1 bucket.",
+      "Ensure you have 3 iron_ingots in your inventory.",
+      "Verify that your inventory contains exactly 1 bucket after crafting."
+    ]
+  },
+  {
+    "item": "diamond",
+    "actions": [
+      "Search for diamond ore blocks within a range of 128 blocks.",
+      "Mine 29 diamond ore blocks using the iron pickaxe.",
+      "Collect all the diamonds dropped from the mined diamond ore until you have 29 diamonds in your inventory.",
+      "Verify that your inventory contains exactly 29 diamonds."
+    ]
+  },
+  {
+    "item": "flint",
+    "actions": [
+      "Search for gravel in the surrounding area.",
+      "Collect 1 gravel block using the iron pickaxe.",
+      "Verify that your inventory contains exactly 1 gravel.",
+      "Break the gravel block to obtain flint.",
+      "Verify that your inventory contains exactly 1 flint."
+    ]
+  },
+  {
+    "item": "water_bucket",
+    "actions": [
+      "Use the existing bucket in your inventory.",
+      "Search for a nearby water source within a reasonable range.",
+      "Locate the nearest water block.",
+      "Walk to the water block.",
+      "Use the bucket on the water block to fill it with water.",
+      "Verify that you now have 1 water_bucket in your inventory."
+    ]
+  },
+  {
+    "item": "diamond_pickaxe",
+    "actions": [
+      "Use the crafting_table in your inventory to craft 1 diamond_pickaxe.",
+      "Verify that you have 3 diamonds in your inventory.",
+      "Verify that you have 2 sticks in your inventory.",
+      "Craft the diamond_pickaxe using the available diamonds and sticks."
+    ]
+  },
+  {
+    "item": "flint_and_steel",
+    "actions": [
+      "Open the crafting table interface.",
+      "Craft 1 flint_and_steel using 1 iron_ingot and 1 flint.",
+      "Verify that your inventory contains 1 flint_and_steel."
+    ]
+  },
+  {
+    "item": "obsidian",
+    "actions": [
+      "Search for a nearby water source.",
+      "Use the bucket to collect water from the water source.",
+      "Go to a location with lava.",
+      "Use the water bucket on the lava to create obsidian blocks.",
+      "Mine 10 obsidian blocks using the diamond pickaxe."
+    ]
+  },
+  {
+    "item": "diamond_boots",
+    "actions": [
+      "Use the crafting_table to craft 1 diamond_boots.",
+      "Verify that you have at least 4 diamond in your inventory.",
+      "Check that the crafting_table is placed nearby.",
+      "Ensure that you have 1 crafting_table in your inventory.",
+      "Confirm that your inventory contains enough diamonds to proceed with crafting."
+    ]
+  },
+  {
+    "item": "diamond_leggings",
+    "actions": [
+      "Use the crafting_table to craft 1 diamond_leggings.",
+      "Verify that your inventory contains 7 diamond.",
+      "Ensure that the crafting_table is placed in the current location.",
+      "Collect the necessary 1 crafting_table from your inventory."
+    ]
+  },
+  {
+    "item": "diamond_chestplate",
+    "actions": [
+      "Use the crafting_table to craft 1 diamond_chestplate.",
+      "Verify that your inventory contains 8 diamond.",
+      "Ensure that the crafting_table is placed in a convenient location.",
+      "Open the crafting_table interface to access the crafting grid.",
+      "Place 8 diamonds in the crafting grid to create the diamond_chestplate.",
+      "Collect the diamond_chestplate from the crafting grid.",
+      "Verify that your inventory contains 1 diamond_chestplate."
+    ]
+  },
+  {
+    "item": "diamond_helmet",
+    "actions": [
+      "Use the crafting_table to craft 1 diamond_helmet.",
+      "Ensure you have 5 diamonds available in your inventory.",
+      "Verify that your inventory contains 1 diamond_helmet after crafting."
+    ]
+  },
+  {
+    "item": "diamond_sword",
+    "actions": [
+      "Use the crafting_table to craft 1 diamond_sword.",
+      "Ensure that you have 2 diamond and 1 stick in your inventory before crafting.",
+      "Verify that your inventory contains the required items: 2 diamond and 1 stick.",
+      "Craft the diamond_sword using the available items."
+    ]
+  },
+  {
+    "item": "nether_portal",
+    "actions": [
+      "Use the flint_and_steel from your inventory to light the nether portal.",
+      "Build the nether portal using the 10 obsidian blocks from your inventory.",
+      "Verify that you have successfully constructed 1 nether_portal."
+    ]
+  },
+  {
+    "item": "blaze_rod",
+    "actions": [
+      "Go to the nearest nether portal.",
+      "Use the nether portal to enter the Nether dimension.",
+      "Locate a blaze spawner in the Nether.",
+      "Approach the blaze spawner carefully.",
+      "Engage and attack the nearest blaze until it is defeated.",
+      "Collect the blaze rod dropped by the blaze."
+    ]
+  },
+  {
+    "item": "blaze_powder",
+    "actions": [
+      "Use the blaze_rod available in your inventory.",
+      "Craft 1 blaze_powder using the blaze_rod.",
+      "Check that you now have 2 blaze_powder in your inventory.",
+      "Select the blaze_powder from your inventory as needed."
+    ]
+  },
+  {
+    "item": "ender_pearl",
+    "actions": [
+      "Search for an enderman in the nearby area.",
+      "Approach the enderman carefully without being detected.",
+      "Attack the enderman until it drops an ender pearl.",
+      "Collect the ender pearl dropped by the enderman."
+    ]
+  },
+  {
+    "item": "ender_eye",
+    "actions": [
+      "Use the available ender_pearl in your inventory.",
+      "Use the available blaze_powder in your inventory.",
+      "Craft 1 ender_eye using the ender_pearl and blaze_powder.",
+      "Verify that your inventory contains exactly 1 ender_eye."
+    ]
+  }
+]

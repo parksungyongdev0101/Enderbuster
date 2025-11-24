@@ -1,0 +1,189 @@
+[
+  {
+    "item": "oak_log",
+    "actions": [
+      "!searchForBlock type:oak_log search_range:128",
+      "!collectBlocks type:oak_log num:7"
+    ]
+  },
+  {
+    "item": "oak_planks",
+    "actions": [
+      "!craftRecipe recipe_name:oak_planks num:3"
+    ]
+  },
+  {
+    "item": "crafting_table",
+    "actions": [
+      "!craftRecipe recipe_name:crafting_table num:1"
+    ]
+  },
+  {
+    "item": "stick",
+    "actions": [
+      "!craftRecipe recipe_name:stick num:3"
+    ]
+  },
+  {
+    "item": "wooden_pickaxe",
+    "actions": [
+      "!craftRecipe recipe_name:wooden_pickaxe num:1"
+    ]
+  },
+  {
+    "item": "cobblestone",
+    "actions": [
+      "!collectBlocks type:stone num:11"
+    ]
+  },
+  {
+    "item": "stone_pickaxe",
+    "actions": [
+      "!craftRecipe recipe_name:stone_pickaxe num:1"
+    ]
+  },
+  {
+    "item": "coal",
+    "actions": [
+      "!searchForBlock type:coal_ore search_range:128",
+      "!collectBlocks type:coal_ore num:3"
+    ]
+  },
+  {
+    "item": "furnace",
+    "actions": [
+      "!craftRecipe recipe_name:furnace num:1"
+    ]
+  },
+  {
+    "item": "raw_iron",
+    "actions": [
+      "!searchForBlock type:iron_ore search_range:128",
+      "!collectBlocks type:iron_ore num:7"
+    ]
+  },
+  {
+    "item": "iron_ingot",
+    "actions": [
+      "!smeltItem item_name:raw_iron num:7"
+    ]
+  },
+  {
+    "item": "iron_pickaxe",
+    "actions": [
+      "!craftRecipe recipe_name:iron_pickaxe num:1"
+    ]
+  },
+  {
+    "item": "bucket",
+    "actions": [
+      "!craftRecipe recipe_name:bucket num:1"
+    ]
+  },
+  {
+    "item": "diamond",
+    "actions": [
+      "!searchForBlock type:diamond_ore search_range:256",
+      "!collectBlocks type:diamond_ore num:29"
+    ]
+  },
+  {
+    "item": "flint",
+    "actions": [
+      "!searchForBlock type:gravel search_range:128",
+      "!collectBlocks type:gravel num:1",
+      "!useOn tool_name:\"shovel\" target:\"gravel\""
+    ]
+  },
+  {
+    "item": "water_bucket",
+    "actions": [
+      "!searchForBlock type:water search_range:128",
+      "!useOn tool_name:\"bucket\" target:\"water\""
+    ]
+  },
+  {
+    "item": "diamond_pickaxe",
+    "actions": [
+      "!craftRecipe recipe_name:diamond_pickaxe num:1"
+    ]
+  },
+  {
+    "item": "flint_and_steel",
+    "actions": [
+      "!craftRecipe recipe_name:flint_and_steel num:1"
+    ]
+  },
+  {
+    "item": "obsidian",
+    "actions": [
+      "!collectBlocks type:water num:1",
+      "!searchForBlock type:lava search_range:128",
+      "!useOn tool_name:\"water_bucket\" target:\"lava\"",
+      "!collectBlocks type:obsidian num:10"
+    ]
+  },
+  {
+    "item": "diamond_boots",
+    "actions": [
+      "!craftRecipe recipe_name:diamond_boots num:1"
+    ]
+  },
+  {
+    "item": "diamond_leggings",
+    "actions": [
+      "!craftRecipe recipe_name:diamond_leggings num:1"
+    ]
+  },
+  {
+    "item": "diamond_chestplate",
+    "actions": [
+      "!craftRecipe recipe_name:diamond_chestplate num:1"
+    ]
+  },
+  {
+    "item": "diamond_helmet",
+    "actions": [
+      "!craftRecipe recipe_name:diamond_helmet num:1"
+    ]
+  },
+  {
+    "item": "diamond_sword",
+    "actions": [
+      "!craftRecipe recipe_name:diamond_sword num:1"
+    ]
+  },
+  {
+    "item": "nether_portal",
+    "actions": [
+      "!placeHere type:nether_portal"
+    ]
+  },
+  {
+    "item": "blaze_rod",
+    "actions": [
+      "!goToRememberedPlace name:nether_portal",
+      "!searchForEntity type:blaze search_range:128",
+      "!attack type:blaze"
+    ]
+  },
+  {
+    "item": "blaze_powder",
+    "actions": [
+      "!craftRecipe recipe_name:blaze_powder num:1"
+    ]
+  },
+  {
+    "item": "ender_pearl",
+    "actions": [
+      "!searchForEntity type:enderman search_range:128",
+      "!attack type:enderman"
+    ]
+  },
+  {
+    "item": "ender_eye",
+    "actions": [
+      "!craftRecipe recipe_name:ender_eye num:1"
+    ]
+  }
+]
