@@ -789,8 +789,14 @@ export const actionsList = [
                 const avgZ = frames.reduce((sum, f) => sum + f.z, 0) / frames.length;
 
                 skills.log(bot, `Moving to end portal at (${avgX.toFixed(1)}, ${avgY.toFixed(1)}, ${avgZ.toFixed(1)})...`);
-                
+                const portalApproachMovements = new pf.Movements(bot);
+                portalApproachMovements.canDig = false;
+                portalApproachMovements.canPlaceOn = false;
+                portalApproachMovements.allow1by1towers = false;
+
+                const originalMovements = bot.pathfinder.movements;
                 try {
+                    bot.pathfinder.setMovements(portalApproachMovements);
                     await skills.goToGoal(bot, new pf.goals.GoalNear(avgX, avgY, avgZ, 3));
                     const distance = bot.entity.position.distanceTo(new Vec3(avgX, avgY, avgZ));
                     if (distance <= 5) {
@@ -798,8 +804,100 @@ export const actionsList = [
                     }
                 } catch (err) {
                     skills.log(bot, `Error moving to end portal: ${err.message}`);
+                } finally {
+                    if (originalMovements) bot.pathfinder.setMovements(originalMovements);
                 }
                 return true;
+            }
+
+            function cloneBotPosition(position) {
+                if (!position) return null;
+                if (typeof position.clone === 'function') return position.clone();
+                return new Vec3(position.x, position.y, position.z);
+            }
+
+            function distanceSquared(a, b) {
+                if (!a || !b) return Number.POSITIVE_INFINITY;
+                const dx = a.x - b.x;
+                const dy = a.y - b.y;
+                const dz = a.z - b.z;
+                return dx * dx + dy * dy + dz * dz;
+            }
+
+            function getItemSlotFromEntity(entity) {
+                if (!entity || entity.name !== 'item') return null;
+                const metadataKeys = bot.registry?.entitiesByName?.item?.metadataKeys;
+                let itemMetaIndex = undefined;
+                if (metadataKeys && metadataKeys.length > 0) {
+                    const idx = metadataKeys.indexOf('item');
+                    if (idx !== -1) itemMetaIndex = idx;
+                }
+                if (itemMetaIndex === undefined) {
+                    // Fallback indexes observed in older versions
+                    itemMetaIndex = 7;
+                }
+                return entity.metadata?.[itemMetaIndex] ?? entity.metadata?.[7] ?? entity.metadata?.[8];
+            }
+
+            function findNearestDroppedEnderEye(centerPos, radius = 40) {
+                if (!centerPos || !bot.registry?.itemsByName?.ender_eye) return null;
+                const targetId = bot.registry.itemsByName.ender_eye.id;
+                const radiusSq = radius * radius;
+                let closest = null;
+                let closestDist = Number.POSITIVE_INFINITY;
+
+                for (const entity of Object.values(bot.entities)) {
+                    if (!entity || entity.name !== 'item' || !entity.position) continue;
+                    const slot = getItemSlotFromEntity(entity);
+                    const itemId = slot?.itemId ?? slot?.blockId ?? slot?.id;
+                    if (itemId !== targetId) continue;
+                    const distSq = distanceSquared(entity.position, centerPos);
+                    if (distSq <= radiusSq && distSq < closestDist) {
+                        closest = entity;
+                        closestDist = distSq;
+                    }
+                }
+
+                return closest;
+            }
+
+            async function waitAndCollectEnderEye(eyeCountBefore) {
+                const getEyeCount = () => getInventoryCounts(bot)['ender_eye'] || 0;
+                await new Promise(resolve => setTimeout(resolve, 5500));
+
+                if (getEyeCount() >= eyeCountBefore) {
+                    skills.log(bot, `Ender eye returned immediately to inventory.`);
+                    agent.openChat('Recovered the ender eye automatically.');
+                    return true;
+                }
+
+                const drop = findNearestDroppedEnderEye(bot.entity.position);
+                if (!drop) {
+                    skills.log(bot, `No dropped ender eye found nearby. Assuming it shattered.`);
+                    agent.openChat('Ender eye broke while traveling.');
+                    return false;
+                }
+
+                skills.log(bot, `Dropped ender eye detected. Moving to (${drop.position.x.toFixed(1)}, ${drop.position.y.toFixed(1)}, ${drop.position.z.toFixed(1)}) to pick it up.`);
+                agent.openChat('Detected dropped ender eye. Moving to pick it up.');
+                try {
+                    await skills.goToGoal(bot, new pf.goals.GoalNear(drop.position.x, drop.position.y, drop.position.z, 1.5));
+                    await new Promise(resolve => setTimeout(resolve, 750));
+                } catch (err) {
+                    skills.log(bot, `Failed to move to dropped ender eye: ${err.message}`);
+                    agent.openChat('Could not reach dropped ender eye due to pathing.');
+                    return false;
+                }
+
+                if (getEyeCount() >= eyeCountBefore) {
+                    skills.log(bot, `Picked up the dropped ender eye. Continuing search.`);
+                    agent.openChat('Picked up the ender eye. Continuing search.');
+                    return true;
+                }
+
+                skills.log(bot, `Still missing an ender eye after pickup attempt.`);
+                agent.openChat('Still missing the ender eye after pickup attempt.');
+                return false;
             }
 
             // Helper: Track ender eye direction
@@ -809,6 +907,7 @@ export const actionsList = [
                     skills.log(bot, `Need at least 1 ender eye.`);
                     return null;
                 }
+                const eyeCountBefore = inventory['ender_eye'] || 0;
 
                 const entitiesBefore = new Set(Object.keys(bot.entities));
                 await skills.equip(bot, 'ender_eye');
@@ -860,6 +959,8 @@ export const actionsList = [
                     const dist = Math.sqrt(dx * dx + dz * dz);
                     
                     if (dist < 0.1) return null;
+
+                    await waitAndCollectEnderEye(eyeCountBefore);
                     return { x: dx / dist, z: dz / dist };
                 } catch (err) {
                     return null;
@@ -875,6 +976,7 @@ export const actionsList = [
 
             // Main loop
             while (true) {
+                const startPos = cloneBotPosition(bot.entity.position);
                 const direction = await trackEnderEyeDirection();
                 if (!direction) {
                     skills.log(bot, `Failed to determine direction. Retrying...`);
@@ -883,9 +985,8 @@ export const actionsList = [
                 }
 
                 // Move 250 blocks in direction (non-destructive)
-                const pos = bot.entity.position;
-                const targetX = pos.x + direction.x * 250;
-                const targetZ = pos.z + direction.z * 250;
+                const targetX = startPos.x + direction.x * 250;
+                const targetZ = startPos.z + direction.z * 250;
                 skills.log(bot, `Moving 250 blocks in direction (${direction.x.toFixed(2)}, ${direction.z.toFixed(2)})...`);
 
                 const nonDestructiveMovements = new pf.Movements(bot);
@@ -896,7 +997,11 @@ export const actionsList = [
                 const originalMovements = bot.pathfinder.movements;
                 try {
                     bot.pathfinder.setMovements(nonDestructiveMovements);
-                    await skills.goToGoal(bot, new pf.goals.GoalNear(targetX, pos.y, targetZ, 5));
+                    await skills.goToGoal(bot, new pf.goals.GoalXZ(targetX, targetZ));
+                } catch (err) {
+                    skills.log(bot, `Pathfinding failed while moving 250 blocks: ${err.message}`);
+                    agent.openChat('Pathfinding failed during 250-block move. Retrying...');
+                    continue;
                 } finally {
                     if (originalMovements) bot.pathfinder.setMovements(originalMovements);
                 }
@@ -938,32 +1043,32 @@ export const actionsList = [
             const avgY = frames.reduce((sum, f) => sum + f.y, 0) / frames.length;
             const avgZ = frames.reduce((sum, f) => sum + f.z, 0) / frames.length;
             
-            // Portal blocks are at frame y + 1 (above the frames)
-            const portalY = avgY + 1;
-
-            // Move directly to portal block level (above frames)
-            skills.log(bot, `Moving to portal block level at (${avgX.toFixed(1)}, ${portalY.toFixed(1)}, ${avgZ.toFixed(1)})...`);
-            try {
-                bot.pathfinder.setMovements(new pf.Movements(bot));
-                await skills.goToGoal(bot, new pf.goals.GoalNear(avgX, portalY, avgZ, 0.5));
-                skills.log(bot, `Reached portal block level.`);
-            } catch (err) {
-                skills.log(bot, `Could not pathfind to portal block level: ${err.message}. Will try jumping from current position.`);
-            }
-            
-            // Ensure we're at the center of the portal before jumping
-            let currentPos = bot.entity.position;
-            const centerPos = new Vec3(avgX, portalY, avgZ);
-            let distanceToCenter = currentPos.distanceTo(centerPos);
-            
-            if (distanceToCenter > 1) {
-                skills.log(bot, `Moving to portal center... Distance: ${distanceToCenter.toFixed(1)} blocks.`);
-                try {
-                    bot.pathfinder.setMovements(new pf.Movements(bot));
-                    await skills.goToGoal(bot, new pf.goals.GoalNear(avgX, portalY, avgZ, 0.3));
-                } catch (err) {
-                    skills.log(bot, `Could not reach exact center: ${err.message}. Will jump from current position.`);
+            const centerPos = new Vec3(avgX, avgY + 1, avgZ);
+            const entryFrame = frames.reduce((closest, frame) => {
+                const framePos = new Vec3(frame.x + 0.5, frame.y + 1, frame.z + 0.5);
+                const dist = bot.entity.position.distanceTo(framePos);
+                if (!closest || dist < closest.dist) {
+                    return { frame, dist, pos: framePos };
                 }
+                return closest;
+            }, null);
+
+            const portalMovements = new pf.Movements(bot);
+            portalMovements.canDig = false;
+            portalMovements.canPlaceOn = false;
+            portalMovements.allow1by1towers = false;
+
+            const originalMovements = bot.pathfinder.movements;
+            const entryPos = entryFrame?.pos || new Vec3(centerPos.x + 1, centerPos.y, centerPos.z);
+            skills.log(bot, `Moving onto portal frame at (${entryPos.x.toFixed(1)}, ${entryPos.y.toFixed(1)}, ${entryPos.z.toFixed(1)})...`);
+            try {
+                bot.pathfinder.setMovements(portalMovements);
+                await skills.goToGoal(bot, new pf.goals.GoalNear(entryPos.x, entryPos.y, entryPos.z, 0.3));
+                skills.log(bot, `Standing on portal frame, preparing to jump in.`);
+            } catch (err) {
+                skills.log(bot, `Could not reach desired frame: ${err.message}. Will jump from current position.`);
+            } finally {
+                if (originalMovements) bot.pathfinder.setMovements(originalMovements);
             }
             
             // Stop pathfinder before jumping into portal center
@@ -971,7 +1076,7 @@ export const actionsList = [
             bot.clearControlStates();
 
             // Calculate direction to portal center and look at it (use current position after movement)
-            currentPos = bot.entity.position;
+            const currentPos = bot.entity.position;
             await bot.lookAt(centerPos);
             
             // Jump while moving forward toward the portal center
