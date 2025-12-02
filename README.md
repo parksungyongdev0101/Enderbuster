@@ -2,6 +2,8 @@
 
 ## Introduction
 
+![Enderbuster YAI Edition](assets/images/intro.png)
+
 This project was conducted as part of a competition organized by the YAI Conference (October 2025 - December 2025).
 This project extends the [Mindcraft](https://github.com/mindcraft-bots/mindcraft) framework to enable LLM-based agents to tackle complex long-horizon tasks in Minecraft through item-based planning.
 
@@ -54,6 +56,7 @@ The base [Mindcraft](https://github.com/mindcraft-bots/mindcraft) framework prov
 
 ### MC-Plan System
 
+![Project Overview](assets/images/1.png)
 The mc-plan system consists of three main stages:
 
 #### 1. Recipe Extraction
@@ -249,6 +252,8 @@ export PLAN_FILE_NAME=mc-plan/item_plans.json
 The agent will execute each item in the plan sequentially.
 
 ## Key Results
+
+<video src="assets/videos/1.mp4" controls width="100%"></video>
 
 ### Successfully Handled Tasks
 
