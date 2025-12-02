@@ -253,7 +253,7 @@ The agent will execute each item in the plan sequentially.
 
 ## Key Results
 
-<video src="assets/videos/1.mp4" controls width="100%"></video>
+![Demo Video](assets/videos/1.gif)
 
 ### Successfully Handled Tasks
 
