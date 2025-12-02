@@ -18,6 +18,7 @@ wandb/
 experiments/
 andy_*.json
 jill_*.json
+keys.json
 src/models/logs/*
 server_data/*
 results/*
