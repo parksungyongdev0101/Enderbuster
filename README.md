@@ -317,6 +317,14 @@ This project builds upon:
 - **[Mineflayer](https://prismarinejs.github.io/mineflayer/)**: Minecraft bot API for Node.js
 - **[PrismarineJS](https://prismarine.js.org/)**: Minecraft protocol implementation
 
+
+## Team
+
+- 박성용 (Team Leader)
+- 김재후
+- 김윤지
+- 이현서
+- 주현종
 ## License
 
 See [LICENSE](LICENSE) file for details.
