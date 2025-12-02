@@ -227,23 +227,10 @@ def send_actions_to_bot(agent_name, all_actions, delay=2.0, use_goal_command=Tru
         
         print(f"\n총 {len(items_dict)}개 아이템, {len(all_actions)}개 action을 순차적으로 전달합니다.\n")
         
-        # blaze_rod부터 시작하도록 필터링
-        items_list = list(items_dict.items())
-        start_index = 0
-        for idx, (item, _) in enumerate(items_list):
-            if item == 'blaze_rod':
-                start_index = idx
-                break
-        
-        if start_index > 0:
-            items_list = items_list[start_index:]
-            print(f"⚠ blaze_rod부터 시작합니다 (이전 {start_index}개 아이템 건너뜀)\n")
-        
-        total_items = len(items_list)
         action_idx = 0
-        for item_idx, (item, item_actions) in enumerate(items_list, 1):
+        for item_idx, (item, item_actions) in enumerate(items_dict.items(), 1):
             need_amount = item_actions[0]['need_amount']
-            print(f"\n[{item_idx}/{total_items}] {item} (필요 개수: {need_amount}, 총 {len(item_actions)}개 action)")
+            print(f"\n[{item_idx}/{len(items_dict)}] {item} (필요 개수: {need_amount}, 총 {len(item_actions)}개 action)")
             
             # 각 아이템의 actions를 순차적으로 전달
             for action_in_item_idx, action_data in enumerate(item_actions):
@@ -337,7 +324,7 @@ def send_actions_to_bot(agent_name, all_actions, delay=2.0, use_goal_command=Tru
                         print(f"    ... 확인 중 ({elapsed}초 경과)")
                 
                 # 다음 아이템/action 전달 전 대기
-                if item_idx < total_items or action_in_item_idx < len(item_actions) - 1:
+                if item_idx < len(items_dict) or action_in_item_idx < len(item_actions) - 1:
                     print(f"  대기 중... ({delay}초)\n")
                     time.sleep(delay)
         

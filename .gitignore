@@ -5,7 +5,7 @@ package-lock.json
 code_records/
 scratch.js
 bots/**/action-code/**
-bots/**/
+bots/execTemplate.js/
 keys.json
 services/viaproxy/jars/**
 services/viaproxy/logs/**
@@ -28,3 +28,8 @@ tasks/construction_tasks/train/**
 server_data*
 **/.DS_Store
 src/mindcraft-py/__pycache__/
+bots/andy/logs/
+bots/andy/last_profile.json
+bots/andy/memory.json
+*.pyc
+.env

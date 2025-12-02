@@ -2,10 +2,10 @@
   {
     "target": "oak_log",
     "recipe": null,
-    "need_amount": 7,
+    "need_amount": 9,
     "item": "oak_log",
     "actions": [
-      "Collect 7 oak_log."
+      "Collect 9 oak_logs."
     ]
   },
   {
@@ -39,7 +39,8 @@
     "need_amount": 1,
     "item": "crafting_table",
     "actions": [
-      "Craft 1 crafting_table."
+      "Collect 4 oak planks.",
+      "Craft a crafting table."
     ]
   },
   {
@@ -53,10 +54,10 @@
       "result_amount": 4,
       "primary": true
     },
-    "need_amount": 9,
+    "need_amount": 11,
     "item": "stick",
     "actions": [
-      "Craft 9 sticks."
+      "Collect 11 sticks."
     ]
   },
   {
@@ -75,7 +76,7 @@
     "need_amount": 1,
     "item": "wooden_pickaxe",
     "actions": [
-      "Craft 1 wooden_pickaxe."
+      "Craft a wooden pickaxe."
     ]
   },
   {
@@ -110,7 +111,7 @@
     "need_amount": 1,
     "item": "stone_pickaxe",
     "actions": [
-      "Craft 1 stone_pickaxe."
+      "Craft a stone pickaxe."
     ]
   },
   {
@@ -126,7 +127,7 @@
     "need_amount": 3,
     "item": "coal",
     "actions": [
-      "Collect 3 coal."
+      "Collect 3 coal ore."
     ]
   },
   {
@@ -144,7 +145,7 @@
     "need_amount": 1,
     "item": "furnace",
     "actions": [
-      "Craft 1 furnace."
+      "Craft a furnace."
     ]
   },
   {
@@ -160,7 +161,7 @@
     "need_amount": 7,
     "item": "raw_iron",
     "actions": [
-      "Collect 7 raw_iron."
+      "Collect iron ore until you have 7 pieces."
     ]
   },
   {
@@ -178,7 +179,7 @@
     "need_amount": 7,
     "item": "iron_ingot",
     "actions": [
-      "Craft 7 iron_ingot."
+      "Smelt 7 raw iron."
     ]
   },
   {
@@ -197,7 +198,26 @@
     "need_amount": 1,
     "item": "iron_pickaxe",
     "actions": [
-      "Craft 1 iron_pickaxe."
+      "Craft an iron pickaxe."
+    ]
+  },
+  {
+    "target": "wooden_shovel",
+    "recipe": {
+      "target": "wooden_shovel",
+      "action": "craft",
+      "require": {
+        "oak_planks": 1,
+        "stick": 2,
+        "crafting_table": 1
+      },
+      "result_amount": 1,
+      "primary": true
+    },
+    "need_amount": 1,
+    "item": "wooden_shovel",
+    "actions": [
+      "Craft 1 wooden shovel."
     ]
   },
   {
@@ -215,7 +235,7 @@
     "need_amount": 1,
     "item": "bucket",
     "actions": [
-      "Craft 1 bucket."
+      "Craft a bucket."
     ]
   },
   {
@@ -231,16 +251,23 @@
     "need_amount": 29,
     "item": "diamond",
     "actions": [
-      "Collect 29 diamond."
+      "Collect 29 diamond ore."
     ]
   },
   {
     "target": "flint",
-    "recipe": null,
+    "recipe": {
+      "target": "flint",
+      "action": "mine:gravel",
+      "require": {
+        "wooden_shovel": 1
+      },
+      "result_amount": 1
+    },
     "need_amount": 1,
     "item": "flint",
     "actions": [
-      "Collect 1 flint."
+      "Collect flint."
     ]
   },
   {
@@ -256,7 +283,8 @@
     "need_amount": 1,
     "item": "water_bucket",
     "actions": [
-      "Use bucket on water to fill it."
+      "Search for a block of water.",
+      "Use the bucket on the water."
     ]
   },
   {
@@ -275,7 +303,7 @@
     "need_amount": 1,
     "item": "diamond_pickaxe",
     "actions": [
-      "Craft 1 diamond_pickaxe."
+      "Craft a diamond pickaxe."
     ]
   },
   {
@@ -307,12 +335,27 @@
       },
       "result_amount": 1
     },
-    "need_amount": 10,
+    "need_amount": 20,
     "item": "obsidian",
     "actions": [
-      "Search for lava pool in the surroundings.",
-      "Use water bucket on lava pool to create obsidian.",
-      "Collect 10 obsidian."
+      "Collect blocks obsidian, number 20."
+    ]
+  },
+  {
+    "target": "nether_portal",
+    "recipe": {
+      "target": "nether_portal",
+      "action": "build:nether_portal",
+      "require": {
+        "obsidian": 10,
+        "flint_and_steel": 1
+      },
+      "result_amount": 1
+    },
+    "need_amount": 2,
+    "item": "nether_portal",
+    "actions": [
+      "Build a nether portal."
     ]
   },
   {
@@ -330,7 +373,7 @@
     "need_amount": 1,
     "item": "diamond_boots",
     "actions": [
-      "Craft 1 diamond_boots."
+      "Craft diamond boots."
     ]
   },
   {
@@ -348,7 +391,7 @@
     "need_amount": 1,
     "item": "diamond_leggings",
     "actions": [
-      "Craft 1 diamond_leggings."
+      "Craft diamond leggings."
     ]
   },
   {
@@ -366,7 +409,7 @@
     "need_amount": 1,
     "item": "diamond_chestplate",
     "actions": [
-      "Craft 1 diamond_chestplate."
+      "Craft a diamond chestplate."
     ]
   },
   {
@@ -384,7 +427,7 @@
     "need_amount": 1,
     "item": "diamond_helmet",
     "actions": [
-      "Craft 1 diamond_helmet."
+      "Craft a diamond helmet."
     ]
   },
   {
@@ -403,24 +446,31 @@
     "need_amount": 1,
     "item": "diamond_sword",
     "actions": [
-      "Craft 1 diamond_sword."
+      "Craft 1 diamond sword."
     ]
   },
   {
-    "target": "nether_portal",
+    "target": "fortress",
     "recipe": {
-      "target": "nether_portal",
-      "action": "build:nether_portal",
+      "target": "fortress",
+      "action": "travel:fortress",
       "require": {
-        "obsidian": 10,
-        "flint_and_steel": 1
+        "diamond_sword": 1,
+        "diamond_helmet": 1,
+        "diamond_chestplate": 1,
+        "diamond_leggings": 1,
+        "diamond_boots": 1,
+        "nether_portal": 1
       },
       "result_amount": 1
     },
     "need_amount": 1,
-    "item": "nether_portal",
+    "item": "fortress",
     "actions": [
-      "Craft 1 nether_portal."
+      "Move towards a fixed direction for a distance of 64 blocks.",
+      "Search for block type: nether_bricks within a range of 256.",
+      "If not found, repeat the previous two steps.",
+      "If found, stop. You have located a Nether Fortress."
     ]
   },
   {
@@ -429,22 +479,22 @@
       "target": "blaze_rod",
       "action": "kill:blaze",
       "require": {
-        "nether_portal": 1,
         "diamond_sword": 1,
         "diamond_helmet": 1,
         "diamond_chestplate": 1,
         "diamond_leggings": 1,
-        "diamond_boots": 1
+        "diamond_boots": 1,
+        "nether_portal": 1,
+        "fortress": 1
       },
       "result_amount": 1
     },
     "need_amount": 1,
     "item": "blaze_rod",
     "actions": [
-      "Search for block type: nether_brick with a search range of 128.",
-      "Search for entity type: blaze with a search range of 128.",
-      "Attack blaze.",
-      "Collect 1 blaze_rod."
+      "Search for a blaze.",
+      "Attack the blaze.",
+      "Collect a blaze rod."
     ]
   },
   {
@@ -458,10 +508,10 @@
       "result_amount": 2,
       "primary": true
     },
-    "need_amount": 1,
+    "need_amount": 2,
     "item": "blaze_powder",
     "actions": [
-      "Craft 1 blaze_powder."
+      "Craft blaze powder."
     ]
   },
   {
@@ -478,12 +528,15 @@
       },
       "result_amount": 1
     },
-    "need_amount": 1,
+    "need_amount": 2,
     "item": "ender_pearl",
     "actions": [
-      "Search for enderman in the surroundings.",
-      "Attack the enderman until it drops an ender pearl.",
-      "Collect 1 ender_pearl."
+      "Search for an enderman.",
+      "Attack the nearest enderman.",
+      "Collect the ender pearl.",
+      "Search for another enderman.",
+      "Attack the nearest enderman.",
+      "Collect the ender pearl."
     ]
   },
   {
@@ -498,10 +551,10 @@
       "result_amount": 1,
       "primary": true
     },
-    "need_amount": 1,
+    "need_amount": 2,
     "item": "ender_eye",
     "actions": [
-      "Craft 1 ender_eye."
+      "Craft 2 ender_eye."
     ]
   }
 ]
