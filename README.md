@@ -1,188 +1,322 @@
-# Mindcraft 🧠⛏️
+# Enderbuster 🐉
 
-Crafting minds for Minecraft with LLMs and [Mineflayer!](https://prismarinejs.github.io/mineflayer/#/)
+## Introduction
 
-[FAQ](https://github.com/mindcraft-bots/mindcraft/blob/main/FAQ.md) | [Discord Support](https://discord.gg/mp73p35dzC) | [Video Tutorial](https://www.youtube.com/watch?v=gRotoL8P8D8) | [Blog Post](https://kolbynottingham.com/mindcraft/) | [Contributor TODO](https://github.com/users/kolbytn/projects/1) | [Paper Website](https://mindcraft-minecollab.github.io/index.html) | [MineCollab](https://github.com/mindcraft-bots/mindcraft/blob/main/minecollab.md) 
+This project was conducted as part of a competition organized by the YAI Conference (October 2025 - December 2025).
+This project extends the [Mindcraft](https://github.com/mindcraft-bots/mindcraft) framework to enable LLM-based agents to tackle complex long-horizon tasks in Minecraft through item-based planning.
 
+### Goal
 
-> [!Caution]
-Do not connect this bot to public servers with coding enabled. This project allows an LLM to write/execute code on your computer. The code is sandboxed, but still vulnerable to injection attacks. Code writing is disabled by default, you can enable it by setting `allow_insecure_coding` to `true` in `settings.js`. Ye be warned.
+Apply LLM Agent reasoning capabilities to complex Minecraft tasks that require multi-step planning and execution. The primary challenge addressed is reaching the End dimension, which requires acquiring 29+ items with intricate dependency relationships.
 
-## Requirements
+### Challenge
 
-- [Minecraft Java Edition](https://www.minecraft.net/en-us/store/minecraft-java-bedrock-edition-pc) (up to v1.21.6, recommend v1.21.1)
-- [Node.js Installed](https://nodejs.org/) (at least v18)
-- One of these: [OpenAI API Key](https://openai.com/blog/openai-api) | [Gemini API Key](https://aistudio.google.com/app/apikey) | [Anthropic API Key](https://docs.anthropic.com/claude/docs/getting-access-to-claude) | [Replicate API Key](https://replicate.com/) | [Hugging Face API Key](https://huggingface.co/) | [Groq API Key](https://console.groq.com/keys) | [Ollama Installed](https://ollama.com/download). | [Mistral API Key](https://docs.mistral.ai/getting-started/models/models_overview/) | [Qwen API Key [Intl.]](https://www.alibabacloud.com/help/en/model-studio/developer-reference/get-api-key)/[[cn]](https://help.aliyun.com/zh/model-studio/getting-started/first-api-call-to-qwen?) | [Novita AI API Key](https://novita.ai/settings?utm_source=github_mindcraft&utm_medium=github_readme&utm_campaign=link#key-management) | [Cerebras API Key](https://cloud.cerebras.ai) | [Mercury API](https://platform.inceptionlabs.ai/docs)
+Long-horizon tasks in Minecraft, such as reaching the End dimension, involve:
+- **Complex dependencies**: Items require other items (e.g., Ender Eye requires Ender Pearl + Blaze Powder)
+- **Multiple acquisition methods**: Crafting, mining, mob hunting, and exploration
+- **Sequential requirements**: Tools must be crafted before resources can be gathered
 
-## Install and Run
+For example, to reach the End dimension, an agent must:
+1. Collect basic resources (oak_log, cobblestone)
+2. Craft tools (wooden_pickaxe → stone_pickaxe → iron_pickaxe → diamond_pickaxe)
+3. Gather advanced materials (diamond, obsidian)
+4. Enter the Nether and obtain blaze_rod
+5. Craft ender_eye and locate the End Portal
 
-1. Make sure you have the requirements above.
+### Solution
 
-2. Clone or download this repository (big green button) 'git clone https://github.com/mindcraft-bots/mindcraft.git'
+We implement an **item-based planning system (mc-plan)** that:
+- Generates complete item dependency trees from Minecraft recipe data
+- Creates ordered execution sequences respecting dependencies
+- Converts each item into a natural language subgoal for the LLM agent
+- Executes plans sequentially using the `!executeItemPlan` command
 
-3. Rename `keys.example.json` to `keys.json` and fill in your API keys (you only need one). The desired model is set in `andy.json` or other profiles. For other models refer to the table below.
+## Project Overview
 
-4. In terminal/command prompt, run `npm install` from the installed directory
+Built on the Mindcraft framework, this project adds a planning layer that breaks down complex goals into manageable item acquisition tasks. The mc-plan system analyzes Minecraft recipes to build dependency graphs and generate step-by-step execution plans.
 
-5. Start a minecraft world and open it to LAN on localhost port `55916`
+### Key Features
 
-6. Run `node main.js` from the installed directory
+- **Automatic Planning**: Generates complete item dependency trees for any target item
+- **Sequential Execution**: Executes plans item-by-item, ensuring dependencies are met
+- **Natural Language Actions**: Converts item requirements into actionable commands for LLM agents
+- **Robust Dependency Resolution**: Handles crafting, mining, and mob-related item acquisition
 
-If you encounter issues, check the [FAQ](https://github.com/mindcraft-bots/mindcraft/blob/main/FAQ.md) or find support on [discord](https://discord.gg/mp73p35dzC). We are currently not very responsive to github issues. To run tasks please refer to [Minecollab Instructions](minecollab.md#installation)
+## Architecture
 
-## Tasks
+### Mindcraft Framework
 
-Bot performance can be roughly evaluated with Tasks. Tasks automatically intialize bots with a goal to acquire specific items or construct predefined buildings, and remove the bot once the goal is achieved.
+The base [Mindcraft](https://github.com/mindcraft-bots/mindcraft) framework provides:
+- LLM-based agent that can converse, see, move, mine, build, and interact with the Minecraft world
+- Command system for agent actions (`!collectBlocks`, `!craftRecipe`, etc.)
+- Memory and conversation management
+- Integration with various LLM APIs (OpenAI, Gemini, Anthropic, etc.)
 
-To run tasks, you need python, pip, and optionally conda. You can then install dependencies with `pip install -r requirements.txt`. 
+### MC-Plan System
 
-Tasks are defined in json files in the `tasks` folder, and can be run with: `python tasks/run_task_file.py --task_path=tasks/example_tasks.json`
+The mc-plan system consists of three main stages:
 
-For full evaluations, you will need to [download and install the task suite. Full instructions.](minecollab.md#installation)
+#### 1. Recipe Extraction
+- Extracts Minecraft recipes from `mc-plan/craft_or_smelt/recipe/` (1,407 recipe JSON files)
+- Parses crafting recipes, smelting recipes, and item acquisition methods
+- Builds extended recipe tree with all dependencies (`recipe_extended.json`)
 
-## Model Customization
+#### 2. Sequence Generation
+- Analyzes dependency graph to determine execution order
+- Generates ordered item sequence (`recipe_sequence.json`) with required amounts
+- Ensures dependencies are resolved before dependent items
 
-You can configure project details in `settings.js`. [See file.](settings.js)
+#### 3. Action Planning
+- Converts each item in the sequence into natural language actions
+- Generates `item_plans.json` with actionable commands for each item
+- Handles different acquisition methods (craft, mine, hunt, etc.)
 
-You can configure the agent's name, model, and prompts in their profile like `andy.json` with the `model` field. For comprehensive details, see [Model Specifications](#model-specifications).
+### Execution Flow
 
-| API | Config Variable | Example Model name | Docs |
-|------|------|------|------|
-| `openai` | `OPENAI_API_KEY` | `gpt-4o-mini` | [docs](https://platform.openai.com/docs/models) |
-| `google` | `GEMINI_API_KEY` | `gemini-2.0-flash` | [docs](https://ai.google.dev/gemini-api/docs/models/gemini) |
-| `anthropic` | `ANTHROPIC_API_KEY` | `claude-3-haiku-20240307` | [docs](https://docs.anthropic.com/claude/docs/models-overview) |
-| `xai` | `XAI_API_KEY` | `grok-2-1212` | [docs](https://docs.x.ai/docs) |
-| `deepseek` | `DEEPSEEK_API_KEY` | `deepseek-chat` | [docs](https://api-docs.deepseek.com/) |
-| `ollama` (local) | n/a | `ollama/sweaterdog/andy-4:micro-q8_0` | [docs](https://ollama.com/library) |
-| `qwen` | `QWEN_API_KEY` | `qwen-max` | [Intl.](https://www.alibabacloud.com/help/en/model-studio/developer-reference/use-qwen-by-calling-api)/[cn](https://help.aliyun.com/zh/model-studio/getting-started/models) |
-| `mistral` | `MISTRAL_API_KEY` | `mistral-large-latest` | [docs](https://docs.mistral.ai/getting-started/models/models_overview/) |
-| `replicate` | `REPLICATE_API_KEY` | `replicate/meta/meta-llama-3-70b-instruct` | [docs](https://replicate.com/collections/language-models) |
-| `groq` (not grok) | `GROQCLOUD_API_KEY` | `groq/mixtral-8x7b-32768` | [docs](https://console.groq.com/docs/models) |
-| `huggingface` | `HUGGINGFACE_API_KEY` | `huggingface/mistralai/Mistral-Nemo-Instruct-2407` | [docs](https://huggingface.co/models) |
-| `novita` | `NOVITA_API_KEY` | `novita/deepseek/deepseek-r1` | [docs](https://novita.ai/model-api/product/llm-api?utm_source=github_mindcraft&utm_medium=github_readme&utm_campaign=link) |
-| `openrouter` | `OPENROUTER_API_KEY` | `openrouter/anthropic/claude-3.5-sonnet` | [docs](https://openrouter.ai/models) |
-| `glhf.chat` | `GHLF_API_KEY` | `glhf/hf:meta-llama/Llama-3.1-405B-Instruct` | [docs](https://glhf.chat/user-settings/api) |
-| `hyperbolic` | `HYPERBOLIC_API_KEY` | `hyperbolic/deepseek-ai/DeepSeek-V3` | [docs](https://docs.hyperbolic.xyz/docs/getting-started) |
-| `vllm` | n/a | `vllm/llama3` | n/a |
-| `cerebras` | `CEREBRAS_API_KEY` | `cerebras/llama-3.3-70b` | [docs](https://inference-docs.cerebras.ai/introduction) |
-| `mercury` | `MERCURY_API_KEY` | `mercury-coder-small` | [docs](https://www.inceptionlabs.ai/) |
-
-If you use Ollama, to install the models used by default (generation and embedding), execute the following terminal command:
-`ollama pull sweaterdog/andy-4:micro-q8_0 && ollama pull embeddinggemma`
-
-To use Azure, you can reuse the `OPENAI_API_KEY` environment variable. You can get the key from the Azure portal. See [azure.json](profiles/azure.json) for an example.
-
-### Online Servers
-To connect to online servers your bot will need an official Microsoft/Minecraft account. You can use your own personal one, but will need another account if you want to connect too and play with it. To connect, change these lines in `settings.js`:
-```javascript
-"host": "111.222.333.444",
-"port": 55920,
-"auth": "microsoft",
-
-// rest is same...
 ```
-> [!Important]
-> The bot's name in the profile.json must exactly match the Minecraft profile name! Otherwise the bot will spam talk to itself.
-
-To use different accounts, Mindcraft will connect with the account that the Minecraft launcher is currently using. You can switch accounts in the launcer, then run `node main.js`, then switch to your main account after the bot has connected.
-
-### Docker Container
-
-If you intend to `allow_insecure_coding`, it is a good idea to run the app in a docker container to reduce risks of running unknown code. This is strongly recommended before connecting to remote servers.
-
-```bash
-docker run -i -t --rm -v $(pwd):/app -w /app -p 3000-3003:3000-3003 node:latest node main.js
-```
-or simply
-```bash
-docker-compose up
+1. User/System sets target: "ender_eye"
+   ↓
+2. main.js calls: python mc-plan/main.py --target ender_eye --need_amount 1 --mode exact
+   ↓
+3. mc-plan generates:
+   - recipe_extended.json (dependency tree)
+   - recipe_sequence.json (ordered items)
+   - item_plans.json (natural language actions)
+   ↓
+4. Agent receives: !executeItemPlan command
+   ↓
+5. Agent executes plan sequentially:
+   - For each item in item_plans.json:
+     a. Check if item already in inventory
+     b. If not, set as subgoal
+     c. Execute natural language action (e.g., "Collect 7 oak_log")
+     d. Wait for subgoal completion
+     e. Move to next item
+   ↓
+6. Final item (ender_eye) acquired → Goal achieved
 ```
 
-When running in docker, if you want the bot to join your local minecraft server, you have to use a special host address `host.docker.internal` to call your localhost from inside your docker container. Put this into your [settings.js](settings.js):
+## Data Structure
 
-```javascript
-"host": "host.docker.internal", // instead of "localhost", to join your local minecraft from inside the docker container
-```
+### Recipe Data
+- **Location**: `mc-plan/craft_or_smelt/recipe/`
+- **Content**: 1,407 raw Minecraft recipe JSON files
+- **Purpose**: Source data for recipe extraction and dependency analysis
 
-To connect to an unsupported minecraft version, you can try to use [viaproxy](services/viaproxy/README.md)
+### Generated Files
 
-# Bot Profiles
+#### `mc-plan/recipe_extended.json`
+Extended recipe tree with all dependencies resolved. Contains:
+- Item recipes with required ingredients
+- Acquisition methods (craft, smelt, mine, hunt)
+- Result amounts and dependency chains
 
-Bot profiles are json files (such as `andy.json`) that define:
-
-1. Bot backend LLMs to use for talking, coding, and embedding.
-2. Prompts used to influence the bot's behavior.
-3. Examples help the bot perform tasks.
-
-## Model Specifications
-
-LLM models can be specified simply as `"model": "gpt-4o"`. However, you can use different models for chat, coding, and embeddings. 
-You can pass a string or an object for these fields. A model object must specify an `api`, and optionally a `model`, `url`, and additional `params`.
-
+#### `mc-plan/recipe_sequence.json`
+Ordered list of items with execution order:
 ```json
-"model": {
-  "api": "openai",
-  "model": "gpt-4o",
-  "url": "https://api.openai.com/v1/",
-  "params": {
-    "max_tokens": 1000,
-    "temperature": 1
-  }
-},
-"code_model": {
-  "api": "openai",
-  "model": "gpt-4",
-  "url": "https://api.openai.com/v1/"
-},
-"vision_model": {
-  "api": "openai",
-  "model": "gpt-4o",
-  "url": "https://api.openai.com/v1/"
-},
-"embedding": {
-  "api": "openai",
-  "url": "https://api.openai.com/v1/",
-  "model": "text-embedding-ada-002"
-},
-"speak_model": {
-  "api": "openai",
-  "url": "https://api.openai.com/v1/",
-  "model": "tts-1",
-  "voice": "echo"
-}
-
+[
+  {
+    "target": "oak_log",
+    "recipe": null,
+    "need_amount": 7
+  },
+  {
+    "target": "oak_planks",
+    "recipe": {
+      "target": "oak_planks",
+      "action": "craft",
+      "require": {"oak_log": 1},
+      "result_amount": 4
+    },
+    "need_amount": 12
+  },
+  ...
+]
 ```
 
-`model` is used for chat, `code_model` is used for newAction coding, `vision_model` is used for image interpretation, and `embedding` is used to embed text for example selection. If `code_model` or `vision_model` is not specified, `model` will be used by default. Not all APIs support embeddings or vision.
-
-All apis have default models and urls, so those fields are optional. The `params` field is optional and can be used to specify additional parameters for the model. It accepts any key-value pairs supported by the api. Is not supported for embedding models.
-
-## Embedding Models
-
-Embedding models are used to embed and efficiently select relevant examples for conversation and coding.
-
-Supported Embedding APIs: `openai`, `google`, `replicate`, `huggingface`, `novita`
-
-If you try to use an unsupported model, then it will default to a simple word-overlap method. Expect reduced performance, recommend mixing APIs to ensure embedding support.
-
-## Specifying Profiles via Command Line
-
-By default, the program will use the profiles specified in `settings.js`. You can specify one or more agent profiles using the `--profiles` argument: `node main.js --profiles ./profiles/andy.json ./profiles/jill.json`
-
-## Patches
-
-Some of the node modules that we depend on have bugs in them. To add a patch, change your local node module file and run `npx patch-package [package-name]`
-
-## Citation:
-
-```
-@article{mindcraft2025,
-  title = {Collaborating Action by Action: A Multi-agent LLM Framework for Embodied Reasoning},
-  author = {White*, Isadora and Nottingham*, Kolby and Maniar, Ayush and Robinson, Max and Lillemark, Hansen and Maheshwari, Mehul and Qin, Lianhui and Ammanabrolu, Prithviraj},
-  journal = {arXiv preprint arXiv:2504.17950},
-  year = {2025},
-  url = {https://arxiv.org/abs/2504.17950},
-}
+#### `mc-plan/item_plans.json`
+Natural language action plans for each item:
+```json
+[
+  {
+    "target": "oak_log",
+    "item": "oak_log",
+    "need_amount": 7,
+    "actions": ["Collect 7 oak_log."]
+  },
+  {
+    "target": "oak_planks",
+    "item": "oak_planks",
+    "need_amount": 12,
+    "actions": ["Craft 12 oak_planks."]
+  },
+  ...
+]
 ```
 
+## Installation & Setup
 
+### Prerequisites
+
+- **Node.js** (v18 or higher): [Download](https://nodejs.org/)
+- **Python** 3.11: [Download](https://www.python.org/)
+- **Conda** (recommended): [Download](https://docs.conda.io/en/latest/miniconda.html)
+- **Minecraft Java Edition** (up to v1.21.6, recommend v1.21.1)
+- **LLM API Key**: One of OpenAI, Gemini, Anthropic, etc.
+
+### Installation Steps
+
+1. **Clone the repository**:
+```bash
+git clone <repository-url>
+cd Enderbuster_develop
+```
+
+2. **Install Node.js dependencies**:
+```bash
+npm install
+```
+
+3. **Set up Python environment**:
+```bash
+conda create --name mindcraft python=3.11
+conda activate mindcraft
+pip install -r requirements.txt
+```
+
+4. **Configure environment variables**:
+   - Create `.env` file in project root:
+   ```
+   CONDA_PYTHON=C:\Users\YOUR_USERNAME\anaconda3\envs\mindcraft\python.exe
+   OPENAI_API_KEY=YOUR_API_KEY
+   ```
+   - Or configure API keys in `keys.json` (copy from `keys.example.json` if exists)
+
+5. **Configure bot profile**:
+   - Edit `settings.js` to set your desired LLM model
+   - Or modify `andy.json` for model configuration
+
+## Execution
+
+### Generate Plan
+
+To generate an item plan for a target item:
+
+```bash
+python mc-plan/main.py --target ender_eye --need_amount 1 --mode exact
+```
+
+**Parameters**:
+- `--target`: Target item name (e.g., "ender_eye", "diamond_pickaxe")
+- `--need_amount`: Number of items needed (default: 1)
+- `--mode`: `buffered` (adds 20% buffer) or `exact` (exact amount)
+
+This generates:
+- `mc-plan/recipe_extended.json`
+- `mc-plan/recipe_sequence.json`
+- `mc-plan/item_plans.json`
+
+### Run Agent
+
+1. **Start Minecraft world**:
+   - Open Minecraft and create/load a world
+   - Open to LAN on localhost port `55916` (default)
+
+2. **Run the agent**:
+```bash
+node main.js
+```
+
+The agent will:
+- Automatically generate plan for `ender_eye` (as configured in `main.js` line 123)
+- Connect to Minecraft server
+- Execute the plan using `!executeItemPlan` command
+
+### Manual Plan Execution
+
+If you want to execute a pre-generated plan:
+
+1. Set environment variable:
+```bash
+export PLAN_FILE_NAME=mc-plan/item_plans.json
+```
+
+2. In Minecraft chat or agent interface, send:
+```
+!executeItemPlan
+```
+
+The agent will execute each item in the plan sequentially.
+
+## Key Results
+
+### Successfully Handled Tasks
+
+- **Complex Dependency Resolution**: Generates complete dependency trees for 29+ items required for End dimension access
+- **Multi-Method Acquisition**: Handles crafting, mining, smelting, and mob hunting
+- **Sequential Execution**: Ensures proper order of operations (tools before resources)
+- **Robust Planning**: Accounts for recipe outputs (e.g., 1 log → 4 planks) and calculates required amounts
+
+### Example: End Dimension Access
+
+The system successfully plans and executes the following sequence:
+1. Basic resources: oak_log, cobblestone, coal
+2. Tools progression: wooden_pickaxe → stone_pickaxe → iron_pickaxe → diamond_pickaxe
+3. Advanced materials: diamond, obsidian, flint
+4. Nether preparation: nether_portal, blaze_rod, blaze_powder
+5. End preparation: ender_pearl, ender_eye, end_portal location
+
+All 29+ items are acquired in the correct order, respecting all dependencies.
+
+## Future Work
+
+### Planned Improvements
+
+1. **Ender Dragon Defeat**
+   - Extend planning to include combat strategies
+   - Plan for End dimension exploration and dragon battle
+
+2. **Memory Persistence**
+   - Implement memory saving on disconnect
+   - Resume execution from last completed item on reconnection
+
+3. **Reinforcement Learning with Open-Source Models**
+   - Integrate RL training with open-source LLMs
+   - Improve planning efficiency through learned strategies
+
+4. **Parallel Item Processing**
+   - Identify independent items that can be acquired simultaneously
+   - Optimize execution time through parallel planning
+
+## Project Structure
+
+```
+Enderbuster_develop/
+├── main.js                 # Entry point, calls mc-plan and initializes agents
+├── settings.js             # Agent configuration
+├── send_subgoals.py        # Script to send subgoals to agent
+├── mc-plan/                # Planning system
+│   ├── main.py            # Main planner entry point
+│   ├── planner.py         # Generates item_plans.json
+│   ├── build_recipe_seq.py # Generates recipe_sequence.json
+│   ├── item_plans.json    # Generated action plans
+│   ├── recipe_sequence.json # Generated item sequence
+│   └── craft_or_smelt/    # Recipe data (1,407 JSON files)
+├── src/                    # Mindcraft framework
+│   ├── agent/
+│   │   └── commands/
+│   │       └── actions.js # Contains !executeItemPlan command
+│   └── ...
+└── profiles/               # Bot profiles
+```
+
+## Credits
+
+This project builds upon:
+- **[Mindcraft](https://github.com/mindcraft-bots/mindcraft)**: LLM-based Minecraft agent framework
+- **[Mineflayer](https://prismarinejs.github.io/mineflayer/)**: Minecraft bot API for Node.js
+- **[PrismarineJS](https://prismarine.js.org/)**: Minecraft protocol implementation
+
+## License
+
+See [LICENSE](LICENSE) file for details.
